@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.crc.dao.crcDao">
+
+	<select id="crcDomainListSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT *
+		  FROM (
+		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+					 , td.*
+				  FROM tb_domain td
+				     , (SELECT @ROWNUM := 0 ) rn
+				 WHERE del_yn = 'N'
+				   AND domain_tp_cd = 'TMP'
+				 ORDER BY domain_seq DESC
+		  	   ) sub
+		 ORDER BY sub.rownum DESC
+	</select>
+	
+	<select id="crcDomainOneSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT * FROM tb_domain td 
+		WHERE domain_seq = #{domainSeq }
+	</select>
+	
+	<select id="crcDomainInsert" parameterType="crcVo">
+		INSERT INTO tb_domain (
+				domain_tp_cd , 
+				domain_status ,
+				domain_name ,
+				domain_contents
+			)
+		VALUES (
+				'TMP' , 
+				'ING' ,
+				#{domainName } , 
+				#{domainContents } 
+			)
+	</select>
+	
+	<select id="crcDomainUpdate" parameterType="crcVo">
+		UPDATE tb_domain SET 
+			domain_name = #{domainName } ,
+			domain_contents = #{domainContents }
+		WHERE domain_seq = #{domainSeq }
+	</select>
+	
+	<select id="crcDomainUseYnUpdate" parameterType="crcVo">
+		UPDATE tb_domain SET domain_use_yn = #{domainUseYn }
+		WHERE domain_seq = #{domainSeq }
+	</select>
+	
+	<select id="crcDomainDelete" parameterType="crcVo">
+		UPDATE tb_domain SET del_yn = 'Y'
+		WHERE domain_seq = #{domainSeq }
+	</select>
+
+	<select id="crcLTOListSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT *
+		  FROM (
+		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+					 , tl.*
+				  FROM tb_lto tl
+				     , (SELECT @ROWNUM := 0 ) rn
+				 WHERE del_yn = 'N'
+				   AND domain_seq = #{ltoDomainSeq }
+				 ORDER BY lto_seq DESC
+		  	   ) sub
+		 ORDER BY sub.rownum DESC
+	</select>
+	
+	<select id="crcLTOOneSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT * FROM tb_lto tl
+		WHERE lto_seq = #{ltoSeq }
+	</select>
+	
+	<select id="crcLTOInsert" parameterType="crcVo">
+		INSERT INTO tb_lto (
+				domain_seq ,
+				lto_status ,
+				lto_name ,
+				lto_contents ,
+				lto_arr_tp_cd
+			)
+		VALUES (
+				#{ltoDomainSeq } , 
+				'ING' ,
+				#{ltoName } , 
+				#{ltoContents } , 
+				#{ltoArrTpCd } 
+			)
+	</select>
+	
+	<select id="crcLTOUpdate" parameterType="crcVo">
+		UPDATE tb_lto SET 
+			lto_name = #{ltoName } ,
+			lto_contents = #{ltoContents } ,
+			lto_arr_tp_cd = #{ltoArrTpCd }
+		WHERE lto_seq = #{ltoSeq }
+	</select>
+	
+	<select id="crcLTODelete" parameterType="crcVo">
+		UPDATE tb_lto SET del_yn = 'Y'
+		WHERE lto_seq = #{ltoSeq }
+	</select>
+
+	<select id="crcSTOListSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT *
+		  FROM (
+		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+					 , ts.*
+				  FROM tb_sto ts
+				     , (SELECT @ROWNUM := 0 ) rn
+				 WHERE del_yn = 'N'
+				   AND lto_seq = #{stoLtoSeq }
+				 ORDER BY sto_seq DESC
+		  	   ) sub
+		 ORDER BY sub.rownum DESC
+	</select>
+	
+	<select id="crcSTOOneSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT * FROM tb_sto ts
+		WHERE sto_seq = #{stoSeq }
+	</select>
+	
+	<select id="crcSTOInsert" parameterType="crcVo">
+		INSERT INTO tb_sto (
+				lto_seq ,
+				sto_status ,
+				sto_name ,
+				sto_contents ,
+				sto_arr_std_cnt ,
+				sto_arr_std_pst ,
+				sto_urge_tp_cd ,
+				sto_urge_contents ,
+				sto_enforce_contents ,
+				sto_memo_contents
+			)
+		VALUES (
+				#{stoLtoSeq } , 
+				'ING' ,
+				#{stoName } , 
+				#{stoContents } ,
+				#{stoArrStdCnt } ,
+				#{stoArrStdPst } ,
+				#{stoUrgeTpCd } ,
+				#{stoUrgeContents } ,
+				#{stoEnforceContents } ,
+				#{stoMemoContents } 
+			)
+	</select>
+	
+	<select id="crcSTOUpdate" parameterType="crcVo">
+		UPDATE tb_sto SET 
+			sto_name = #{stoName } ,
+			sto_contents = #{stoContents } ,
+			sto_arr_std_cnt = #{stoArrStdCnt } ,
+			sto_arr_std_pst = #{stoArrStdPst } ,
+			sto_urge_tp_cd = #{stoUrgeTpCd } ,
+			sto_urge_contents = #{stoUrgeContents } ,
+			sto_enforce_contents = #{stoEnforceContents } ,
+			sto_memo_contents = #{stoMemoContents }
+		WHERE sto_seq = #{stoSeq }
+	</select>
+	
+	<select id="crcSTODelete" parameterType="crcVo">
+		UPDATE tb_sto SET del_yn = 'Y'
+		WHERE sto_seq = #{stoSeq }
+	</select>
+	
+</mapper>
+		
+		
+		

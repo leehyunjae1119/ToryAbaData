@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.dct.dao.dctDao">
+
+	<select id="dctCenterListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT * 
+		  FROM tb_center
+	</select>
+	
+	<select id="dctCenterInsert" parameterType="dctVo">
+		INSERT INTO tb_center(center_name)
+		VALUES(#{centerName } )
+	</select>
+	
+	<select id="dctCenterUpdate" parameterType="dctVo">
+		UPDATE tb_center
+		   SET center_name = #{centerName }
+		 WHERE center_seq = #{centerSeq }
+	</select>
+	
+	<select id="dctCenterDelete" parameterType="dctVo">
+		DELETE FROM tb_center
+		 WHERE center_seq = #{centerSeq }
+	</select>
+
+	<select id="dctClassListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT * 
+		  FROM tb_class
+		 WHERE center_seq = #{centerSeq }
+	</select>
+	
+	<select id="dctClassInsert" parameterType="dctVo">
+		INSERT INTO tb_class(center_seq, class_name)
+		VALUES(#{centerSeq }, #{className } )
+	</select>
+	
+	<select id="dctClassUpdate" parameterType="dctVo">
+		UPDATE tb_class
+		   SET class_name = #{className }
+		 WHERE class_seq = #{classSeq }
+	</select>
+	
+	<select id="dctClassDelete" parameterType="dctVo">
+		DELETE FROM tb_class
+		 WHERE class_seq = #{classSeq }
+	</select>
+	
+	<select id="dctStudentListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT * 
+		  FROM tb_student
+		 WHERE class_seq = #{classSeq }
+	</select>
+	
+	<select id="dctStudentOneSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT student_seq
+		     , class_seq
+		     , student_name
+		     , DATE_FORMAT(student_birth, '%Y-%m-%d') AS student_birth
+		     , student_etc
+		     , DATE_FORMAT(student_start_dt, '%Y-%m-%d') AS student_start_dt
+		     , DATE_FORMAT(student_end_dt, '%Y-%m-%d') AS student_end_dt
+		     , DATE_FORMAT(student_reg_dt, '%Y-%m-%d') AS student_reg_dt
+		     , parent_name
+		  FROM tb_student
+		 WHERE student_seq = #{studentSeq }
+	</select>
+	
+	<select id="dctStudentInsert" parameterType="dctVo">
+		INSERT INTO tb_student (
+			class_seq, 
+			student_name, 
+			student_birth, 
+			student_etc, 
+			student_start_dt, 
+			student_end_dt,
+			parent_name
+		)
+		VALUES (
+			#{classSeq }, 
+			#{studentName }, 
+			STR_TO_DATE(#{studentBirth }, '%Y-%m-%d') , 
+			#{studentEtc }, 
+			STR_TO_DATE(#{studentStartDt }, '%Y-%m-%d') , 
+			STR_TO_DATE(#{studentEndDt }, '%Y-%m-%d') , 
+			#{parentName }
+		)
+	</select>
+	
+	<select id="dctStudentUpdate" parameterType="dctVo">
+		UPDATE tb_student
+		   SET student_name 	= #{studentName }
+		     , student_birth 	= STR_TO_DATE(#{studentBirth }, '%Y-%m-%d') 
+		     , student_etc 		= #{studentEtc }
+		     , student_start_dt = STR_TO_DATE(#{studentStartDt }, '%Y-%m-%d')
+		     , student_end_dt 	= STR_TO_DATE(#{studentEndDt }, '%Y-%m-%d')
+		     , parent_name 		= #{parentName }
+		 WHERE student_seq = #{studentSeq }
+	</select>
+	
+	<select id="dctStudentDelete" parameterType="dctVo">
+		DELETE FROM tb_student
+		 WHERE student_seq = #{studentSeq }
+	</select>
+	
+	<select id="dctDomainSeqListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT domain_seq
+		  FROM tb_domain 
+		 WHERE student_seq = #{studentSeq }
+		   AND del_yn = 'N'
+	</select>
+	
+	<select id="dctCurriculumListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT td.domain_seq
+		     , td.domain_name
+		     , td.domain_status
+		     , tl.lto_seq
+		     , tl.lto_name
+		     , tl.lto_status
+		  FROM tb_domain td
+		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+		 WHERE td.student_seq = #{studentSeq }
+		   AND td.del_yn = 'N'
+		 ORDER BY td.domain_seq
+	</select>
+	
+	
+</mapper>

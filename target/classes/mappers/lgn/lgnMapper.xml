@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.lgn.dao.lgnDao">
+
+	<select id="login" parameterType="lgnVo" resultType="lgnVo">
+		SELECT * 
+		  FROM tb_member
+		 WHERE member_id = #{memberId }
+	</select>
+	
+	<select id="join" parameterType="lgnVo" resultType="lgnVo">
+ 		INSERT INTO tb_member 
+ 			(
+ 				member_id, 
+ 				member_pw, 
+ 				member_name, 
+ 				member_email, 
+ 				member_cp, 
+ 				member_auth_cd, 
+ 				approval_yn
+ 			)
+ 		VALUES 
+ 			(
+ 				#{memberId }, 
+ 				#{memberPw }, 
+ 				#{memberName },
+ 				#{memberEmail },
+ 				#{memberCp },
+ 				null,
+ 				'N'
+ 			)
+ 	</select>
+
+</mapper>

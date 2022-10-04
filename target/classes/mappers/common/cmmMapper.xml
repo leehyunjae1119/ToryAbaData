@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.common.dao.cmmDao">
+
+	<select id="selectComboTeacher" resultType="cmmVo">
+		SELECT member_seq  as value
+		     , member_name as text
+		  FROM tb_member
+		 WHERE member_auth_cd IN ('level1', 'level2', 'level3')
+	</select>
+
+	<select id="selectComboParent" resultType="cmmVo">
+		SELECT member_seq  as value
+		     , member_name as text
+		  FROM tb_member
+		 WHERE member_auth_cd IN ('parent')
+	</select>
+	
+
+</mapper>
