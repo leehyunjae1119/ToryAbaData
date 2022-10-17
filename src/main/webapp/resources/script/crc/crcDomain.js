@@ -16,7 +16,7 @@ $(document).ready(function () {
 		var domainName = $("#domainName").val();
 		
 		if(!domainName){
-			alert("영역 이름을 입력하세요.");
+			alert("발달영역 이름을 입력하세요.");
 			$("#domainName").focus();
 			return true;
 		}
@@ -25,7 +25,7 @@ $(document).ready(function () {
 	};
 	
 	$.openDomainSaveModal = function() {
-		$("#domainRegistModalLabel").text("도메인 등록");
+		$("#domainRegistModalLabel").text("발달영역 등록");
 		$("#domainSaveBtn").show();
 		$("#domainUpdateBtn").hide();
 		
@@ -34,7 +34,7 @@ $(document).ready(function () {
 	};
 	
 	$.openDomainUpdateModal = function(obj) {
-		$("#domainRegistModalLabel").text("도메인 수정");
+		$("#domainRegistModalLabel").text("발달영역 수정");
 		$("#domainSaveBtn").hide();
 		$("#domainUpdateBtn").show();
 
@@ -47,7 +47,6 @@ $(document).ready(function () {
 	$.setModalDomainData = function(seq) {
 		if(seq == 0){
 			$("#domainName").val("");
-			$("#domainContents").val("");
 			
 		} else {
 			$("#domainSeq").val(seq);
@@ -61,7 +60,6 @@ $(document).ready(function () {
 	            success : function(res){
 	            	
 	            	$("#domainName").val(res.data.domainName);
-	    			$("#domainContents").val(res.data.domainContents);
 	            },
 	            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 	                alert("서버오류. 담당자에게 연락하세요.")
@@ -113,7 +111,6 @@ $(document).ready(function () {
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.domainSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
 			 + '	<td onclick="$.onclickDomainItem(this)" class="crcName">'+ data.domainName +'</td>'
-			 + '	<td onclick="$.onclickDomainItem(this)">'+ data.domainContents +'</td>'
 			 + '	<td>'
 			 + '		<input type="checkbox" class="useYnToggle" data-toggle="toggle" data-size="sm" onchange="$.useYnToggleChange(this);" '+ flag +'>'
 			 + '	</td>'

@@ -41,7 +41,7 @@ $(document).ready(function () {
 	
 	$.makeCurriculumBoard = function(dataList) {
 		dataList.forEach(function(data) {
-			console.log(data)
+			console.log(data);
 			var domainScsClass = data[0].domainStatus == 'CMP' ? 'bg-success' : '';
 			
 			html = '<ul class="c-list-group col-lg-2">';
@@ -49,7 +49,7 @@ $(document).ready(function () {
 			//LTO
 			data.forEach(function(item) {
 				if(data[0].ltoName){
-					console.log(data[0].ltoName )
+					console.log(data[0].ltoName );
 					var ltoScsClass = item.ltoStatus == 'CMP' ? 'bg-success' : '';
 					
 					html += '<li data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
@@ -68,6 +68,10 @@ $(document).ready(function () {
 			
 			$("#curriculumBoard").append(html);
 		});
+	};
+	
+	$.openPgbEditModal = function() {
+		$("#pgbEditModal").modal("show");
 	};
 
 	//초기 동작

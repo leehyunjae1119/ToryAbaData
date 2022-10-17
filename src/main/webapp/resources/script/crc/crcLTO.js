@@ -68,9 +68,6 @@ $(document).ready(function () {
 	$.setLTOModalData = function(seq) {
 		if(seq == 0){
 			$("#ltoName").val("");
-			$("#ltoContents").val("");
-			$("#ltoArrTpCd").val("PER");
-			
 		} else {
 			$("#ltoSeq").val(seq);
 			var params = $("#LTOForm").serialize();
@@ -81,10 +78,7 @@ $(document).ready(function () {
 	            data : params,
 //	            async: false,
 	            success : function(res){
-	            	
 	            	$("#ltoName").val(res.data.ltoName);
-	            	$("#ltoContents").val(res.data.ltoContents);
-	    			$("#ltoArrTpCd").val(res.data.ltoArrTpCd);
 	            },
 	            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 	                alert("서버오류. 담당자에게 연락하세요.")
@@ -103,23 +97,12 @@ $(document).ready(function () {
 	};
 	
 	$.LTOTemplateRow = function(data) {
-		var ltoArrTpCdNm = '';
-		
-		if(data.ltoArrTpCd == 'PER'){
-			ltoArrTpCdNm = '일반 (Percentage / Counting)';
-		} else if(data.ltoArrTpCd == 'ACC') {
-			ltoArrTpCdNm = '누적 (Accumulation)';
-		} else {
-			ltoArrTpCdNm = '';
-		}
 		
 		html = ''
 			 + '<tr class="tr-vertical-align">'
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.ltoSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
 			 + '	<td onclick="$.onclickLTOItem(this);" class="crcName">'+ data.ltoName +'</td>'
-			 + '	<td onclick="$.onclickLTOItem(this);">'+ data.ltoContents +'</td>'
-			 + '	<td>'+ ltoArrTpCdNm +'</td>'
 			 + '	<td>'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openLTOUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'

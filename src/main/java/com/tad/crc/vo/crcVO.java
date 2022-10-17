@@ -39,6 +39,7 @@ public class crcVO implements Serializable {
 	private String stoStatus;
 	private String stoName;
 	private String stoContents;
+	private int stoTrialCnt;
 	private int stoArrStdCnt;
 	private String stoArrStdPst;
 	private String stoArrYn;
@@ -239,6 +240,12 @@ public class crcVO implements Serializable {
 	}
 	public void setStoRegDt(String stoRegDt) {
 		this.stoRegDt = stoRegDt;
+	}
+	public int getStoTrialCnt() {
+		return stoTrialCnt;
+	}
+	public void setStoTrialCnt(int stoTrialCnt) {
+		this.stoTrialCnt = stoTrialCnt;
 	}
 	
 	

@@ -36,7 +36,7 @@
 		<div class="col-lg-3 c-h-100">
 			<div class="card bg-primary c-h-100">
 				<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-					<button type="button" class="btn btn-primary c-fill-up" onclick="alert('작업중입니다. \n커리큘럼 > 프로그램편집 페이지를 이용해주세요.\n빠른시일내에 완성하도록 하겠습니다.');" id="">프로그램 편집<br>&<br>데일리</button>
+					<button type="button" class="btn btn-primary c-fill-up" onclick="$.openPgbEditModal(${studentSeq });" id="">프로그램 편집<br>&<br>데일리</button>
 				</div>
 			</div>
 		</div>
@@ -90,6 +90,9 @@
 		</div>
 	</div>
 
+
+	<!-- modal -->
+	<jsp:include page="/WEB-INF/views/pgb/pgbEditModal.jsp"/>
 </div>
 
 <script src="../script/dct/dctStudentDetail.js"></script>

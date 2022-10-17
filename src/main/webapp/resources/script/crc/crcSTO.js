@@ -51,12 +51,10 @@ $(document).ready(function () {
 	
 	$.setSTOModalData = function(seq) {
 		if(seq == 0){
+			$("#stoArrStdPst").val("90");
+			$("#stoArrStdCnt").val("1");
 			$("#stoName").val("");
 			$("#stoContents").val("");
-			$("#stoUrgeTpCd").val("");
-			$("#stoUrgeContents").val("");
-			$("#stoEnforceContents").val("");
-			$("#stoMemoContents").val("");
 			
 		} else {
 			$("#stoSeq").val(seq);
@@ -69,12 +67,10 @@ $(document).ready(function () {
 //	            async: false,
 	            success : function(res){
 	            	
+	            	$("#stoArrStdPst").val(res.data.stoArrStdPst);
+	            	$("#stoArrStdCnt").val(res.data.stoArrStdCnt);
 	            	$("#stoName").val(res.data.stoName);
 	    			$("#stoContents").val(res.data.stoContents);
-	    			$("#stoUrgeTpCd").val(res.data.stoUrgeTpCd);
-	    			$("#stoUrgeContents").val(res.data.stoUrgeContents);
-	    			$("#stoEnforceContents").val(res.data.stoEnforceContents);
-	    			$("#stoMemoContents").val(res.data.stoMemoContents);
 	            },
 	            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 	                alert("서버오류. 담당자에게 연락하세요.")

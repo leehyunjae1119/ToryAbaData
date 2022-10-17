@@ -24,8 +24,7 @@ $(document).ready(function () {
 	$.goDomainInsert = function() {
 		var params = {
 			studentSeq : $("#studentSeq").val(),
-			domainSeq : $("#selectDomainSeq").val(),
-			memberSeq : $("#selectMemberSeq").val()
+			domainSeq : $("#selectDomainSeq").val()
 		};
 		$.ajax({
             type : "POST",
@@ -50,48 +49,19 @@ $(document).ready(function () {
 		}
 	});
 	
-	$("#managerUpdateBtn").on("click", function() {
-		var params = {
-			domainSeq : $("#domainSeq").val(),
-			memberSeq : $("#memberSeq").val()
-		};
-		$.ajax({
-            type : "POST",
-            url : "/crc/pgbManagerUpdate.ajax",
-            data : params,
-            success : function(res){
-            	$.makeDomainCardBoard($("#studentSeq").val());
-            	$("#managerUpdateModal").modal("hide");
-            },
-            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-                alert("서버오류. 담당자에게 연락하세요.")
-            }
-        });
-	});
-	
 	$.getDomainSeq = function(obj) {
 		return $(obj).closest(".crcDomain").children(".crcSeq").val();
 	};
 	
 	$.openDomainDetailModal = function(seq) {
 		console.log($.getDomainSeq(seq));
-		alert("장기목표 편집페이지 작업중")
+		$("#pgbEditModal").modal("show");
 	};
 	
 	$.openDomainRegistModal = function(seq) {
 		$("#studentSeq").val(seq);
 		$("#domainRegistModal").modal("show");
 		
-	};
-	
-	$.openManagerUpdateModal = function(obj) {
-		var domainSeq = $.getDomainSeq(obj);
-		var studentSeq = $(obj).closest("tr").attr("data-value");
-		
-		$("#domainSeq").val(domainSeq);
-		$("#studentSeq").val(studentSeq);
-		
-		$("#managerUpdateModal").modal("show");
 	};
 	
 	$.domainDelete = function(obj) {
@@ -228,13 +198,13 @@ $(document).ready(function () {
 			+ '				<div class="col mr-2 custom-cursor-pointer" onclick="$.openDomainDetailModal(this);">'
 			+ '					<span class="badge '+statusClass+' mb-1">LTO : '+data.ltoCnt+' / '+data.compleLtoCnt+'</span> '
 			+ '					<div class="font-weight-bold text-primary text-uppercase mb-1">'
-			+ '						담당자 : '+data.memberName
+			+ '						발달영역 : '+data.domainName
 			+ '					</div>'
 			+ '					<div class="h6 mb-0 font-weight-bold text-gray-800">'
-			+ '						#1 DOMAIN : '+data.domainName
+			+ '						내용 : '+data.domainContents
 			+ '					</div>'
 			+ '				</div>'
-			+ '				<div class="col-auto mr-3" onclick="$.openManagerUpdateModal(this);">'
+			+ '				<div class="col-auto mr-3" onclick="$.openDomainUpdateModal(this);">'
 			+ '					<i class="fas fa-edit fa-2x text-gray-300 fa-hover"></i>'
 			+ '				</div>'
 			+ '				<div class="col-auto" onclick="$.domainDelete(this);">'

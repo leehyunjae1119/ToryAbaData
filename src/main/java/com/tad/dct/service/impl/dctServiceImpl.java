@@ -109,12 +109,10 @@ public class dctServiceImpl implements dctService {
 			for(dctVO vo : selectList) {
 				if(a.getDomainSeq() == vo.getDomainSeq()) {
 					tmpList.add(vo);
-					System.out.println(vo.getDomainSeq());
 				}
 			}
 			resultList.add(tmpList);
 		}
-		System.out.println(resultList.size());
 		return resultList;
 	}
 

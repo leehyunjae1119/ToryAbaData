@@ -55,7 +55,7 @@
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col" class="text-center">#</th>
+										<th scope="col" class="text-center">No</th>
 										<th scope="col">센터</th>
 										<th scope="col">반</th>
 										<th scope="col">아동</th>
@@ -87,7 +87,7 @@
 						<input type="hidden" id="studentSeq" name="studentSeq"/>
 						<div class="form-row">
 							<div class="form-group col-md-12">
-								<div class="c-row ">
+								<div class="c-row c-cb">
 									<label for="" class="col-form-label"><font style="vertical-align: inherit;">발달영역 선택</font></label>
 									<div class="custom-control custom-checkbox">
 										<input type="checkbox" class="custom-control-input" id="allDomain">
@@ -98,16 +98,6 @@
 									<option value="0" selected>선택</option>
 									<c:forEach var="domainList" items="${domainList}" varStatus="status" >
 										<option value="${domainList.domainSeq }">${domainList.domainName }</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="" class="col-form-label"><font style="vertical-align: inherit;">담당자</font></label>
-								<select class="form-control" id="selectMemberSeq" name="selectMemberSeq">
-									<c:forEach var="memberList" items="${memberList}" varStatus="status" >
-										<option value="${memberList.memberSeq }">${memberList.memberName } (${memberList.memberCp })</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -153,8 +143,10 @@
 			</div>
 		</div>
 	</div>
+	
+	<jsp:include page="/WEB-INF/views/pgb/pgbEditModal.jsp"/>
 </div>
 
 
-<script src="../script/crc/crcProgramBook.js"></script>
+<script src="../script/pgb/programBook.js"></script>
 

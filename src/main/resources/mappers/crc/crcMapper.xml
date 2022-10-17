@@ -33,14 +33,13 @@
 				'TMP' , 
 				'ING' ,
 				#{domainName } , 
-				#{domainContents } 
+				''
 			)
 	</select>
 	
 	<select id="crcDomainUpdate" parameterType="crcVo">
 		UPDATE tb_domain SET 
-			domain_name = #{domainName } ,
-			domain_contents = #{domainContents }
+			domain_name = #{domainName } 
 		WHERE domain_seq = #{domainSeq }
 	</select>
 	
@@ -85,7 +84,7 @@
 				#{ltoDomainSeq } , 
 				'ING' ,
 				#{ltoName } , 
-				#{ltoContents } , 
+				'' , 
 				#{ltoArrTpCd } 
 			)
 	</select>
@@ -93,7 +92,6 @@
 	<select id="crcLTOUpdate" parameterType="crcVo">
 		UPDATE tb_lto SET 
 			lto_name = #{ltoName } ,
-			lto_contents = #{ltoContents } ,
 			lto_arr_tp_cd = #{ltoArrTpCd }
 		WHERE lto_seq = #{ltoSeq }
 	</select>
@@ -142,10 +140,10 @@
 				#{stoContents } ,
 				#{stoArrStdCnt } ,
 				#{stoArrStdPst } ,
-				#{stoUrgeTpCd } ,
-				#{stoUrgeContents } ,
-				#{stoEnforceContents } ,
-				#{stoMemoContents } 
+				'' ,
+				'' ,
+				'' ,
+				'' 
 			)
 	</select>
 	
@@ -154,11 +152,7 @@
 			sto_name = #{stoName } ,
 			sto_contents = #{stoContents } ,
 			sto_arr_std_cnt = #{stoArrStdCnt } ,
-			sto_arr_std_pst = #{stoArrStdPst } ,
-			sto_urge_tp_cd = #{stoUrgeTpCd } ,
-			sto_urge_contents = #{stoUrgeContents } ,
-			sto_enforce_contents = #{stoEnforceContents } ,
-			sto_memo_contents = #{stoMemoContents }
+			sto_arr_std_pst = #{stoArrStdPst } 
 		WHERE sto_seq = #{stoSeq }
 	</select>
 	

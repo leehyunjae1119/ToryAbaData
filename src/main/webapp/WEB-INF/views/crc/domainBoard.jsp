@@ -4,7 +4,7 @@
 		<div class="col-lg-12">
 			<div class="card shadow">
 				<a href="#collapseCardDomain" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardDomain">
-					<h6 class="m-0 font-weight-bold text-primary">영역 관리<span id="spanDomainName"></span></h6>
+					<h6 class="m-0 font-weight-bold text-primary">발달영역 관리<span id="spanDomainName"></span></h6>
 				</a>
 				<div class="table-responsive collapse show" id="collapseCardDomain">
 					<div class="card-body p-0">
@@ -12,16 +12,14 @@
 							<table class="table c-table-hover">
 								<colgroup>
 									<col width="5%" />
-									<col width="25%" />
-									<col width="40%" />
+									<col width="65%" />
 									<col width="15%" />
 									<col width="15%" />
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col" class="text-center">#</th>
-										<th scope="col">도메인 이름</th>
-										<th scope="col">도메인 내용</th>
+										<th scope="col" class="text-center">No</th>
+										<th scope="col">발달영역 이름</th>
 										<th scope="col">사용유무</th>
 										<th scope="col">설정</th>
 									</tr>
@@ -34,7 +32,7 @@
 							<a href="#" class="btn btn-secondary mb-3 mr-3" onclick="$.openDomainSaveModal();">
 								<span class="icon">
 									<i class="fas fa-plus"></i>
-									<span class="text pl-2">영역 추가</span>
+									<span class="text pl-2">발달영역 추가</span>
 								</span>
 							</a>
 						</div>
@@ -49,7 +47,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="domainRegistModalLabel">영역 등록</h5>
+					<h5 class="modal-title" id="domainRegistModalLabel">발달영역 등록</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -60,14 +58,8 @@
 						<input type="hidden" id="domainUseYn" name="domainUseYn">
 						<div class="form-row">
 							<div class="form-group col-md-12">
-								<label for="" class="col-form-label"><font style="vertical-align: inherit;">영역 이름</font></label>
+								<label for="" class="col-form-label"><font style="vertical-align: inherit;">발달영역 이름</font></label>
 								<input type="text" class="form-control" id="domainName" name="domainName">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="" class="col-form-label"><font style="vertical-align: inherit;">영역 내용</font></label>
-								<input type="text" class="form-control" id="domainContents" name="domainContents">
 							</div>
 						</div>
 					</form>

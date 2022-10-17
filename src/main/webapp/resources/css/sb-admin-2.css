@@ -2330,6 +2330,7 @@ textarea.form-control {
 }
 
 .btn {
+  white-space: nowrap;
   display: inline-block;
   font-weight: 400;
   color: #858796;
@@ -11313,3 +11314,4 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+

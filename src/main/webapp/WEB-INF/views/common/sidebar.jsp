@@ -33,7 +33,7 @@
 			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 				<div class="bg-white py-2 collapse-inner rounded">
 					<h6 class="collapse-header">Curriculum</h6>
-					<a class="collapse-item" href="javascript:void(0);" id="_crcMenuProgramBook">프로그램 편집</a>
+<!-- 					<a class="collapse-item" href="javascript:void(0);" id="_crcMenuProgramBook">프로그램 편집</a> -->
 					<a class="collapse-item" href="javascript:void(0);" id="_crcMenuCurriculum">커리큘럼 관리</a>
 				</div>
 			</div>

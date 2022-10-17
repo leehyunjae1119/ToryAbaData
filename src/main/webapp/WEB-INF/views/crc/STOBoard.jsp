@@ -97,40 +97,6 @@
 								<input type="text" class="form-control" id="stoContents" name="stoContents">
 							</div>
 						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="stoUrgeTpCd" class="col-form-label"><font style="vertical-align: inherit;">촉구 타입</font></label>
-								<select class="form-control" id="stoUrgeTpCd" name="stoUrgeTpCd">
-									<option value="" selected>선택 안 함</option>
-									<option value="IND">독립 (Independent)</option>
-									<option value="FPH">전체 신체 (Full Physical)</option>
-									<option value="PPH">부분 신체 (Partial Physical)</option>
-									<option value="FAD">전체 음성 (Full Aditory)</option>
-									<option value="PAD">부분 음성 (Partial Aditory)</option>
-									<option value="GES">몸짓 (Gestual)</option>
-									<option value="TEX">글자 (Textual)</option>
-									<option value="PIC">그림 (Picture)</option>
-								</select>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="stoUrgeContents" class="col-form-label"><font style="vertical-align: inherit;">촉구 내용</font></label>
-								<input type="text" class="form-control" id="stoUrgeContents" name="stoUrgeContents">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="stoEnforceContents" class="col-form-label"><font style="vertical-align: inherit;">강화 내용</font></label>
-								<input type="text" class="form-control" id="stoEnforceContents" name="stoEnforceContents">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-12">
-								<label for="stoMemoContents" class="col-form-label"><font style="vertical-align: inherit;">기타 내용</font></label>
-								<input type="text" class="form-control" id="stoMemoContents" name="stoMemoContents">
-							</div>
-						</div>
 					</form>
 				</div>
 				<div class="modal-footer">

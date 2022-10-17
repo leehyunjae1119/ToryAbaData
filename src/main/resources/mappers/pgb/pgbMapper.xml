@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.pgb.dao.pgbDao">
+
+
+	<select id="pgbDtoListSelect" parameterType="pgbDtoVo" resultType="pgbDtoVo">
+		SELECT *
+		  FROM tb_domain td
+		 WHERE student_seq = #{studentSeq }
+		   AND del_yn = 'N'
+		 ORDER BY domain_seq DESC
+	</select>
+
+	<select id="pgbLtoListSelect" parameterType="pgbLtoVo" resultType="pgbLtoVo">
+		SELECT *
+		  FROM tb_lto tl 
+		 WHERE domain_seq = #{domainSeq }
+		   AND del_yn = 'N'
+		 ORDER BY lto_seq DESC
+	</select>
+
+	<select id="pgbStoListSelect" parameterType="pgbStoVo" resultType="pgbStoVo">
+		SELECT *
+		  FROM tb_sto ts 
+		 WHERE lto_seq = #{ltoSeq }
+		   AND del_yn = 'N'
+		 ORDER BY sto_seq DESC
+	</select>
+
+	<select id="pgbLtoOneSelect" parameterType="pgbLtoVo" resultType="pgbLtoVo">
+		SELECT *
+		  FROM tb_lto tl 
+		 WHERE lto_seq = #{ltoSeq }
+	</select>
+
+	<select id="pgbStoOneSelect" parameterType="pgbStoVo" resultType="pgbStoVo">
+		SELECT *
+		  FROM tb_sto ts 
+		 WHERE sto_seq = #{stoSeq }
+	</select>
+	
+	<select id="pgbLtoInsert" parameterType="pgbLtoVo">
+		INSERT INTO tb_lto (
+				domain_seq ,
+				lto_status ,
+				lto_name ,
+				lto_contents 
+			)
+		VALUES (
+				#{domainSeq } , 
+				'ING' ,
+				#{ltoName } , 
+				#{ltoContents }
+			)
+	</select>
+	
+	<select id="pgbLtoUpdate" parameterType="pgbLtoVo">
+		UPDATE tb_lto SET 
+			lto_name = #{ltoName } ,
+			lto_contents = #{ltoContents } 
+		WHERE lto_seq = #{ltoSeq }
+	</select>
+	
+	<select id="pgbLtoStautsUpdate" parameterType="pgbLtoVo">
+		UPDATE tb_lto SET 
+			lto_status = #{ltoStatus } ,
+			<choose>
+				<when test="ltoStatus == 'CMP'">
+				lto_arr_dt = current_timestamp()
+				</when>
+				<otherwise>
+				lto_arr_dt = NULL
+				</otherwise>
+			</choose>			
+		WHERE lto_seq = #{ltoSeq }
+	</select>
+	
+	<select id="pgbStoStautsUpdate" parameterType="pgbStoVo">
+		UPDATE tb_sto SET 
+			sto_status = #{stoStatus } ,
+			<choose>
+				<when test="stoStatus == 'CMP'">
+				sto_arr_dt = current_timestamp()
+				</when>
+				<otherwise>
+				sto_arr_dt = NULL
+				</otherwise>
+			</choose>			
+		WHERE sto_seq = #{stoSeq }
+	</select>
+	
+	<update id="pgbDtoStautsAutoUpdate" parameterType="pgbVo">
+		UPDATE tb_domain SET
+			domain_status = CASE 
+				WHEN 
+					(SELECT count(1) FROM tb_lto WHERE domain_seq = #{domainSeq })
+					= 
+					(SELECT count(1) FROM tb_lto WHERE domain_seq = #{domainSeq } AND lto_status = 'CMP')
+				THEN 
+					'CMP'
+				ELSE 
+					'ING'
+				END 
+		WHERE domain_seq = #{domainSeq }
+		
+		<selectKey keyProperty="domainStatus" resultType="String" order="AFTER">
+			SELECT domain_status FROM tb_domain WHERE domain_seq = #{domainSeq }
+		</selectKey>
+	</update>
+	
+	<update id="pgbLtoStautsAutoUpdate" parameterType="pgbVo">
+		UPDATE tb_lto SET
+			lto_status = CASE 
+				WHEN 
+					(SELECT count(1) FROM tb_sto WHERE lto_seq = #{ltoSeq })
+					= 
+					(SELECT count(1) FROM tb_sto WHERE lto_seq = #{ltoSeq } AND sto_status = 'CMP')
+				THEN 
+					'CMP'
+				ELSE 
+					'ING'
+				END , 
+			lto_arr_dt = CASE 
+				WHEN 
+					(SELECT count(1) FROM tb_sto WHERE lto_seq = #{ltoSeq })
+					= 
+					(SELECT count(1) FROM tb_sto WHERE lto_seq = #{ltoSeq } AND sto_status = 'CMP')
+				THEN 
+					current_timestamp()
+				ELSE 
+					NULL
+				END 
+		WHERE lto_seq = #{ltoSeq }
+		
+		<selectKey keyProperty="ltoStatus" resultType="String" order="AFTER">
+			SELECT lto_status FROM tb_lto WHERE lto_seq = #{ltoSeq }
+		</selectKey>
+	</update>
+	
+	<update id="pgbStoStautsAutoUpdate" parameterType="pgbVo">
+	    UPDATE tb_sto SET
+			sto_status = CASE 
+				WHEN 
+					(
+						(SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))
+						/
+						(SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq })
+						* 100
+					) >= (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq })
+				THEN 
+					'CMP'
+				ELSE 
+					'ING'
+				END , 
+			sto_arr_dt = CASE 
+				WHEN 
+					(
+						(SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))
+						/
+						(SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq })
+						* 100
+					) > (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq })
+				THEN 
+					current_timestamp()
+				ELSE 
+					NULL
+				END 
+		WHERE sto_seq = #{stoSeq }
+		
+		<selectKey keyProperty="stoStatus" resultType="String" order="AFTER">
+			SELECT sto_status FROM tb_sto WHERE sto_seq = #{stoSeq }
+		</selectKey>
+	</update>
+	
+	
+	<select id="pgbStoInsert" parameterType="pgbStoVo">
+		INSERT INTO tb_sto (
+				lto_seq ,
+				sto_status ,
+				sto_name ,
+				sto_contents ,
+				sto_trial_cnt ,
+				sto_arr_std_pst ,
+				sto_urge_tp_cd ,
+				sto_urge_contents ,
+				sto_enforce_contents ,
+				sto_memo_contents
+			)
+		VALUES (
+				#{ltoSeq } , 
+				'ING' ,
+				#{stoName } , 
+				#{stoContents } ,
+				#{stoTrialCnt } ,
+				#{stoArrStdPst } ,
+				#{stoUrgeTpCd } ,
+				#{stoUrgeContents } ,
+				#{stoEnforceContents } ,
+				#{stoMemoContents } 
+			)
+	</select>
+	
+	<select id="pgbStoUpdate" parameterType="pgbStoVo">
+		UPDATE tb_sto SET 
+			sto_name = #{stoName } ,
+			sto_contents = #{stoContents } ,
+			sto_trial_cnt = #{stoTrialCnt } ,
+			sto_arr_std_pst = #{stoArrStdPst } ,
+			sto_urge_tp_cd = #{stoUrgeTpCd } ,
+			sto_urge_contents = #{stoUrgeContents } ,
+			sto_enforce_contents = #{stoEnforceContents } ,
+			sto_memo_contents = #{stoMemoContents }
+		WHERE sto_seq = #{stoSeq }
+	</select>
+	
+	<insert id="pgbPointInsert" parameterType="pgbPointVo">
+		INSERT INTO tb_point (
+				sto_seq ,
+				point_rslt_cd ,
+				point_reg_mbr_seq
+			)
+		VALUE(
+				#{stoSeq } , 
+				#{pointRsltCd } ,
+				#{pointRegMbrSeq } 
+			)
+	</insert>
+	
+	<delete id="pgbPointDelete" parameterType="pgbPointVo">
+		DELETE
+		  FROM tb_point
+		 WHERE point_seq = (
+				SELECT MAX(point_seq)
+				  FROM tb_point tp
+				 WHERE sto_seq = #{stoSeq }
+			   )
+	</delete>
+	
+	<select id="pgbPointListSelect" parameterType="pgbPointVo" resultType="pgbPointVo">
+		SELECT * 
+		  FROM tb_point tp 
+		 WHERE sto_seq = #{stoSeq }
+		 ORDER BY point_seq 
+	</select>
+	
+</mapper>
+		
+		

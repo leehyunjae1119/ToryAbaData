@@ -2888,6 +2888,12 @@ readers do not read off random characters that represent icons */
 .fa-outdent:before {
   content: "\f03b"; }
 
+.fa-p:before {
+  content: "\50"; }
+
+.fa-o:before {
+  content: "\4f"; }
+
 .fa-page4:before {
   content: "\f3d7"; }
 

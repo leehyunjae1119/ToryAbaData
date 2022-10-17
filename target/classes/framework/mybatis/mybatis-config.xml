@@ -11,7 +11,11 @@
 		<typeAlias type="com.tad.lgn.vo.lgnVO" alias="lgnVo" />
 		<typeAlias type="com.tad.dct.vo.dctVO" alias="dctVo" />
 		<typeAlias type="com.tad.crc.vo.crcVO" alias="crcVo" />
-		<typeAlias type="com.tad.crc.vo.pgbVO" alias="pgbVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbVO" alias="pgbVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbDtoVO" alias="pgbDtoVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbLtoVO" alias="pgbLtoVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbStoVO" alias="pgbStoVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbPointVO" alias="pgbPointVo" />
 		<typeAlias type="com.tad.common.vo.cmmVO" alias="cmmVo" />
 	</typeAliases>
 	
