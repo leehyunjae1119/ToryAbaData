@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.tad.dct.service.dctService;
 import com.tad.dct.vo.dctVO;
+import com.tad.crc.dao.crcDao;
+import com.tad.crc.vo.crcVO;
 import com.tad.dct.dao.dctDao;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,6 +20,9 @@ public class dctServiceImpl implements dctService {
 
 	@Inject
 	dctDao dctDao;
+	
+	@Inject
+	crcDao crcDao;
 
 	@Override
 	public List<dctVO> dctCenterListSelect(dctVO dctVO) throws Exception {
@@ -81,8 +86,12 @@ public class dctServiceImpl implements dctService {
 	
 	@Override
 	public int dctStudentInsert(dctVO dctVO) throws Exception {
-		
-		return dctDao.dctStudentInsert(dctVO);
+		int result = dctDao.dctStudentInsert(dctVO);
+		//커리큘럼 자동 삽입
+		crcVO crcVO = new crcVO();
+		crcVO.setStudentSeq(result);
+		int crcResult = crcDao.crcAutoInsert(crcVO);
+		return crcResult;
 	}
 	
 	@Override

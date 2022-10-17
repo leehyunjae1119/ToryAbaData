@@ -127,5 +127,19 @@ public class crcDaoImpl implements crcDao {
 		return result;
 	}
 
+	@Override
+	public int crcAutoInsert(crcVO crcVO) throws Exception {
+		
+		List<crcVO> dtoTmpList = sqlSession.selectList(namespace + "crcDTOTmpListSelect");
+		
+		for(crcVO vo : dtoTmpList) {
+			vo.setStudentSeq(crcVO.getStudentSeq());
+			sqlSession.insert(namespace + "crcDTOAutoInsert", vo);
+			sqlSession.insert(namespace + "crcLTOAutoInsert", vo);
+		}
+		
+		return 1;
+	}
+
 
 }

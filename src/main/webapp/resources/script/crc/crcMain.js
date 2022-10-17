@@ -4,12 +4,12 @@ $(document).ready(function () {
 	$.init = function() {
 		$.goDomainListSelect();
 		$("#collapseCardLTO").collapse('hide');
-		$("#collapseCardSTO").collapse('hide');
+//		$("#collapseCardSTO").collapse('hide');
 	};
 	
 	$.collapseCardHide = function() {
 		$("#collapseCardLTO").collapse('hide');
-		$("#collapseCardSTO").collapse('hide');
+//		$("#collapseCardSTO").collapse('hide');
 		$("#collapseCardDomain").collapse('hide');
 	};
 	

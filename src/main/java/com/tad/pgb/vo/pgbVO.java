@@ -23,6 +23,8 @@ public class pgbVO implements Serializable {
 	private String ltoStatus;
 	private String stoStatus;
 	
+	private String updateFlag;
+	
 	public int getRownum() {
 		return rownum;
 	}
@@ -76,6 +78,12 @@ public class pgbVO implements Serializable {
 	}
 	public void setStoStatus(String stoStatus) {
 		this.stoStatus = stoStatus;
+	}
+	public String getUpdateFlag() {
+		return updateFlag;
+	}
+	public void setUpdateFlag(String updateFlag) {
+		this.updateFlag = updateFlag;
 	}
 
 }

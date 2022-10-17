@@ -40,4 +40,5 @@ public interface crcDao {
 	
 	public int crcSTODelete(crcVO crcVO) throws Exception;
 
+	public int crcAutoInsert(crcVO crcVO) throws Exception;
 }

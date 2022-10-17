@@ -102,7 +102,8 @@ $(document).ready(function () {
 			 + '<tr class="tr-vertical-align">'
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.ltoSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
-			 + '	<td onclick="$.onclickLTOItem(this);" class="crcName">'+ data.ltoName +'</td>'
+//			 + '	<td onclick="$.onclickLTOItem(this);" class="crcName">'+ data.ltoName +'</td>'
+			 + '	<td onclick="" class="crcName">'+ data.ltoName +'</td>'
 			 + '	<td>'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openLTOUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'
@@ -119,9 +120,9 @@ $(document).ready(function () {
 	$.goLTOListSelect = function() {
 		$("#spanLTOName").text("");
 		$("#collapseCardDomain").collapse('hide');
-		$("#collapseCardSTO").collapse('hide');
-		$("#STOTablemBody").empty();
-		$("#stoLtoSeq").val(0);
+//		$("#collapseCardSTO").collapse('hide');
+//		$("#STOTablemBody").empty();
+//		$("#stoLtoSeq").val(0);
 		
 		$("#collapseCardLTO").collapse('show');
 		

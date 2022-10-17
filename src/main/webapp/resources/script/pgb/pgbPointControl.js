@@ -13,7 +13,7 @@ $(document).ready(function () {
             url : "/pgb/pgbPointInsert.ajax",
             data : params,
             success : function(res){
-            	$.stautsAutoUpdate();
+            	$.stautsAutoUpdate("STO");
             	$.setPointBorder();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
@@ -33,7 +33,7 @@ $(document).ready(function () {
             url : "/pgb/pgbPointDelete.ajax",
             data : params,
             success : function(res){
-            	$.stautsAutoUpdate();
+            	$.stautsAutoUpdate("STO");
             	$.setPointBorder();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
@@ -98,7 +98,7 @@ $(document).ready(function () {
     	$("#pointBorder").append(html);
 	};
 	
-	$.stautsAutoUpdate = function() {
+	$.stautsAutoUpdate = function(flag) {
 		var dtoSeq = $('button[name=dtoItemBtn].active').attr('data-value');
 		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
 		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
@@ -106,7 +106,8 @@ $(document).ready(function () {
 		var params = {
 				domainSeq : dtoSeq,
 				ltoSeq : ltoSeq,
-				stoSeq : stoSeq
+				stoSeq : stoSeq,
+				updateFlag : flag
 			};
 		
 		$.ajax({
@@ -114,42 +115,46 @@ $(document).ready(function () {
             url : "/pgb/pgbStautsAutoUpdate.ajax",
             data : params,
             success : function(res){
-            	
-            	$('button[name=dtoItemBtn].active').removeClass('btn-outline-dark btn-outline-success');
-            	if(res.dtoStatus == 'CMP'){
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-success');
-            	} else {
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-dark');
+            	if(flag == "STO" || flag == "LTO" || flag == "DTO"){
+            		$('button[name=dtoItemBtn].active').removeClass('btn-outline-dark btn-outline-success');
+                	if(res.dtoStatus == 'CMP'){
+                		$('button[name=dtoItemBtn].active').addClass('btn-outline-success');
+                	} else {
+                		$('button[name=dtoItemBtn].active').addClass('btn-outline-dark');
+                	}
             	}
             	
-            	$('button[name=ltoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-            	if(res.ltoStatus == "CMP"){
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-success');
-            	} else if(res.ltoStatus == "STP") {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-danger');
-            	} else {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-dark');
+            	if(flag == "STO" || flag == "LTO"){
+            		$('button[name=ltoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
+                	if(res.ltoStatus == "CMP"){
+                		$('button[name=ltoItemBtn].active').addClass('btn-outline-success');
+                	} else if(res.ltoStatus == "STP") {
+                		$('button[name=ltoItemBtn].active').addClass('btn-outline-danger');
+                	} else {
+                		$('button[name=ltoItemBtn].active').addClass('btn-outline-dark');
+                	}
+                	
+                	$("input[name=btnLtoStatus]").removeAttr("checked");
+                	$("label[name=labelLtoStatus]").removeClass("active");
+            		$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
+            		$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
             	}
-            	
-            	$('button[name=stoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-            	if(res.stoStatus == "CMP"){
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-success');
-            	} else if(res.stoStatus == "STP") {
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-danger');
-            	} else {
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-dark');
-            	}
-            	
-            	$("input[name=btnLtoStatus]").removeAttr("checked");
-            	$("label[name=labelLtoStatus]").removeClass("active");
-        		$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
-        		$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
         		
-        		$("input[name=btnStoStatus]").removeAttr("checked");
-        		$("label[name=labelStoStatus]").removeClass("active");
-        		$("#btnStoStatus_"+res.stoStatus).attr("checked", true);
-        		$("#labelStoStatus_"+res.stoStatus).addClass("active");
-        		
+        		if(flag == "STO"){
+                	$('button[name=stoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
+                	if(res.stoStatus == "CMP"){
+                		$('button[name=stoItemBtn].active').addClass('btn-outline-success');
+                	} else if(res.stoStatus == "STP") {
+                		$('button[name=stoItemBtn].active').addClass('btn-outline-danger');
+                	} else {
+                		$('button[name=stoItemBtn].active').addClass('btn-outline-dark');
+                	}
+
+            		$("input[name=btnStoStatus]").removeAttr("checked");
+            		$("label[name=labelStoStatus]").removeClass("active");
+            		$("#btnStoStatus_"+res.stoStatus).attr("checked", true);
+            		$("#labelStoStatus_"+res.stoStatus).addClass("active");
+            	}
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")

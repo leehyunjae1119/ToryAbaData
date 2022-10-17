@@ -287,9 +287,16 @@ public class pgbController {
 		
 		Map<String, String> result = pgbService.pgbStautsAutoUpdate(pgbVO);
 		
-		resultMap.put("dtoStatus", result.get("dtoStatus"));
-		resultMap.put("ltoStatus", result.get("ltoStatus"));
-		resultMap.put("stoStatus", result.get("stoStatus"));
+		if(pgbVO.getUpdateFlag() == "STO") {
+			resultMap.put("dtoStatus", result.get("dtoStatus"));
+			resultMap.put("ltoStatus", result.get("ltoStatus"));
+			resultMap.put("stoStatus", result.get("stoStatus"));
+		} else if (pgbVO.getUpdateFlag() == "LTO") {
+			resultMap.put("dtoStatus", result.get("dtoStatus"));
+			resultMap.put("ltoStatus", result.get("ltoStatus"));
+		} else if (pgbVO.getUpdateFlag() == "DTO") {
+			resultMap.put("dtoStatus", result.get("dtoStatus"));
+		}
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

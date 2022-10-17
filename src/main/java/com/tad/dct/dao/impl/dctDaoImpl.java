@@ -99,8 +99,11 @@ public class dctDaoImpl implements dctDao {
 	public int dctStudentInsert(dctVO dctVO) throws Exception {
 		
 		int result = sqlSession.insert(namespace + "dctStudentInsert", dctVO);
-		
-		return result;
+		int studentSeq = 0;
+		if(result > 0) {
+			studentSeq = dctVO.getStudentSeq();
+		}
+		return studentSeq;
 	}
 	
 	@Override

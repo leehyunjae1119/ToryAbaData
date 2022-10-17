@@ -40,17 +40,24 @@ $(document).ready(function () {
 	};
 	
 	$.makeCurriculumBoard = function(dataList) {
+		$("#curriculumBoard").empty();
 		dataList.forEach(function(data) {
-			console.log(data);
-			var domainScsClass = data[0].domainStatus == 'CMP' ? 'bg-success' : '';
+			var domainScsClass = data[0].domainStatus == 'CMP' ? 'bg-success text-white' : '';
 			
 			html = '<ul class="c-list-group col-lg-2">';
 			
 			//LTO
 			data.forEach(function(item) {
 				if(data[0].ltoName){
-					console.log(data[0].ltoName );
-					var ltoScsClass = item.ltoStatus == 'CMP' ? 'bg-success' : '';
+					var ltoScsClass = '';
+					
+					if(item.ltoStatus == 'CMP') {
+						ltoScsClass = 'bg-success text-white';
+					} else if (item.ltoStatus == 'STP') {
+						ltoScsClass = 'bg-danger text-white';
+					} else {
+						ltoScsClass = '';
+					}
 					
 					html += '<li data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
 					html += item.ltoName;
@@ -61,7 +68,7 @@ $(document).ready(function () {
 			
 			html += '	<li class="li-sidebar-divider"></li>';
 			//domain
-			html += '	<li data-value="'+data[0].domainSeq+'" data-code="'+data[0].domainStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center active '+domainScsClass+'">';
+			html += '	<li data-value="'+data[0].domainSeq+'" data-code="'+data[0].domainStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+domainScsClass+'">';
 			html += 	data[0].domainName;
 			html += '	</li>';
 			html += '</ul>';
@@ -81,4 +88,8 @@ $(document).ready(function () {
 	};
 	
 	$.init();
+	
+	$("#pgbEditModal").on('hidden.bs.modal', function() {
+		$.selectCurriculumList();
+	});
 });

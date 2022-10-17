@@ -66,7 +66,7 @@
 		 WHERE student_seq = #{studentSeq }
 	</select>
 	
-	<select id="dctStudentInsert" parameterType="dctVo">
+	<insert id="dctStudentInsert" parameterType="dctVo">
 		INSERT INTO tb_student (
 			class_seq, 
 			student_name, 
@@ -85,7 +85,11 @@
 			STR_TO_DATE(#{studentEndDt }, '%Y-%m-%d') , 
 			#{parentName }
 		)
-	</select>
+		
+		<selectKey keyProperty="studentSeq" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID();
+		</selectKey>
+	</insert>
 	
 	<select id="dctStudentUpdate" parameterType="dctVo">
 		UPDATE tb_student
@@ -108,6 +112,7 @@
 		  FROM tb_domain 
 		 WHERE student_seq = #{studentSeq }
 		   AND del_yn = 'N'
+		 ORDER BY domain_seq DESC
 	</select>
 	
 	<select id="dctCurriculumListSelect" parameterType="dctVo" resultType="dctVo">
@@ -121,7 +126,7 @@
 		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
 		 WHERE td.student_seq = #{studentSeq }
 		   AND td.del_yn = 'N'
-		 ORDER BY td.domain_seq
+		 ORDER BY td.domain_seq DESC
 	</select>
 	
 	

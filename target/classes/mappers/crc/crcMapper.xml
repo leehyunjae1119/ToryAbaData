@@ -77,22 +77,19 @@
 				domain_seq ,
 				lto_status ,
 				lto_name ,
-				lto_contents ,
-				lto_arr_tp_cd
+				lto_contents 
 			)
 		VALUES (
 				#{ltoDomainSeq } , 
 				'ING' ,
 				#{ltoName } , 
-				'' , 
-				#{ltoArrTpCd } 
+				'' 
 			)
 	</select>
 	
 	<select id="crcLTOUpdate" parameterType="crcVo">
 		UPDATE tb_lto SET 
-			lto_name = #{ltoName } ,
-			lto_arr_tp_cd = #{ltoArrTpCd }
+			lto_name = #{ltoName } 
 		WHERE lto_seq = #{ltoSeq }
 	</select>
 	
@@ -160,6 +157,42 @@
 		UPDATE tb_sto SET del_yn = 'Y'
 		WHERE sto_seq = #{stoSeq }
 	</select>
+	
+	<select id="crcDTOTmpListSelect" resultType="crcVo">
+		SELECT * FROM tb_domain td
+		WHERE domain_tp_cd = 'TMP'
+		  AND domain_use_yn = 'Y' 
+		  AND del_yn = 'N'
+	</select>
+	
+	<insert id="crcDTOAutoInsert" parameterType="crcVo">
+		INSERT INTO tb_domain 
+			(student_seq, domain_tp_cd, domain_status, domain_name, domain_contents)
+		SELECT #{studentSeq }
+			 , 'USR'
+			 , domain_status
+			 , domain_name
+			 , domain_contents 
+		  FROM tb_domain td 
+		 WHERE domain_seq = #{domainSeq }
+		 
+		<selectKey keyProperty="newDomainSeq" resultType="Integer" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<insert id="crcLTOAutoInsert" parameterType="crcVo">
+		INSERT INTO tb_lto 
+		 	(domain_seq, lto_status, lto_name, lto_contents, lto_arr_dt)
+		SELECT #{newDomainSeq }
+			 , lto_status
+			 , lto_name
+			 , lto_contents
+			 , lto_arr_dt
+		  FROM tb_lto 
+		 WHERE domain_seq = #{domainSeq }
+		   AND del_yn = 'N'
+	</insert>
 	
 </mapper>
 		

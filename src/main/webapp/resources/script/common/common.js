@@ -28,7 +28,7 @@ $(document).ready(function () {
 	});
 	
 	$("#_crcMenuProgramBook").on("click", function() {
-		location.href = "../crc/programBook";
+		location.href = "../crc/programBoard";
 	});
 	
 	//$.setComboBox(태그 아이디, 기본값(선택/선택안함), 선택적용값, 데이터 조회 URL )

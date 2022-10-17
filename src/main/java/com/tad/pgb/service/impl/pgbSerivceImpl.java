@@ -125,15 +125,24 @@ public class pgbSerivceImpl implements pgbService {
 	@Override
 	public Map<String, String> pgbStautsAutoUpdate(pgbVO pgbVO) throws Exception{
 		Map<String, String> result = new HashMap<String, String>();
-		
-		String stoStatus = pgbDao.pgbStoStautsAutoUpdate(pgbVO);
-		String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
-		String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
-		
-		result.put("stoStatus", stoStatus);
-		result.put("ltoStatus", ltoStatus);
-		result.put("dtoStatus", dtoStatus);
-		
+		if("STO".equals(pgbVO.getUpdateFlag())) {
+			String stoStatus = pgbDao.pgbStoStautsAutoUpdate(pgbVO);
+			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
+			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+			result.put("stoStatus", stoStatus);
+			result.put("ltoStatus", ltoStatus);
+			result.put("dtoStatus", dtoStatus);
+		} else if ("LTO".equals(pgbVO.getUpdateFlag())) {
+			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
+			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+			result.put("ltoStatus", ltoStatus);
+			result.put("dtoStatus", dtoStatus);
+		} else if ("DTO".equals(pgbVO.getUpdateFlag())) {
+			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+			result.put("dtoStatus", dtoStatus);
+		} else {
+			
+		}
 		return result;
 	}
 	

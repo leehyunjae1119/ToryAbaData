@@ -1,5 +1,7 @@
 $(document).ready(function () {
 	
+	var isPgb = true;
+	
 	$("#pgbEditModal").on('show.bs.modal', function() {
 		$.settingDto();
 	});
@@ -7,6 +9,11 @@ $(document).ready(function () {
 	$("#pgbEditModal").on('shown.bs.modal', function() {
 		$(".modal-backdrop").remove();
 		$("#pgbEditModal").css("z-index", "800");
+		
+		if(!isPgb){
+			alert("등록된 프로그램이 없습니다. 프로그램을 등록해주세요.");
+    		$("#pgbEditModal").modal("hide");
+		}
 	});
 
 	$("#closeLtoCardBtn").on("click", function() {
@@ -42,8 +49,13 @@ $(document).ready(function () {
             url : "/pgb/pgbDtoListSelect.ajax",
             data : params,
             success : function(res){
-            	$.makeDtoItem(res.dataList);
-            	$.settingLto(res.dataList[0].domainSeq);
+            	if(res.dataList.length > 0 ){
+            		isPgb = true;
+            		$.makeDtoItem(res.dataList);
+            		$.settingLto(res.dataList[0].domainSeq);
+            	} else {
+            		isPgb = false;
+            	}
             	
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
@@ -259,6 +271,8 @@ $(document).ready(function () {
             	}
             	$("#LTORegistModal").modal('hide');
             	$("#stoCard").collapse("hide");
+            	
+            	$.stautsAutoUpdate("DTO");
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -331,6 +345,8 @@ $(document).ready(function () {
             	}
             	$("#STORegistModal").modal('hide');
             	$("#stoCard").collapse("show");
+            	
+            	$.stautsAutoUpdate("LTO");
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
