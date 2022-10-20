@@ -116,23 +116,13 @@ $(document).ready(function () {
             data : params,
             success : function(res){
             	if(flag == "STO" || flag == "LTO" || flag == "DTO"){
-            		$('button[name=dtoItemBtn].active').removeClass('btn-outline-dark btn-outline-success');
-                	if(res.dtoStatus == 'CMP'){
-                		$('button[name=dtoItemBtn].active').addClass('btn-outline-success');
-                	} else {
-                		$('button[name=dtoItemBtn].active').addClass('btn-outline-dark');
-                	}
+            		$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+                	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
             	}
             	
             	if(flag == "STO" || flag == "LTO"){
-            		$('button[name=ltoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-                	if(res.ltoStatus == "CMP"){
-                		$('button[name=ltoItemBtn].active').addClass('btn-outline-success');
-                	} else if(res.ltoStatus == "STP") {
-                		$('button[name=ltoItemBtn].active').addClass('btn-outline-danger');
-                	} else {
-                		$('button[name=ltoItemBtn].active').addClass('btn-outline-dark');
-                	}
+            		$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+                	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
                 	
                 	$("input[name=btnLtoStatus]").removeAttr("checked");
                 	$("label[name=labelLtoStatus]").removeClass("active");
@@ -141,16 +131,10 @@ $(document).ready(function () {
             	}
         		
         		if(flag == "STO"){
-                	$('button[name=stoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-                	if(res.stoStatus == "CMP"){
-                		$('button[name=stoItemBtn].active').addClass('btn-outline-success');
-                	} else if(res.stoStatus == "STP") {
-                		$('button[name=stoItemBtn].active').addClass('btn-outline-danger');
-                	} else {
-                		$('button[name=stoItemBtn].active').addClass('btn-outline-dark');
-                	}
+        			$('button[name=stoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+                	$('button[name=stoItemBtn].active').addClass($.getBtnStyle(res.stoStatus));
 
-            		$("input[name=btnStoStatus]").removeAttr("checked");
+                	$("input[name=btnStoStatus]").removeAttr("checked");
             		$("label[name=labelStoStatus]").removeClass("active");
             		$("#btnStoStatus_"+res.stoStatus).attr("checked", true);
             		$("#labelStoStatus_"+res.stoStatus).addClass("active");

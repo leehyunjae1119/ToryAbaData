@@ -55,6 +55,8 @@ $(document).ready(function () {
 						ltoScsClass = 'bg-success text-white';
 					} else if (item.ltoStatus == 'STP') {
 						ltoScsClass = 'bg-danger text-white';
+					} else if (item.ltoStatus == 'ING') {
+						ltoScsClass = 'bg-blue text-white';
 					} else {
 						ltoScsClass = '';
 					}

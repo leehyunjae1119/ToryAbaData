@@ -110,31 +110,27 @@ public class pgbDaoImpl implements pgbDao {
 	@Override
 	public String pgbStoStautsAutoUpdate(pgbVO pgbVO) throws Exception {
 		String resultStr = "";
-		int result = sqlSession.update(namespace + "pgbStoStautsAutoUpdate", pgbVO);
-		if(result > 0 ) {
-			System.out.println("==== dao.pgbStoStautsAutoUpdate : " + resultStr);
-			resultStr = pgbVO.getStoStatus();
-		}
+		sqlSession.update(namespace + "pgbStoStautsAutoUpdate", pgbVO);
+		resultStr = pgbVO.getStoStatus();
+		System.out.println("pgbStoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 	
 	@Override
 	public String pgbLtoStautsAutoUpdate(pgbVO pgbVO) throws Exception {
 		String resultStr = "";
-		int result = sqlSession.update(namespace + "pgbLtoStautsAutoUpdate", pgbVO);
-		if(result > 0 ) {
-			resultStr = pgbVO.getLtoStatus();
-		}
+		sqlSession.update(namespace + "pgbLtoStautsAutoUpdate", pgbVO);
+		resultStr = pgbVO.getLtoStatus();
+		System.out.println("pgbLtoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 	
 	@Override
 	public String pgbDtoStautsAutoUpdate(pgbVO pgbVO) throws Exception {
 		String resultStr = "";
-		int result = sqlSession.update(namespace + "pgbDtoStautsAutoUpdate", pgbVO);
-		if(result > 0 ) {
-			resultStr = pgbVO.getDomainStatus();
-		}
+		sqlSession.update(namespace + "pgbDtoStautsAutoUpdate", pgbVO);
+		resultStr = pgbVO.getDomainStatus();
+		System.out.println("pgbDtoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 
@@ -160,6 +156,14 @@ public class pgbDaoImpl implements pgbDao {
 		List<pgbPointVO> resultList = sqlSession.selectList(namespace + "pgbPointListSelect", pgbPointVO);
 		
 		return resultList;
+	}
+	
+	@Override
+	public pgbVO pgbModalTitleSelect(pgbVO pgbVO) throws Exception {
+		
+		pgbVO result = sqlSession.selectOne(namespace + "pgbModalTitleSelect", pgbVO);
+		
+		return result;
 	}
 
 }

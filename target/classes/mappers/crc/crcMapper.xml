@@ -31,7 +31,7 @@
 			)
 		VALUES (
 				'TMP' , 
-				'ING' ,
+				'WIT' ,
 				#{domainName } , 
 				''
 			)
@@ -81,7 +81,7 @@
 			)
 		VALUES (
 				#{ltoDomainSeq } , 
-				'ING' ,
+				'WIT' ,
 				#{ltoName } , 
 				'' 
 			)
@@ -132,7 +132,7 @@
 			)
 		VALUES (
 				#{stoLtoSeq } , 
-				'ING' ,
+				'WIT' ,
 				#{stoName } , 
 				#{stoContents } ,
 				#{stoArrStdCnt } ,
@@ -167,8 +167,9 @@
 	
 	<insert id="crcDTOAutoInsert" parameterType="crcVo">
 		INSERT INTO tb_domain 
-			(student_seq, domain_tp_cd, domain_status, domain_name, domain_contents)
+			(student_seq, tmpl_seq, domain_tp_cd, domain_status, domain_name, domain_contents)
 		SELECT #{studentSeq }
+			 , domain_seq
 			 , 'USR'
 			 , domain_status
 			 , domain_name
@@ -183,8 +184,9 @@
 	
 	<insert id="crcLTOAutoInsert" parameterType="crcVo">
 		INSERT INTO tb_lto 
-		 	(domain_seq, lto_status, lto_name, lto_contents, lto_arr_dt)
+		 	(domain_seq, tmpl_seq, lto_status, lto_name, lto_contents, lto_arr_dt)
 		SELECT #{newDomainSeq }
+			 , lto_seq
 			 , lto_status
 			 , lto_name
 			 , lto_contents

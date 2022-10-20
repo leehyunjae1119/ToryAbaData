@@ -4,6 +4,7 @@ $(document).ready(function () {
 	
 	$("#pgbEditModal").on('show.bs.modal', function() {
 		$.settingDto();
+		$.setModalTitle();
 	});
 
 	$("#pgbEditModal").on('shown.bs.modal', function() {
@@ -34,8 +35,12 @@ $(document).ready(function () {
 			className = 'btn-outline-success';
 		} else if(status == "STP") {
 			className = 'btn-outline-danger';
-		} else {
+		} else if(status == "ING") {
+			className = 'btn-outline-primary';
+		} else if(status == "WIT") {
 			className = 'btn-outline-dark';
+		} else {
+			className = 'btn-outline-dark btn-outline-success btn-outline-danger btn-outline-primary';
 		}
 		return className;
 	};
@@ -295,7 +300,9 @@ $(document).ready(function () {
 			$("#STOUpdateBtn").hide();
 			$("select[name=stoArrStdPst]").val("90");
 			$("input[name=stoTrialCnt]").val("15");
-			$("input[name=stoName]").val("");
+			$("select[name=stoNameTmpl]").val($("select[name=stoNameTmpl] option:first").val());
+			$("select[name=stoNameTmpl]").show();
+			$("input[name=stoName]").val("").hide();
 			$("input[name=stoContents]").val("");
 			$("input[name=stoUrgeContents]").val("");
 			$("input[name=stoEnforceContents]").val("");
@@ -308,6 +315,8 @@ $(document).ready(function () {
 			$("select[name=stoArrStdPst]").val($("#labelStoArrStdPst").text());
 			$("input[name=stoTrialCnt]").val($("#labelStoTrialCnt").text());
 			$("input[name=stoName]").val($("#labelStoName").text());
+			$("select[name=stoNameTmpl]").hide();
+			$("input[name=stoName]").show();
 			$("input[name=stoContents]").val($("#labelStoContents").text());
 			$("input[name=stoUrgeContents]").val($("#labelStoUrgeContents").text());
 			$("input[name=stoEnforceContents]").val($("#labelStoEnforceContents").text());
@@ -318,7 +327,9 @@ $(document).ready(function () {
 	};
 	
 	$.registSto = function(flag) {
-		
+		if($("select[name=stoNameTmpl]").val() != ""){
+			$("input[name=stoName]").val($("select[name=stoNameTmpl]").val());
+		}
 		if($("input[name=stoTrialCnt]").val() == 0){
 			$("input[name=stoTrialCnt]").focus();
 			alert("도달 기준 횟수를 입력하세요.");
@@ -373,21 +384,11 @@ $(document).ready(function () {
             url : "/pgb/pgbLtoStautsUpdate.ajax",
             data : params,
             success : function(res){
-            	$('button[name=dtoItemBtn].active').removeClass('btn-outline-dark btn-outline-success');
-            	if(res.data == 'CMP'){
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-success');
-            	} else {
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-dark');
-            	}
+            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.data));
             	
-            	$('button[name=ltoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-            	if(ltoStatus == "CMP"){
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-success');
-            	} else if(ltoStatus == "STP") {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-danger');
-            	} else {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-dark');
-            	}
+            	$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(ltoStatus));
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -417,34 +418,20 @@ $(document).ready(function () {
             data : params,
             success : function(res){
             	
-            	$('button[name=dtoItemBtn].active').removeClass('btn-outline-dark btn-outline-success');
-            	if(res.dtoStatus == 'CMP'){
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-success');
-            	} else {
-            		$('button[name=dtoItemBtn].active').addClass('btn-outline-dark');
-            	}
+            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
             	
-            	$('button[name=ltoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-            	if(res.ltoStatus == "CMP"){
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-success');
-            	} else if(res.ltoStatus == "STP") {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-danger');
-            	} else {
-            		$('button[name=ltoItemBtn].active').addClass('btn-outline-dark');
-            	}
+            	$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
+            	
             	$("input[name=btnLtoStatus]").removeAttr("checked");
             	$("label[name=labelLtoStatus]").removeClass("active");
         		$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
         		$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
             	
-            	$('button[name=stoItemBtn].active').removeClass('btn-outline-dark btn-outline-success btn-outline-danger');
-            	if(stoStatus == "CMP"){
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-success');
-            	} else if(stoStatus == "STP") {
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-danger');
-            	} else {
-            		$('button[name=stoItemBtn].active').addClass('btn-outline-dark');
-            	}
+        		$('button[name=stoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=stoItemBtn].active').addClass($.getBtnStyle(stoStatus));
+            	
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -452,6 +439,24 @@ $(document).ready(function () {
         });
 	});
 	
+	$.setModalTitle = function() {
+		var studentSeq = $("#studentSeq").val();
+		
+		var params = {
+				studentSeq : studentSeq 
+		};
+		
+		$.ajax({
+            type : "POST",
+            url : "/pgb/pgbModalTitleSelect.ajax",
+            data : params,
+            success : function(res){
+            	$("#mt_center").text(res.data.centerName);
+            	$("#mt_class").text(res.data.className);
+            	$("#mt_student").text(res.data.studentName);
+            }
+		});
+	};
 });
 
 $(document).on("click", "button[name=dtoItemBtn]", function() {
@@ -488,5 +493,15 @@ $(document).on("click", "button[name=stoItemBtn]", function() {
     	$.settingStoDetail($(this).attr("data-value"));
 	} else {
 		$("#stoCard").collapse("toggle");
+	}
+});
+
+$(document).on("change", "select[name=stoNameTmpl]", function() {
+	if($(this).val() == ""){
+		$(this).hide();
+		$("input[name=stoName]").val("");
+		$("input[name=stoName]").show();
+	} else {
+		
 	}
 });

@@ -46,4 +46,6 @@ public interface pgbDao {
 	public int pgbPointDelete(pgbPointVO pgbPointVO) throws Exception;
 	
 	public List<pgbPointVO> pgbPointListSelect(pgbPointVO pgbPointVO) throws Exception;
+	
+	public pgbVO pgbModalTitleSelect(pgbVO pgbVO) throws Exception;
 }

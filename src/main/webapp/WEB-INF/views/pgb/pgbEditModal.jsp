@@ -14,7 +14,7 @@
 	<div class="modal-dialog c-modal-fullscreen" role="document">
 		<div class="modal-content c-modal-content">
 			<div class="modal-header bg-dark">
-				<h5 class="modal-title text-white" id="pgbEditModalTitle">송도지점 > 토리반 > 이종오</h5>
+				<h5 class="modal-title text-white" id="pgbEditModalTitle"><span id="mt_center"></span> > <span id="mt_class"></span> > <span id="mt_student"></span></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -27,7 +27,7 @@
 				</div>
 				<div class="c-row bg-gray-200">
 					<label class="item-label">LTO ITEM</label>
-					<button type="button" class="btn btn-outline-primary btn-sm m-2" onclick="$.openLtoRegistModal(0);">
+					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openLtoRegistModal(0);">
 						<i class="fas fa-plus"></i>
 						<span>추가</span>
 					</button>
@@ -56,7 +56,7 @@
 							</div>
 							<div class="">
 								<div class="btn-group btn-group-toggle btn-group-lg" data-toggle="buttons">
-									<label class="btn btn-outline-dark" name="labelLtoStatus" id="labelLtoStatus_ING">
+									<label class="btn btn-outline-primary" name="labelLtoStatus" id="labelLtoStatus_ING">
 										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_ING" value="ING" autocomplete="off"> 진행중
 									</label>
 									<label class="btn btn-outline-danger" name="labelLtoStatus" id="labelLtoStatus_STP">
@@ -73,7 +73,7 @@
 				
 				<div class="c-row bg-gray-100">
 					<label class="item-label">STO ITEM</label>
-					<button type="button" class="btn btn-outline-primary btn-sm m-2" onclick="$.openStoRegistModal(0);">
+					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openStoRegistModal(0);">
 						<i class="fas fa-plus"></i>
 						<span>추가</span>
 					</button>
@@ -89,7 +89,7 @@
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 								</button>
 								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
-									<label class="btn btn-outline-dark active" name="labelStoStatus" id="labelStoStatus_ING">
+									<label class="btn btn-outline-primary active" name="labelStoStatus" id="labelStoStatus_ING">
 										<input type="radio" name="btnStoStatus" id="btnStoStatus_ING" value="ING" autocomplete="off" checked> 진행중
 									</label>
 									<label class="btn btn-outline-success" name="labelStoStatus" id="labelStoStatus_CMP">
@@ -222,6 +222,16 @@
 					<input type="hidden" name="stoSeq" value="0">
 					<input type="hidden" name="ltoSeq" value="0">
 					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
+							<select class="form-control" name="stoNameTmpl">
+								<option value="일어나">일어나</option>
+								<option value="">직접입력</option>
+							</select>
+							<input type="text" class="form-control" name="stoName" style="display:none;">
+						</div>
+					</div>
+					<div class="form-row">
 						<div class="form-group col-md-6">
 							<label for="stoArrStdPst" class="col-form-label"><font style="vertical-align: inherit;">도달 기준 비율</font></label>
 							<select class="form-control" name="stoArrStdPst">
@@ -237,12 +247,6 @@
 						<div class="form-group col-md-6">
 							<label for="stoArrStdCnt" class="col-form-label"><font style="vertical-align: inherit;">도달 기준 횟수</font></label>
 							<input type="number" class="form-control" name="stoTrialCnt">
-						</div>
-					</div>
-					<div class="form-row">
-						<div class="form-group col-md-12">
-							<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
-							<input type="text" class="form-control" name="stoName">
 						</div>
 					</div>
 					<div class="form-row">

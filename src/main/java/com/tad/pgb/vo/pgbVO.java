@@ -18,12 +18,17 @@ public class pgbVO implements Serializable {
 	private int ltoSeq;
 	private int stoSeq;
 	private int pointSeq;
+	private int tmplSeq;
 	
 	private String domainStatus;
 	private String ltoStatus;
 	private String stoStatus;
 	
 	private String updateFlag;
+	
+	private String centerName;
+	private String className;
+	private String studentName;
 	
 	public int getRownum() {
 		return rownum;
@@ -61,6 +66,12 @@ public class pgbVO implements Serializable {
 	public void setPointSeq(int pointSeq) {
 		this.pointSeq = pointSeq;
 	}
+	public int getTmplSeq() {
+		return tmplSeq;
+	}
+	public void setTmplSeq(int tmplSeq) {
+		this.tmplSeq = tmplSeq;
+	}
 	public String getDomainStatus() {
 		return domainStatus;
 	}
@@ -85,5 +96,24 @@ public class pgbVO implements Serializable {
 	public void setUpdateFlag(String updateFlag) {
 		this.updateFlag = updateFlag;
 	}
-
+	public String getCenterName() {
+		return centerName;
+	}
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
+	public String getClassName() {
+		return className;
+	}
+	public void setClassName(String className) {
+		this.className = className;
+	}
+	public String getStudentName() {
+		return studentName;
+	}
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+	
+	
 }

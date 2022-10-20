@@ -287,16 +287,33 @@ public class pgbController {
 		
 		Map<String, String> result = pgbService.pgbStautsAutoUpdate(pgbVO);
 		
-		if(pgbVO.getUpdateFlag() == "STO") {
+		if("STO".equals(pgbVO.getUpdateFlag())) {
 			resultMap.put("dtoStatus", result.get("dtoStatus"));
 			resultMap.put("ltoStatus", result.get("ltoStatus"));
 			resultMap.put("stoStatus", result.get("stoStatus"));
-		} else if (pgbVO.getUpdateFlag() == "LTO") {
+		} else if ("LTO".equals(pgbVO.getUpdateFlag())) {
 			resultMap.put("dtoStatus", result.get("dtoStatus"));
 			resultMap.put("ltoStatus", result.get("ltoStatus"));
-		} else if (pgbVO.getUpdateFlag() == "DTO") {
+		} else if ("DTO".equals(pgbVO.getUpdateFlag())) {
 			resultMap.put("dtoStatus", result.get("dtoStatus"));
 		}
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pgbModalTitleSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbModalTitleSelect(HttpServletRequest request, HttpServletResponse response, Model model, pgbVO pgbVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		resultMap.put("data", data);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

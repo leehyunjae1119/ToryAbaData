@@ -40,4 +40,6 @@ public interface pgbService {
 	public List<pgbPointVO> pgbPointListSelect(pgbPointVO pgbPointVO) throws Exception;
 	
 	public Map<String, String> pgbStautsAutoUpdate(pgbVO pgbVO) throws Exception;
+	
+	public pgbVO pgbModalTitleSelect(pgbVO pgbVO) throws Exception;
 }

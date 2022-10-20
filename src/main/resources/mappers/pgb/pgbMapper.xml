@@ -49,7 +49,7 @@
 			)
 		VALUES (
 				#{domainSeq } , 
-				'ING' ,
+				'WIT' ,
 				#{ltoName } , 
 				#{ltoContents }
 			)
@@ -139,33 +139,33 @@
 	</update>
 	
 	<update id="pgbStoStautsAutoUpdate" parameterType="pgbVo">
-	    UPDATE tb_sto SET
-			sto_status = CASE 
+		UPDATE tb_sto SET
+			sto_status = (select CASE 
 				WHEN 
-					(
-						(SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))
-						/
-						(SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq })
-						* 100
-					) >= (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq })
+					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
+						SELECT 
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))) AS A
+							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
+							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
+						FROM DUAL ) tt) = 1
 				THEN 
 					'CMP'
 				ELSE 
 					'ING'
-				END , 
-			sto_arr_dt = CASE 
+				END AS sta1), 
+			sto_arr_dt = (select CASE 
 				WHEN 
-					(
-						(SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))
-						/
-						(SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq })
-						* 100
-					) > (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq })
+					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
+						SELECT 
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))) AS A
+							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
+							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
+						FROM DUAL ) tt) = 1
 				THEN 
 					current_timestamp()
 				ELSE 
 					NULL
-				END 
+				END AS sta2)
 		WHERE sto_seq = #{stoSeq }
 		
 		<selectKey keyProperty="stoStatus" resultType="String" order="AFTER">
@@ -189,7 +189,7 @@
 			)
 		VALUES (
 				#{ltoSeq } , 
-				'ING' ,
+				'WIT' ,
 				#{stoName } , 
 				#{stoContents } ,
 				#{stoTrialCnt } ,
@@ -230,10 +230,10 @@
 	<delete id="pgbPointDelete" parameterType="pgbPointVo">
 		DELETE
 		  FROM tb_point
-		 WHERE point_seq = (
-				SELECT MAX(point_seq)
-				  FROM tb_point tp
-				 WHERE sto_seq = #{stoSeq }
+		 WHERE point_seq IN (
+				SELECT * FROM (SELECT MAX(point_seq)
+				  FROM tb_point
+				 WHERE sto_seq = #{stoSeq }) AA
 			   )
 	</delete>
 	
@@ -242,6 +242,17 @@
 		  FROM tb_point tp 
 		 WHERE sto_seq = #{stoSeq }
 		 ORDER BY point_seq 
+	</select>
+	
+	<select id="pgbModalTitleSelect" parameterType="pgbVO" resultType="pgbVO">
+		SELECT ts.student_seq
+		     , ts.student_name
+		     , tcl.class_name
+		     , tce.center_name
+		  FROM tb_student ts
+		  LEFT OUTER JOIN tb_class tcl ON ts.class_seq = tcl.class_seq
+		  LEFT OUTER JOIN tb_center tce ON tcl.center_seq = tce.center_seq
+		 WHERE student_seq = #{studentSeq }
 	</select>
 	
 </mapper>
