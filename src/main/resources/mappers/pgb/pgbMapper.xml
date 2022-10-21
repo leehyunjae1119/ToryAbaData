@@ -255,6 +255,12 @@
 		 WHERE student_seq = #{studentSeq }
 	</select>
 	
+	<select id="pgbStoTmplListSelect" parameterType="pgbStoVo" resultType="pgbStoVo">
+		SELECT * 
+		  FROM tb_sto
+		 WHERE lto_seq = (SELECT tmpl_seq FROM tb_lto WHERE lto_seq = #{ltoSeq }) 
+	</select>
+	
 </mapper>
 		
 		

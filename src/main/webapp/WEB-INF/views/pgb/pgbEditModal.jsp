@@ -10,7 +10,7 @@
 <!-- </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="pgbEditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="pgbEditModalTitle" aria-hidden="true">
+<div class="modal fade" id="pgbEditModal" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="pgbEditModalTitle" aria-hidden="true">
 	<div class="modal-dialog c-modal-fullscreen" role="document">
 		<div class="modal-content c-modal-content">
 			<div class="modal-header bg-dark">
@@ -164,19 +164,18 @@
 				</div>
 			</div>
 				
-			<div class="modal-footer">
-			</div>
 		</div>
 	</div>
 </div>
 
 <!-- LTO 등록 수정 모달 -->
-<div class="modal fade" id="LTORegistModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="LTORegistModalLabel" aria-hidden="false">
+<div class="modal c-bg-fade" id="LTORegistModal" >
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="LTORegistModalLabel"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<!-- 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+				<button type="button" class="close" onclick="$.customModal('LTORegistModal', 'hide');">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -201,19 +200,20 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" id="LTOSaveBtn" onclick="$.registLto(0)" style="display:none;">등록</button>
 				<button type="button" class="btn btn-success" id="LTOUpdateBtn" onclick="$.registLto(1)" style="display:none;">수정</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-secondary" onclick="$.customModal('LTORegistModal', 'hide');">취소</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- STO 등록, 수정 모달 -->
-<div class="modal fade" id="STORegistModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="STORegistModalLabel" aria-hidden="false">
+<div class="modal c-bg-fade" id="STORegistModal">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="STORegistModalLabel"></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<!-- 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+				<button type="button" class="close" onclick="$.customModal('STORegistModal', 'hide');">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -225,7 +225,6 @@
 						<div class="form-group col-md-12">
 							<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
 							<select class="form-control" name="stoNameTmpl">
-								<option value="일어나">일어나</option>
 								<option value="">직접입력</option>
 							</select>
 							<input type="text" class="form-control" name="stoName" style="display:none;">
@@ -245,7 +244,7 @@
 							</select>
 						</div>
 						<div class="form-group col-md-6">
-							<label for="stoArrStdCnt" class="col-form-label"><font style="vertical-align: inherit;">도달 기준 횟수</font></label>
+							<label for="stoTrialCnt" class="col-form-label"><font style="vertical-align: inherit;">시도 수</font></label>
 							<input type="number" class="form-control" name="stoTrialCnt">
 						</div>
 					</div>
@@ -278,7 +277,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" id="STOSaveBtn" onclick="$.registSto(0)" >등록</button>
 				<button type="button" class="btn btn-success" id="STOUpdateBtn" onclick="$.registSto(1)" >수정</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-secondary" onclick="$.customModal('STORegistModal', 'hide');">취소</button>
 			</div>
 		</div>
 	</div>

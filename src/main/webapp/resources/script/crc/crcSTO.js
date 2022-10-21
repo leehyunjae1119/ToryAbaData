@@ -52,7 +52,8 @@ $(document).ready(function () {
 	$.setSTOModalData = function(seq) {
 		if(seq == 0){
 			$("#stoArrStdPst").val("90");
-			$("#stoArrStdCnt").val("1");
+			$("#stoTrialCnt").val("15");
+//			$("#stoArrStdCnt").val("1");
 			$("#stoName").val("");
 			$("#stoContents").val("");
 			
@@ -68,7 +69,8 @@ $(document).ready(function () {
 	            success : function(res){
 	            	
 	            	$("#stoArrStdPst").val(res.data.stoArrStdPst);
-	            	$("#stoArrStdCnt").val(res.data.stoArrStdCnt);
+	            	$("#stoTrialCnt").val(res.data.stoTrialCnt);
+//	            	$("#stoArrStdCnt").val(res.data.stoArrStdCnt);
 	            	$("#stoName").val(res.data.stoName);
 	    			$("#stoContents").val(res.data.stoContents);
 	            },
@@ -102,7 +104,8 @@ $(document).ready(function () {
 			 + '	<td>'+ data.stoName +'</td>'
 			 + '	<td>'+ data.stoContents +'</td>'
 			 + '	<td>'+ data.stoArrStdPst +'%</td>'
-			 + '	<td>'+ data.stoArrStdCnt +'</td>'
+			 + '	<td>'+ data.stoTrialCnt +'</td>'
+//			 + '	<td>'+ data.stoArrStdCnt +'</td>'
 			 + '	<td>'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openSTOUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'

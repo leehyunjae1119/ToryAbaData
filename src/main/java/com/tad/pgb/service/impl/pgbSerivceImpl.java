@@ -151,4 +151,9 @@ public class pgbSerivceImpl implements pgbService {
 		return pgbDao.pgbModalTitleSelect(pgbVO);
 	}
 
+	@Override
+	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception {
+		return pgbDao.pgbStoTmplListSelect(pgbStoVO);
+	}
+
 }

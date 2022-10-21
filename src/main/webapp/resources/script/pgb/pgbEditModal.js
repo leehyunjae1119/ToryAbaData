@@ -8,7 +8,8 @@ $(document).ready(function () {
 	});
 
 	$("#pgbEditModal").on('shown.bs.modal', function() {
-		$(".modal-backdrop").remove();
+//		$(".modal-backdrop").remove();
+		$(".modal-backdrop").css("z-index", "799");
 		$("#pgbEditModal").css("z-index", "800");
 		
 		if(!isPgb){
@@ -250,7 +251,7 @@ $(document).ready(function () {
 			$("input[name=ltoContents]").val($("#labelLtoContents").text());
 		}
 		
-		$("#LTORegistModal").modal('show');
+		$.customModal("LTORegistModal", "show");
 	};
 	
 	$.registLto = function(flag) {
@@ -274,7 +275,7 @@ $(document).ready(function () {
             	} else {
             		$.settingLto($("input[name=domainSeq]").val(), $("input[name=ltoSeq]").val());
             	}
-            	$("#LTORegistModal").modal('hide');
+            	$.customModal("LTORegistModal", "hide");
             	$("#stoCard").collapse("hide");
             	
             	$.stautsAutoUpdate("DTO");
@@ -294,6 +295,7 @@ $(document).ready(function () {
 		$("input[name=stoSeq]").val(stoSeq);
 		
 		if(flag == 0){
+			$.setStoTmplList();
 			//등록
 			$("#STORegistModalLabel").text("STO 등록");
 			$("#STOSaveBtn").show();
@@ -323,7 +325,17 @@ $(document).ready(function () {
 			$("input[name=stoMemoContents]").val($("#labelStoMemoContents").text());
 		}
 		
-		$("#STORegistModal").modal('show');
+		$.customModal("STORegistModal", "show");
+	};
+	
+	$.customModal = function(id, option) {
+		if(option == "show"){
+			$("#"+id).addClass('show');
+			$("#"+id).show();
+		} else if(option == "hide"){
+			$("#"+id).removeClass('show');
+			$("#"+id).hide();
+		}
 	};
 	
 	$.registSto = function(flag) {
@@ -354,7 +366,7 @@ $(document).ready(function () {
             	} else {
             		$.settingSto($("input[name=ltoSeq]").val(), $("input[name=stoSeq]").val());
             	}
-            	$("#STORegistModal").modal('hide');
+            	$.customModal("STORegistModal", "hide");
             	$("#stoCard").collapse("show");
             	
             	$.stautsAutoUpdate("LTO");
@@ -456,6 +468,40 @@ $(document).ready(function () {
             	$("#mt_student").text(res.data.studentName);
             }
 		});
+	};
+	
+	$.setStoTmplList = function() {
+		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
+		
+		var params = {
+				ltoSeq : ltoSeq
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/pgb/pgbStoTmplListSelect.ajax",
+            data : params,
+            success : function(res){
+            	if(res.dataList.length > 0){
+            		$("select[name=stoNameTmpl]").empty()
+            		res.dataList.forEach(function(item) {
+                		var html = '<option value="'+item.stoName+'">'+item.stoName+'</option>';
+                		$("select[name=stoNameTmpl]").append(html)
+    				});
+                	$("select[name=stoNameTmpl]").append('<option value="">직접입력</option>');
+
+            		$("input[name=stoName]").hide();
+        			$("select[name=stoNameTmpl]").show();
+            	} else {
+            		$("input[name=stoName]").show();
+        			$("select[name=stoNameTmpl]").hide();
+            	}
+            	
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("서버오류. 담당자에게 연락하세요.")
+            }
+        });
 	};
 });
 

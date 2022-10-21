@@ -25,7 +25,7 @@
 										<th scope="col">STO 이름</th>
 										<th scope="col">STO 내용</th>
 										<th scope="col">준거도달기준</th>
-										<th scope="col">도달기준</th>
+										<th scope="col">시도 수</th>
 										<th scope="col">설정</th>
 									</tr>
 								</thead>
@@ -75,14 +75,15 @@
 								</select>
 							</div>
 							<div class="form-group col-md-6">
-								<label for="stoArrStdCnt" class="col-form-label"><font style="vertical-align: inherit;">도달 기준 횟수</font></label>
-								<select class="form-control" id="stoArrStdCnt" name="stoArrStdCnt">
-									<option value="1" selected>1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-								</select>
+								<label for="stoArrStdCnt" class="col-form-label"><font style="vertical-align: inherit;">시도 수</font></label>
+								<input type="number" class="form-control" id="stoTrialCnt" name="stoTrialCnt" value="15">
+<!-- 								<select class="form-control" id="stoArrStdCnt" name="stoArrStdCnt"> -->
+<!-- 									<option value="1" selected>1</option> -->
+<!-- 									<option value="2">2</option> -->
+<!-- 									<option value="3">3</option> -->
+<!-- 									<option value="4">4</option> -->
+<!-- 									<option value="5">5</option> -->
+<!-- 								</select> -->
 							</div>
 						</div>
 						<div class="form-row">

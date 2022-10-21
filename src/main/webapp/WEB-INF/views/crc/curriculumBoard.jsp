@@ -11,13 +11,13 @@
 	
 	<jsp:include page="/WEB-INF/views/crc/LTOBoard.jsp"/>
 	
-<%-- 	<jsp:include page="/WEB-INF/views/crc/STOBoard.jsp"/> --%>
+	<jsp:include page="/WEB-INF/views/crc/STOBoard.jsp"/>
 	
 </div>
 
 
 <script src="../script/crc/crcDomain.js"></script>
 <script src="../script/crc/crcLTO.js"></script>
-<!-- <script src="../script/crc/crcSTO.js"></script> -->
+<script src="../script/crc/crcSTO.js"></script>
 <script src="../script/crc/crcMain.js"></script>
 

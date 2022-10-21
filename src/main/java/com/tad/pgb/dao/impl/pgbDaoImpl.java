@@ -166,4 +166,12 @@ public class pgbDaoImpl implements pgbDao {
 		return result;
 	}
 
+	@Override
+	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception {
+
+		List<pgbStoVO> resultList = sqlSession.selectList(namespace + "pgbStoTmplListSelect", pgbStoVO);
+		
+		return resultList;
+	}
+
 }
