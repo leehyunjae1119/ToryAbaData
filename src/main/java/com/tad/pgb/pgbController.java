@@ -336,4 +336,21 @@ public class pgbController {
 		
 		return json;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pgbPointRoundUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbPointRoundUpdate(HttpServletRequest request, HttpServletResponse response, Model model, pgbStoVO pgbStoVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = pgbService.pgbPointRoundUpdate(pgbStoVO);
+		
+		resultMap.put("data", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
 }

@@ -68,7 +68,7 @@ $(document).ready(function () {
 				}
 			});
 			
-			html += '	<li class="li-sidebar-divider"></li>';
+			html += '	<li class="c-li-sidebar-divider"></li>';
 			//domain
 			html += '	<li data-value="'+data[0].domainSeq+'" data-code="'+data[0].domainStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+domainScsClass+'">';
 			html += 	data[0].domainName;

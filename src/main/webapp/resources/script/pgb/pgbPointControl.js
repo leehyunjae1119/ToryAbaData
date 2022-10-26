@@ -3,10 +3,12 @@ $(document).ready(function () {
 	$.insertPoint = function(pointRsltCd) {
 		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
 		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
+		var pointRound = $("#pointRound").val();
 		
 		var params = {
 				stoSeq : stoSeq ,
-				pointRsltCd : pointRsltCd
+				pointRsltCd : pointRsltCd,
+				pointRound : pointRound
 			};
 		$.ajax({
             type : "POST",
@@ -24,9 +26,11 @@ $(document).ready(function () {
 	
 	$.deletePoint = function() {
 		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
+		var pointRound = $("#pointRound").val();
 		
 		var params = {
-				stoSeq : stoSeq
+				stoSeq : stoSeq,
+				pointRound : pointRound
 			};
 		$.ajax({
             type : "POST",
@@ -44,9 +48,11 @@ $(document).ready(function () {
 	
 	$.setPointBorder = function() {
 		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
+		var pointRound = $("#pointRound").val();
 		
 		var params = {
-				stoSeq : stoSeq
+				stoSeq : stoSeq,
+				pointRound : pointRound
 			};
 		$.ajax({
             type : "POST",
@@ -67,6 +73,22 @@ $(document).ready(function () {
     	var rowCnt = parseInt(stoTrialCnt / 5) + (stoTrialCnt % 5 > 0 ? 1 : 0);
     	var html = '';
     	
+    	html += '<div class="c-row c-cb mr-3 ml-2 c-color999">';
+    	html += '	<div class="d-flex align-items-center">';
+    	html += '		<p class="m-0">정반응 : ${scsCnt}</p><span class="separator"></span>';
+    	html += '		<p class="m-0">촉구 : ${urgCnt}</p><span class="separator"></span>';
+    	html += '		<p class="m-0">미반응 : ${falCnt}</p>';
+    	html += '	</div>';
+    	html += '	<div class="d-flex align-items-center">';
+    	html += '		<p class="m-0">회차 : ${arrCnt}</p>';
+    	html += '	</div>';
+    	html += '</div>';
+    	
+    	var scsCnt = 0;
+    	var urgCnt = 0;
+    	var falCnt = 0;
+    	var arrCnt = $("#pointRound").val();
+    	
     	for(var i = 1; i <= rowCnt; i++){
     		html += '<ul class="point-list-group">';
     		
@@ -78,13 +100,17 @@ $(document).ready(function () {
     			if(data){
     				if(data.pointRsltCd == '+'){
     					html += '<li class="point-list-item bg-success"><i class="fas fa-plus"></i></li>';
+    					scsCnt++;
     				} else if(data.pointRsltCd == '-') {
     					html += '<li class="point-list-item bg-danger"><i class="fas fa-minus"></i></li>';
+    					falCnt++;
     				} else if(data.pointRsltCd == 'P') {
     					html += '<li class="point-list-item bg-warning"><i class="fas fa-p"></i></li>';
+    					urgCnt++;
     				} else {
     					html += '<li class="point-list-item"></li>';
     				}
+//    				arrCnt = data.pointRound;
     			} else {
     				html += '<li class="point-list-item"></li>';
     			}
@@ -93,6 +119,8 @@ $(document).ready(function () {
     		
     		html += '</ul>';
     	}
+    	
+    	html = html.replace('${scsCnt}', scsCnt).replace('${urgCnt}', urgCnt).replace('${falCnt}', falCnt).replace('${arrCnt}', arrCnt);
     	
     	$("#pointBorder").empty();
     	$("#pointBorder").append(html);
@@ -114,6 +142,7 @@ $(document).ready(function () {
             type : "POST",
             url : "/pgb/pgbStautsAutoUpdate.ajax",
             data : params,
+            async : false,
             success : function(res){
             	if(flag == "STO" || flag == "LTO" || flag == "DTO"){
             		$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
@@ -150,10 +179,36 @@ $(document).ready(function () {
 		if($(".point-list-item:last").is(".bg-success, .bg-warning, .bg-danger")){
 			$("button[name=pointAddBtn]").attr("disabled", true);
 			$("button[name=pointAddBtn]").addClass("disabled");
+			if(!$("#labelStoStatus_CMP").hasClass("active")){
+				$("button[name=pointAddBtn]").hide();
+				$("button[name=roundAddBtn]").show();
+			}
 		} else {
 			$("button[name=pointAddBtn]").attr("disabled", false);
 			$("button[name=pointAddBtn]").removeClass("disabled");
+			$("button[name=pointAddBtn]").show();
+			$("button[name=roundAddBtn]").hide();
 		}
-	}
+	};
 	
+	$.addPointRound = function() {
+		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
+		
+		var params = {
+				stoSeq : stoSeq
+			};
+		$.ajax({
+            type : "POST",
+            url : "/pgb/pgbPointRoundUpdate.ajax",
+            data : params,
+            success : function(res){
+            	console.log(res.data)
+            	$("#pointRound").val(res.data);
+            	$.setPointBorder();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("서버오류. 담당자에게 연락하세요.")
+            }
+        });
+	}
 });

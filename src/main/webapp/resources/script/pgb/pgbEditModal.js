@@ -206,6 +206,7 @@ $(document).ready(function () {
             success : function(res){
             	$("label[name=labelStoStatus]").removeClass("active");
             	$("input[name=btnStoStatus]").removeAttr("checked");
+            	$("#pointRound").val(res.data.stoArrStdCnt);
             	
             	$("#stoSeq").val(res.data.stoSeq);
             	$("#labelStoName").text(res.data.stoName);

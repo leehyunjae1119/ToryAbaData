@@ -174,4 +174,12 @@ public class pgbDaoImpl implements pgbDao {
 		return resultList;
 	}
 
+	@Override
+	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception {
+
+		int result = sqlSession.update(namespace + "pgbPointRoundUpdate", pgbStoVO);
+		result = pgbStoVO.getStoArrStdCnt();
+		return result;
+	}
+
 }

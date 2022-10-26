@@ -30,6 +30,15 @@ public class pgbVO implements Serializable {
 	private String className;
 	private String studentName;
 	
+	private int pointRound;
+	
+	
+	public int getPointRound() {
+		return pointRound;
+	}
+	public void setPointRound(int pointRound) {
+		this.pointRound = pointRound;
+	}
 	public int getRownum() {
 		return rownum;
 	}

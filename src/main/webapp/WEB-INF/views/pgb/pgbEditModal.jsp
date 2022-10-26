@@ -19,7 +19,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body p-0">
+			<div class="modal-body p-0 bg-gray-100">
 				<div class="d-flex align-items-center bg-gray-300">
 					<label class="item-label">발달영역 ITEM</label>
 					<div class="d-flex flex-nowrap align-items-center contents-over-scroll" id="dtoBtnGroup">
@@ -38,7 +38,7 @@
 					<div class="card card-body color-black">
 						<div class="c-row c-cb">
 							<div class="d-flex align-items-center">
-								<h5 class="item-label">LTO Details</h5>
+								<h6 class="item-label">LTO Details</h6>
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);">
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 								</button>
@@ -51,8 +51,8 @@
 						<div class="c-row c-cb">
 							<input type="hidden" id="ltoSeq" value="0"/>
 							<div class="m-3">
-								<p class="m-0">LTO 이름 : <span id="labelLtoName"></span></p>
-								<p class="m-0">LTO 내용 : <span id="labelLtoContents"></span></p>
+								<p class="m-0 h2"><span id="labelLtoName"></span></p>
+<!-- 								<p class="m-0">LTO 내용 : <span id="labelLtoContents"></span></p> -->
 							</div>
 							<div class="">
 								<div class="btn-group btn-group-toggle btn-group-lg" data-toggle="buttons">
@@ -84,7 +84,7 @@
 					<div class="card card-body color-black">
 						<div class="c-row c-cb">
 							<div class="d-flex align-items-center">
-								<h5 class="item-label">STO Details</h5>
+								<h6 class="item-label">STO Details</h6>
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openStoRegistModal(1);">
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 								</button>
@@ -107,6 +107,7 @@
 								<div class="table-border">
 									<table class="table table-bordered m-0">
 										<input type="hidden" id="stoSeq" value="0"/>
+										<input type="hidden" id="pointRound" value="1"/>
 										<colgroup>
 											<col width="20%" />
 											<col width="80%" />
@@ -114,31 +115,31 @@
 										<tbody>
 											<tr>
 												<th scope="row">STO 이름</th>
-												<td><span id="labelStoName">단기목표1</span></td>
+												<td><span id="labelStoName"></span></td>
 											</tr>
 											<tr>
 												<th scope="row">STO 내용</th>
-												<td><span id="labelStoContents">단기목표 내용</span></td>
+												<td><span id="labelStoContents"></span></td>
 											</tr>
 											<tr>
 												<th scope="row">시도 수</th>
-												<td><span id="labelStoTrialCnt">15</span> 시도</td>
+												<td><span id="labelStoTrialCnt"></span> 시도</td>
 											</tr>
 											<tr>
 												<th scope="row">준거도달 기준</th>
-												<td><span id="labelStoArrStdPst">90</span>%</td>
+												<td><span id="labelStoArrStdPst"></span>%</td>
 											</tr>
 											<tr>
 												<th scope="row">촉구방법</th>
-												<td><span id="labelStoUrgeContents">어깨 두드리기</span></td>
+												<td><span id="labelStoUrgeContents"></span></td>
 											</tr>
 											<tr>
 												<th scope="row">강화스케줄</th>
-												<td><span id="labelStoEnforceContents">채찍질</span></td>
+												<td><span id="labelStoEnforceContents"></span></td>
 											</tr>
 											<tr>
 												<th scope="row">메모</th>
-												<td><span id="labelStoMemoContents">ㅁㄴㅇㅁㄴㅇ</span></td>
+												<td><span id="labelStoMemoContents"></span></td>
 											</tr>
 										</tbody>
 									</table>
@@ -148,6 +149,7 @@
 								<div class="point-border" id="pointBorder">
 								</div>
 								<div class="btn-group point-btn-group" role="group">
+									<button type="button" class="btn btn-primary point-btn-group-item2" name="roundAddBtn" onclick="$.addPointRound();" style="display:none;">회차 추가</button>
 									<button type="button" class="btn btn-outline-success point-btn-group-item" name="pointAddBtn" onclick="$.insertPoint('+');"><i class="fas fa-plus"></i></button>
 									<button type="button" class="btn btn-outline-warning point-btn-group-item" name="pointAddBtn" onclick="$.insertPoint('P');"><i class="fas fa-p"></i></button>
 									<button type="button" class="btn btn-outline-danger point-btn-group-item" name="pointAddBtn" onclick="$.insertPoint('-');"><i class="fas fa-minus"></i></button>

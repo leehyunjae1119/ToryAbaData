@@ -100,9 +100,10 @@ tr.c-tr-hover:hover {
 }
 
 .separator {
-	padding-right: 0.75em;
-	border-right: 1px solid #444444;
-	margin-right: 0.5em;
+	height: 0.8rem;
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+    border-right: 2px solid #b1b1b1;
 }
 
 .hiddenRow {
@@ -122,6 +123,10 @@ tr.c-tr-hover:hover {
 
 .c-cb {
 	justify-content: space-between !important;;
+}
+
+.c-cr {
+	justify-content: flex-end !important;;
 }
 
 .li-sidebar-divider {
@@ -260,6 +265,11 @@ tr.c-tr-hover:hover {
 	width:25%;
 	height: 5rem
 }
+.point-btn-group-item2{
+	width: 75%;
+    height: 5rem;
+    border-color: #858796;
+}
 
 .table-border {
 	height: 20rem;
@@ -271,5 +281,14 @@ tr.c-tr-hover:hover {
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
+.c-li-sidebar-divider {
+    position: relative;
+    display: block;
+    background-color: #fff;
+    height: 1.25rem;
+    border-bottom: 10px solid #e5c89f;
+}
 
-
+.c-color999 {
+	color: #999999;
+}

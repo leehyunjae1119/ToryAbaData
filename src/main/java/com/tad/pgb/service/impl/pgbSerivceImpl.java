@@ -156,4 +156,9 @@ public class pgbSerivceImpl implements pgbService {
 		return pgbDao.pgbStoTmplListSelect(pgbStoVO);
 	}
 
+	@Override
+	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception {
+		return pgbDao.pgbPointRoundUpdate(pgbStoVO);
+	}
+
 }

@@ -100,7 +100,11 @@
 				THEN 
 					'CMP'
 				ELSE 
-					'ING'
+					CASE 
+					WHEN (SELECT COUNT(1) FROM tb_lto WHERE domain_seq = #{domainSeq } AND lto_status = 'ING') > 0 THEN 'ING'
+					WHEN ((SELECT AA.domain_status FROM (SELECT domain_status FROM tb_domain WHERE domain_seq = #{domainSeq }) AA) = 'WIT') THEN 'WIT'
+					ELSE 'ING' 
+					END
 				END 
 		WHERE domain_seq = #{domainSeq }
 		
@@ -119,7 +123,11 @@
 				THEN 
 					'CMP'
 				ELSE 
-					'ING'
+					CASE 
+					WHEN (SELECT COUNT(1) FROM tb_sto WHERE lto_seq = #{ltoSeq } AND sto_status = 'ING') > 0 THEN 'ING'
+					WHEN (SELECT AA.lto_status FROM (SELECT lto_status FROM tb_lto WHERE lto_seq = #{ltoSeq }) AA) = 'WIT' THEN 'WIT'
+					ELSE 'ING' 
+					END
 				END , 
 			lto_arr_dt = CASE 
 				WHEN 
@@ -144,7 +152,7 @@
 				WHEN 
 					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
 						SELECT 
-							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))) AS A
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
 							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
 							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
 						FROM DUAL ) tt) = 1
@@ -157,7 +165,7 @@
 				WHEN 
 					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
 						SELECT 
-							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_rslt_cd in ('+', 'P'))) AS A
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
 							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
 							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
 						FROM DUAL ) tt) = 1
@@ -217,11 +225,13 @@
 	<insert id="pgbPointInsert" parameterType="pgbPointVo">
 		INSERT INTO tb_point (
 				sto_seq ,
+				point_round ,
 				point_rslt_cd ,
 				point_reg_mbr_seq
 			)
 		VALUE(
 				#{stoSeq } , 
+				#{pointRound } , 
 				#{pointRsltCd } ,
 				#{pointRegMbrSeq } 
 			)
@@ -233,7 +243,9 @@
 		 WHERE point_seq IN (
 				SELECT * FROM (SELECT MAX(point_seq)
 				  FROM tb_point
-				 WHERE sto_seq = #{stoSeq }) AA
+				 WHERE sto_seq = #{stoSeq }
+				   AND point_round = #{pointRound }
+				 ) AA
 			   )
 	</delete>
 	
@@ -241,6 +253,7 @@
 		SELECT * 
 		  FROM tb_point tp 
 		 WHERE sto_seq = #{stoSeq }
+		   AND point_round = #{pointRound }
 		 ORDER BY point_seq 
 	</select>
 	
@@ -260,6 +273,16 @@
 		  FROM tb_sto
 		 WHERE lto_seq = (SELECT tmpl_seq FROM tb_lto WHERE lto_seq = #{ltoSeq }) 
 	</select>
+	
+	<update id="pgbPointRoundUpdate" parameterType="pgbStoVo">
+		UPDATE tb_sto 
+		   SET sto_arr_std_cnt = sto_arr_std_cnt+1 
+		 WHERE sto_seq = #{stoSeq }
+		 
+		<selectKey keyProperty="stoArrStdCnt" resultType="int" order="AFTER">
+			SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }
+		</selectKey>
+	</update>
 	
 </mapper>
 		

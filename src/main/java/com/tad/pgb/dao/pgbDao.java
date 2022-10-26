@@ -50,4 +50,6 @@ public interface pgbDao {
 	public pgbVO pgbModalTitleSelect(pgbVO pgbVO) throws Exception;
 	
 	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception;
+	
+	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception;
 }
