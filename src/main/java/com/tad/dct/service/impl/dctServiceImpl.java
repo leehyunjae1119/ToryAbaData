@@ -125,4 +125,9 @@ public class dctServiceImpl implements dctService {
 		return resultList;
 	}
 
+	@Override
+	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception {
+		return dctDao.dctCompletionListSelect(dctVO);
+	}
+
 }

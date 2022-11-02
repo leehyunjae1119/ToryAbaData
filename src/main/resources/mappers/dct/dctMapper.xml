@@ -129,5 +129,25 @@
 		 ORDER BY td.domain_seq DESC
 	</select>
 	
-	
+	<select id="dctCompletionListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT *
+		  FROM (
+				SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+				     , td.domain_name AS domain_name
+				     , tl.lto_name AS lto_name
+				     , ts.sto_name AS sto_name
+				     , ts.sto_arr_dt AS sto_arr_dt
+				  FROM (SELECT @ROWNUM := 0 ) rn, tb_domain td 
+				  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq 
+				  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq 
+				 WHERE td.student_seq = #{studentSeq }
+				   AND ts.sto_arr_yn = 'Y'
+				   <if test="startDt != null and startDt !=''">
+				    	<if test="endDt != null and endDt !=''">
+					   	AND ( date(ts.sto_arr_dt) between #{startDt } and #{endDt } )
+					   </if>
+				   </if>
+				) sub
+		 ORDER BY sub.rownum DESC
+	</select>
 </mapper>

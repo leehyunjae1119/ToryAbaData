@@ -37,4 +37,6 @@ public interface dctDao {
 	public List<dctVO> dctCurriculumListSelect(dctVO dctVO) throws Exception;
 	
 	public List<dctVO> dctDomainSeqListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
 }

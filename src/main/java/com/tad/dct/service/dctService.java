@@ -33,4 +33,6 @@ public interface dctService {
 	public int dctStudentDelete(dctVO dctVO) throws Exception;
 	
 	public List<List<dctVO>> dctCurriculumListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
 }

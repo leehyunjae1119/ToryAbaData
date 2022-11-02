@@ -11,6 +11,7 @@ $(document).ready(function () {
 //		$(".modal-backdrop").remove();
 		$(".modal-backdrop").css("z-index", "799");
 		$("#pgbEditModal").css("z-index", "800");
+//		$("#pgbEditModal").css("padding", "0px");
 		
 		if(!isPgb){
 			alert("등록된 프로그램이 없습니다. 프로그램을 등록해주세요.");

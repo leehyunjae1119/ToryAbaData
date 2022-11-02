@@ -3008,6 +3008,9 @@ readers do not read off random characters that represent icons */
 .fa-person-booth:before {
   content: "\f756"; }
 
+.fa-person-circle-check:before {
+  content: "\e53e"; }
+
 .fa-phabricator:before {
   content: "\f3db"; }
 

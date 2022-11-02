@@ -81,10 +81,12 @@
 			sto_status = #{stoStatus } ,
 			<choose>
 				<when test="stoStatus == 'CMP'">
-				sto_arr_dt = current_timestamp()
+				sto_arr_dt = current_timestamp(),
+				sto_arr_yn = 'Y'
 				</when>
 				<otherwise>
-				sto_arr_dt = NULL
+				sto_arr_dt = NULL,
+				sto_arr_yn = 'N'
 				</otherwise>
 			</choose>			
 		WHERE sto_seq = #{stoSeq }
@@ -173,7 +175,20 @@
 					current_timestamp()
 				ELSE 
 					NULL
-				END AS sta2)
+				END AS sta2),
+			sto_arr_yn = (select CASE 
+				WHEN 
+					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
+						SELECT 
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
+							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
+							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
+						FROM DUAL ) tt) = 1
+				THEN 
+					'Y'
+				ELSE 
+					'N'
+				END AS sta3)
 		WHERE sto_seq = #{stoSeq }
 		
 		<selectKey keyProperty="stoStatus" resultType="String" order="AFTER">

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.mbr.dao.mbrDao">
+
+	<select id="mbrMemberListSelect" parameterType="mbrVo" resultType="mbrVo">
+		SELECT *
+		  FROM (
+		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+					 , tm.*
+				  FROM tb_member tm
+				     , (SELECT @ROWNUM := 0 ) rn
+				 WHERE 1=1
+				 <if test="searchText1 != null and searchText1 != ''">
+				   AND (
+					     	member_id LIKE CONCAT('%',#{searchText1},'%')
+					     OR member_name LIKE CONCAT('%',#{searchText1},'%')
+					     OR member_email LIKE CONCAT('%',#{searchText1},'%')
+					     OR member_cp LIKE CONCAT('%',#{searchText1},'%')
+				       ) 
+				 </if>
+				 ORDER BY member_reg_dt DESC
+		  	   ) sub
+		 ORDER BY sub.rownum DESC
+	
+	</select>
+	
+	<update id="mbrApprovalYnUpdate" parameterType="mbrVo">
+		UPDATE tb_member 
+		   SET approval_yn = #{approvalYn }
+		 WHERE member_seq = #{memberSeq }
+	</update>
+	
+	<update id="mbrMemberAuthCdUpdate" parameterType="mbrVo">
+		UPDATE tb_member 
+		   SET member_auth_cd = #{memberAuthCd }
+		 WHERE member_seq = #{memberSeq }
+	</update>
+	
+	
+</mapper>
+		
+		
+		

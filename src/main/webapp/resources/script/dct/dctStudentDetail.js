@@ -1,4 +1,10 @@
 $(document).ready(function () {
+	 $('[data-toggle="tooltip"]').tooltip({
+		 animation: true,
+		 trigger: 'click',
+		 template: '<p class="tooltip">asd</p>'
+	 });
+	
 	var isToggleProfile = false;
 	
 	$.toggleProfile = function() {
@@ -61,7 +67,7 @@ $(document).ready(function () {
 						ltoScsClass = '';
 					}
 					
-					html += '<li data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
+					html += '<li name="asd" data-toggle="tooltip" data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
 					html += item.ltoName;
 					html += '</li>';
 					
@@ -82,11 +88,28 @@ $(document).ready(function () {
 	$.openPgbEditModal = function() {
 		$("#pgbEditModal").modal("show");
 	};
+	
+	$.goCompletionBoard = function(studentSeq) {
+		var form = document.createElement("form");
+        form.setAttribute("charset", "UTF-8");
+        form.setAttribute("method", "GET");  //Post 방식
+        form.setAttribute("action", "/dct/completionBoard"); //요청 보낼 주소
+
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "studentSeq");
+        hiddenField.setAttribute("value", studentSeq);
+        form.appendChild(hiddenField);
+        
+        document.body.appendChild(form);
+        form.submit();
+	};
 
 	//초기 동작
 	$.init = function() {
 		$.setProfileToggleBtn();
 		$.selectCurriculumList();
+		
 	};
 	
 	$.init();
@@ -95,3 +118,6 @@ $(document).ready(function () {
 		$.selectCurriculumList();
 	});
 });
+
+
+

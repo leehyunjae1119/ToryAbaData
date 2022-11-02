@@ -137,4 +137,12 @@ public class dctDaoImpl implements dctDao {
 		
 		return resultList;
 	}
+	
+	@Override
+	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctCompletionListSelect", dctVO);
+		
+		return resultList;
+	}
 }

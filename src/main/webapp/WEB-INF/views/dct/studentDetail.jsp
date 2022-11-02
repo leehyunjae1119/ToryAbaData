@@ -44,7 +44,7 @@
 			<div class="pb-3">
 				<div class="card bg-success text-white c-h-58">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-						<button type="button" class="btn btn-success c-fill-up" id="">완료목록</button>
+						<button type="button" class="btn btn-success c-fill-up" onclick="$.goCompletionBoard(${studentSeq });" id="">완료목록</button>
 					</div>
 				</div>
 			</div>

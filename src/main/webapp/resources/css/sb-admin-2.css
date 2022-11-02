@@ -5694,11 +5694,13 @@ a.close.disabled {
 
 .modal-open {
   overflow: hidden;
+  padding-right: 0px !important; 
 }
 
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
+  padding-right: 0px !important; 
 }
 
 .modal {
@@ -5711,6 +5713,7 @@ a.close.disabled {
   height: 100%;
   overflow: hidden;
   outline: 0;
+  padding-right: 0px !important; 
 }
 
 .modal-dialog {

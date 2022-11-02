@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tad.common.util.SessionManager;
 import com.tad.dct.service.dctService;
+import com.tad.pgb.service.pgbService;
 import com.tad.dct.vo.dctVO;
+import com.tad.pgb.vo.pgbVO;
 
 @Controller
 @RequestMapping(value = "/dct", method = RequestMethod.GET)
@@ -26,6 +28,9 @@ public class dctController {
 	
 	@Inject
 	dctService dctService;
+	
+	@Inject
+	pgbService pgbService;
 	
 	@Inject
 	SessionManager sessionManager;
@@ -63,6 +68,29 @@ public class dctController {
 		model.addAttribute("date", date);
 		
 		return "/dct/studentDetail";
+	}
+
+	@RequestMapping(value = "/completionBoard", method = RequestMethod.GET)
+	public String completionBoard(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws Exception {
+		int studentSeq = Integer.parseInt( (String)request.getParameter("studentSeq") );
+		
+		pgbVO pgbVO = new pgbVO();
+		dctVO dctVO = new dctVO();
+		
+		pgbVO.setStudentSeq(studentSeq);
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		dctVO.setStudentSeq(studentSeq);
+		dctVO.setCenterName(data.getCenterName());
+		dctVO.setClassName(data.getClassName());
+		dctVO.setStudentName(data.getStudentName());
+		
+		List<dctVO> dataList = dctService.dctCompletionListSelect(dctVO);
+		
+		model.addAttribute("studentData", dctVO);
+		model.addAttribute("dataList", dataList);
+		
+		return "/dct/completionBoard";
 	}
 	
 	@ResponseBody

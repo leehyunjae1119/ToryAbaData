@@ -192,6 +192,10 @@ $(document).ready(function () {
 	};
 	
 	$.addPointRound = function() {
+		if(!confirm("포인트 회차를 추가하시겠습니까?")){
+			return ;
+		}
+		
 		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
 		
 		var params = {

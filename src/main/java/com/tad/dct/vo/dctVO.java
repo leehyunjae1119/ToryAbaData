@@ -36,7 +36,13 @@ public class dctVO implements Serializable {
     private int ltoSeq;
     private String ltoName;
     private String ltoStatus;
-	
+    
+    private int rownum; 
+    private String stoName; 
+    private String stoArrDt; 
+    
+    private String startDt;
+    private String endDt;
 	
 	public int getMemberSeq() {
 		return memberSeq;
@@ -152,5 +158,34 @@ public class dctVO implements Serializable {
 	public void setLtoStatus(String ltoStatus) {
 		this.ltoStatus = ltoStatus;
 	}
-	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	public String getStoName() {
+		return stoName;
+	}
+	public void setStoName(String stoName) {
+		this.stoName = stoName;
+	}
+	public String getStoArrDt() {
+		return stoArrDt;
+	}
+	public void setStoArrDt(String stoArrDt) {
+		this.stoArrDt = stoArrDt;
+	}
+	public String getStartDt() {
+		return startDt;
+	}
+	public void setStartDt(String startDt) {
+		this.startDt = startDt;
+	}
+	public String getEndDt() {
+		return endDt;
+	}
+	public void setEndDt(String endDt) {
+		this.endDt = endDt;
+	}
 }
