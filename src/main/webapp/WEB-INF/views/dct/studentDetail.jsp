@@ -89,8 +89,7 @@
 			</div>
 		</div>
 	</div>
-
-
+	
 	<!-- modal -->
 	<jsp:include page="/WEB-INF/views/pgb/pgbEditModal.jsp"/>
 </div>

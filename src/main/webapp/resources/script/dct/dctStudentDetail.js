@@ -1,9 +1,5 @@
 $(document).ready(function () {
-	 $('[data-toggle="tooltip"]').tooltip({
-		 animation: true,
-		 trigger: 'click',
-		 template: '<p class="tooltip">asd</p>'
-	 });
+	 $('[data-toggle="tooltip"]').tooltip();
 	
 	var isToggleProfile = false;
 	
@@ -67,10 +63,9 @@ $(document).ready(function () {
 						ltoScsClass = '';
 					}
 					
-					html += '<li name="asd" data-toggle="tooltip" data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
+					html += '<li name="" data-value="'+item.ltoSeq+'" data-code="'+item.ltoStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+ltoScsClass+'">';
 					html += item.ltoName;
 					html += '</li>';
-					
 				}
 			});
 			
@@ -117,6 +112,7 @@ $(document).ready(function () {
 	$("#pgbEditModal").on('hidden.bs.modal', function() {
 		$.selectCurriculumList();
 	});
+	
 });
 
 

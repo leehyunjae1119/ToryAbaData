@@ -1,5 +1,6 @@
 package com.tad.pgb.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.tad.pgb.dao.pgbDao;
 import com.tad.pgb.service.pgbService;
+import com.tad.pgb.vo.pgbChartVO;
 import com.tad.pgb.vo.pgbDtoVO;
 import com.tad.pgb.vo.pgbLtoVO;
 import com.tad.pgb.vo.pgbPointVO;
@@ -159,6 +161,29 @@ public class pgbSerivceImpl implements pgbService {
 	@Override
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception {
 		return pgbDao.pgbPointRoundUpdate(pgbStoVO);
+	}
+
+	@Override
+	public List<List<pgbChartVO>> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception {
+		List<List<pgbChartVO>> resultList = new ArrayList<List<pgbChartVO>>();
+		List<pgbChartVO> selectList = pgbDao.pgbLtoChartDataSelect(pgbVO);
+		
+		pgbStoVO pgbStoVO = new pgbStoVO();
+		pgbStoVO.setLtoSeq(pgbVO.getLtoSeq());
+		List<pgbStoVO> stoList = pgbDao.pgbStoListSelect(pgbStoVO);
+		
+		for(pgbStoVO stoVO : stoList) {
+			List<pgbChartVO> subList = new ArrayList<pgbChartVO>();
+			
+			for(pgbChartVO vo : selectList) {
+				if(vo.getStoSeq() == stoVO.getStoSeq()) {
+					subList.add(vo);
+				}
+			}
+			resultList.add(subList);
+		}
+		
+		return resultList;
 	}
 
 }

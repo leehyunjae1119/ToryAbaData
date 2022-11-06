@@ -29,6 +29,7 @@ $(document).ready(function () {
 	
 	$.collapseLtoChart = function() {
 		$("#ltoChart").collapse("toggle");
+		$.selectLtoChartData();
 	};
 
 	$.getBtnStyle = function(status) {

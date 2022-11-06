@@ -162,6 +162,12 @@
 				</div>
 				<div class="bg-gray-100 p-3 collapse" id="ltoChart">
 					<div class="card card-body color-black">
+						<div class="c-row">
+<!-- 						왼쪽 Y축 30 나머지 50 -->
+							<div class="">
+								<canvas id="myChart" width="600" height="400"></canvas>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -287,3 +293,4 @@
 
 <script src="../script/pgb/pgbEditModal.js"></script>
 <script src="../script/pgb/pgbPointControl.js"></script>
+<script src="../script/pgb/pgbChartControl.js"></script>

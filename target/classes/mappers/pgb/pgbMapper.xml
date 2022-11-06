@@ -154,7 +154,7 @@
 				WHEN 
 					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
 						SELECT 
-							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+'))) AS A
 							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
 							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
 						FROM DUAL ) tt) = 1
@@ -167,7 +167,7 @@
 				WHEN 
 					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
 						SELECT 
-							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+'))) AS A
 							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
 							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
 						FROM DUAL ) tt) = 1
@@ -180,7 +180,7 @@
 				WHEN 
 					(SELECT ((A/B)*100) <![CDATA[ >= ]]> C FROM (
 						SELECT 
-							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+', 'P'))) AS A
+							((SELECT count(1) FROM tb_point WHERE sto_seq = #{stoSeq } AND point_round = (SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AND point_rslt_cd in ('+'))) AS A
 							, (SELECT sto_trial_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }) AS B
 							, (SELECT sto_arr_std_pst FROM tb_sto WHERE sto_seq = #{stoSeq }) AS C
 						FROM DUAL ) tt) = 1
@@ -298,6 +298,35 @@
 			SELECT sto_arr_std_cnt FROM tb_sto WHERE sto_seq = #{stoSeq }
 		</selectKey>
 	</update>
+	
+	<select id="pgbLtoChartDataSelect" parameterType="pgbVo" resultType="pgbChartVo">
+		SELECT 
+			sub.sto_seq,
+			sub.sto_name,
+			sub.sto_arr_yn,
+			sub.sto_arr_std_pst,
+			sub.point_round,
+			sub.point_dt,
+			ROUND(sub.rea_cnt / sub.sto_trial_cnt * 100, 0) AS rea_ratio,
+			ROUND(sub.urg_cnt / sub.sto_trial_cnt * 100, 0) AS urg_ratio
+		FROM (
+			SELECT 
+				tp.sto_seq,
+				ts.sto_name,
+				ts.sto_arr_yn,
+				ts.sto_arr_std_pst,
+				tp.point_round, 
+				DATE_FORMAT(MAX(tp.point_reg_dt), '%Y-%m-%d') AS point_dt,
+				SUM(CASE WHEN tp.point_rslt_cd='+' THEN 1 ELSE 0 END) AS rea_cnt,
+				SUM(CASE WHEN tp.point_rslt_cd='P' THEN 1 ELSE 0 END) AS urg_cnt, 
+				ts.sto_trial_cnt
+			FROM tb_point tp, tb_sto ts 
+			where tp.sto_seq = ts.sto_seq 
+			and ts.lto_seq = #{ltoSeq }
+			GROUP BY tp.sto_seq, tp.point_round
+			) sub
+		ORDER BY sub.sto_seq, sub.point_round
+	</select>
 	
 </mapper>
 		

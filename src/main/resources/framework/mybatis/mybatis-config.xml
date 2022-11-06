@@ -17,6 +17,7 @@
 		<typeAlias type="com.tad.pgb.vo.pgbLtoVO" alias="pgbLtoVo" />
 		<typeAlias type="com.tad.pgb.vo.pgbStoVO" alias="pgbStoVo" />
 		<typeAlias type="com.tad.pgb.vo.pgbPointVO" alias="pgbPointVo" />
+		<typeAlias type="com.tad.pgb.vo.pgbChartVO" alias="pgbChartVo" />
 		<typeAlias type="com.tad.common.vo.cmmVO" alias="cmmVo" />
 	</typeAliases>
 	

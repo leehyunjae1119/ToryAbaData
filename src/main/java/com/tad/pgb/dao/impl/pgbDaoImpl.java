@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tad.pgb.dao.pgbDao;
+import com.tad.pgb.vo.pgbChartVO;
 import com.tad.pgb.vo.pgbDtoVO;
 import com.tad.pgb.vo.pgbLtoVO;
 import com.tad.pgb.vo.pgbPointVO;
@@ -180,6 +181,14 @@ public class pgbDaoImpl implements pgbDao {
 		int result = sqlSession.update(namespace + "pgbPointRoundUpdate", pgbStoVO);
 		result = pgbStoVO.getStoArrStdCnt();
 		return result;
+	}
+
+	@Override
+	public List<pgbChartVO> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception {
+
+		List<pgbChartVO> resultList = sqlSession.selectList(namespace + "pgbLtoChartDataSelect", pgbVO);
+		
+		return resultList;
 	}
 
 }

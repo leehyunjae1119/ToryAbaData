@@ -3,6 +3,7 @@ package com.tad.pgb.service;
 import java.util.List;
 import java.util.Map;
 
+import com.tad.pgb.vo.pgbChartVO;
 import com.tad.pgb.vo.pgbDtoVO;
 import com.tad.pgb.vo.pgbLtoVO;
 import com.tad.pgb.vo.pgbPointVO;
@@ -46,4 +47,6 @@ public interface pgbService {
 	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception;
 	
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception;
+
+	public List<List<pgbChartVO>> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception;
 }

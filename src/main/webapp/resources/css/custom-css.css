@@ -292,3 +292,14 @@ tr.c-tr-hover:hover {
 .c-color999 {
 	color: #999999;
 }
+
+.chart-item{
+    text-align: left;
+    overflow: hidden;
+    width: 100%;
+}
+.chart-item-first{
+    text-align: left;
+    overflow: hidden;
+    width: 100%;
+}

@@ -20,6 +20,7 @@ import com.tad.common.util.SessionManager;
 import com.tad.lgn.vo.lgnVO;
 import com.tad.pgb.service.pgbService;
 import com.tad.pgb.vo.pgbVO;
+import com.tad.pgb.vo.pgbChartVO;
 import com.tad.pgb.vo.pgbDtoVO;
 import com.tad.pgb.vo.pgbLtoVO;
 import com.tad.pgb.vo.pgbPointVO;
@@ -348,6 +349,24 @@ public class pgbController {
 		int result = pgbService.pgbPointRoundUpdate(pgbStoVO);
 		
 		resultMap.put("data", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+
+	@ResponseBody
+	@RequestMapping(value = "/pgbLtoChartDataSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbLtoChartDataSelect(HttpServletRequest request, HttpServletResponse response, Model model, pgbVO pgbVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<List<pgbChartVO>> resultList = pgbService.pgbLtoChartDataSelect(pgbVO);
+		
+		resultMap.put("dataList", resultList);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

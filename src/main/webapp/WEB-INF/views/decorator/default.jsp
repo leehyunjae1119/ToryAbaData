@@ -27,6 +27,7 @@
 	<!-- Custom styles for this template-->
 	<link href="../css/sb-admin-2.css" rel="stylesheet">
 	<link href="../css/custom-css.css" rel="stylesheet">
+	<link href="../css/Chart.css" rel="stylesheet">
 	
 	<sitemesh:write property="head"></sitemesh:write>
 
@@ -70,9 +71,13 @@
 				<!-- Core plugin JavaScript-->
 				<script src="../js/jquery-easing/jquery.easing.min.js"></script>
 			
-				<!-- Custom scripts for all pages-->
 				<script src="../js/sb-admin-2.min.js"></script>
 				<script src="../script/common/common.js"></script>
+				
+				<!-- Chart.js plugin JavaScript -->
+				<script src="../js/chart.js/chart.min.js"></script>
+				<script src="../js/chart.js/chartjs-plugin-datalabels.min.js"></script>
+				<script src="../js/chart.js/chartjs-plugin-annotation.min.js"></script>
 				
 				<sitemesh:write property="body"></sitemesh:write>
 				

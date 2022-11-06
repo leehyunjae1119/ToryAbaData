@@ -2,6 +2,7 @@ package com.tad.pgb.dao;
 
 import java.util.List;
 
+import com.tad.pgb.vo.pgbChartVO;
 import com.tad.pgb.vo.pgbDtoVO;
 import com.tad.pgb.vo.pgbLtoVO;
 import com.tad.pgb.vo.pgbPointVO;
@@ -52,4 +53,6 @@ public interface pgbDao {
 	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception;
 	
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception;
+	
+	public List<pgbChartVO> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception;
 }
