@@ -165,6 +165,9 @@
 						<div class="c-row">
 <!-- 						왼쪽 Y축 30 나머지 50 -->
 							<div class="">
+								<h3 class="item-label mb-3">LTO 그래프 - <span id="ltoChartTitle"></span></h3>
+								<div class="c-row" id="stoChartItem" style="margin-left: 60px;">
+								</div>
 								<canvas id="myChart" width="600" height="400"></canvas>
 							</div>
 						</div>

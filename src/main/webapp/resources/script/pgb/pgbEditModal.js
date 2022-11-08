@@ -28,8 +28,12 @@ $(document).ready(function () {
 	});
 	
 	$.collapseLtoChart = function() {
-		$("#ltoChart").collapse("toggle");
-		$.selectLtoChartData();
+		if($("#ltoChart").hasClass("show")){
+			$("#ltoChart").collapse("hide");
+		} else {
+			$.selectLtoChartData();
+			$("#ltoChart").collapse("show");
+		}
 	};
 
 	$.getBtnStyle = function(status) {
@@ -516,6 +520,8 @@ $(document).on("click", "button[name=dtoItemBtn]", function() {
 		$.settingLto($(this).attr("data-value"));
 		
 		$("#stoCard").collapse("hide");
+		
+		$("#ltoChart").collapse("hide");
 	} else {
 	}
 });
@@ -529,6 +535,8 @@ $(document).on("click", "button[name=ltoItemBtn]", function() {
 		$("#ltoCard").collapse("show");
 		
 		$.settingSto($(this).attr("data-value"));
+		
+		$("#ltoChart").collapse("hide");
 	} else {
 		$("#ltoCard").collapse("toggle");
 	}
