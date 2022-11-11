@@ -1,6 +1,7 @@
 package com.tad.pgb.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +65,16 @@ public class pgbSerivceImpl implements pgbService {
 	
 	@Override
 	public int pgbStoInsert(pgbStoVO pgbStoVO) throws Exception {
-		return pgbDao.pgbStoInsert(pgbStoVO);
+		String[] strArr = pgbStoVO.getStoName().split("\\|\\|");
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(strArr));
+        
+        int result = 0;
+        for(String stoName : list) {
+        	pgbStoVO.setStoName(stoName);
+        	int rs = pgbDao.pgbStoInsert(pgbStoVO);
+        	result += rs;
+        }
+		return result;
 	}
 	
 	@Override
@@ -184,6 +194,11 @@ public class pgbSerivceImpl implements pgbService {
 		}
 		
 		return resultList;
+	}
+
+	@Override
+	public int pgbStoDelete(pgbVO pgbVO) throws Exception {
+		return pgbDao.pgbStoDelete(pgbVO);
 	}
 
 }

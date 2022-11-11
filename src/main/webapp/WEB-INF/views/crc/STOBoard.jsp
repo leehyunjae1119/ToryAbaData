@@ -12,20 +12,20 @@
 						<div class="table-responsive">
 							<table class="table c-table-hover">
 								<colgroup>
-									<col width="5%" />
-									<col width="25%" />
-									<col width="30%" />
-									<col width="15%" />
 									<col width="10%" />
+									<col width="25%" />
+									<col width="50" />
+<!-- 									<col width="15%" /> -->
+<!-- 									<col width="10%" /> -->
 									<col width="15%" />
 								</colgroup>
 								<thead>
 									<tr>
-										<th scope="col" class="text-center">#</th>
+										<th scope="col" class="text-center">No</th>
 										<th scope="col">STO 이름</th>
 										<th scope="col">STO 내용</th>
-										<th scope="col">준거도달기준</th>
-										<th scope="col">시도 수</th>
+<!-- 										<th scope="col">준거도달기준</th> -->
+<!-- 										<th scope="col">시도 수</th> -->
 										<th scope="col">설정</th>
 									</tr>
 								</thead>

@@ -55,4 +55,6 @@ public interface pgbDao {
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception;
 	
 	public List<pgbChartVO> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception;
+	
+	public int pgbStoDelete(pgbVO pgbVO) throws Exception;
 }

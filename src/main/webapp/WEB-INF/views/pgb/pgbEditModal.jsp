@@ -39,14 +39,14 @@
 						<div class="c-row c-cb">
 							<div class="d-flex align-items-center">
 								<h6 class="item-label">LTO Details</h6>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);">
-									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
-								</button>
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
 									<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
 								</button>
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);">
+									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
+								</button>
 							</div>
-							<a href="javascript:void(0);" id="closeLtoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a>
+<!-- 							<a href="javascript:void(0);" id="closeLtoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a> -->
 						</div>
 						<div class="c-row c-cb">
 							<input type="hidden" id="ltoSeq" value="0"/>
@@ -85,8 +85,14 @@
 						<div class="c-row c-cb">
 							<div class="d-flex align-items-center">
 								<h6 class="item-label">STO Details</h6>
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
+									<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
+								</button>
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openStoRegistModal(1);">
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
+								</button>
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteSto();">
+									<i class="fas fa-trash-alt" style="font-size: 1.275rem;"></i>
 								</button>
 								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
 									<label class="btn btn-outline-primary active" name="labelStoStatus" id="labelStoStatus_ING">
@@ -100,7 +106,7 @@
 									</label>
 								</div>
 							</div>
-							<a href="javascript:void(0);" id="closeStoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a>
+<!-- 							<a href="javascript:void(0);" id="closeStoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a> -->
 						</div>
 						<div class="row">
 							<div class="col-lg-7 p-3">
@@ -233,12 +239,9 @@
 					<input type="hidden" name="stoSeq" value="0">
 					<input type="hidden" name="ltoSeq" value="0">
 					<div class="form-row">
-						<div class="form-group col-md-12">
+						<div class="form-group col-md-12 mb-0" id="stoNameList">
 							<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
-							<select class="form-control" name="stoNameTmpl">
-								<option value="">직접입력</option>
-							</select>
-							<input type="text" class="form-control" name="stoName" style="display:none;">
+							<input type="text" class="form-control mb-3" name="stoName" placeholder="직접 입력...">
 						</div>
 					</div>
 					<div class="form-row">

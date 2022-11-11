@@ -11,8 +11,8 @@
 						<div class="table-responsive">
 							<table class="table c-table-hover">
 								<colgroup>
-									<col width="5%" />
-									<col width="80%" />
+									<col width="10%" />
+									<col width="75%" />
 									<col width="15%" />
 								</colgroup>
 								<thead>

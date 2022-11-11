@@ -334,6 +334,13 @@
 		ORDER BY sub.sto_seq, sub.point_round
 	</select>
 	
+	<delete id="pgbStoDelete" parameterType="pgbStoVo">
+		DELETE
+		FROM
+			tb_sto
+		WHERE
+			sto_seq = #{stoSeq }
+	</delete>
 </mapper>
 		
 		

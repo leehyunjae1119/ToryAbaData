@@ -159,6 +159,8 @@ public class pgbController {
 	@RequestMapping(value = "/pgbStoInsert.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String pgbStoInsert(HttpServletRequest request, HttpServletResponse response, Model model, pgbStoVO pgbStoVO) throws Exception {
 		
+		System.out.println(pgbStoVO.getStoName());
+		
 		String json = "";
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -367,6 +369,23 @@ public class pgbController {
 		List<List<pgbChartVO>> resultList = pgbService.pgbLtoChartDataSelect(pgbVO);
 		
 		resultMap.put("dataList", resultList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pgbStoDelete.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbStoDelete(HttpServletRequest request, HttpServletResponse response, Model model, pgbVO pgbVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = pgbService.pgbStoDelete(pgbVO);
+		
+		resultMap.put("data", result);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

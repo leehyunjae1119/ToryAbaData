@@ -105,7 +105,7 @@ $(document).ready(function () {
             			$.settingLtoDetail(res.dataList[0].ltoSeq);
             			$.settingSto(res.dataList[0].ltoSeq);
             		}
-            		$("#ltoCard").collapse("show");
+            		$("#ltoCard").collapse("hide");
             	} else {
             		$("#ltoBtnGroup").empty();
                 	$("#ltoCard").collapse("hide");
@@ -302,6 +302,7 @@ $(document).ready(function () {
 		$("input[name=stoSeq]").val(stoSeq);
 		
 		if(flag == 0){
+			$("input[name=stoName]").attr("data-code", flag);
 			$.setStoTmplList();
 			//등록
 			$("#STORegistModalLabel").text("STO 등록");
@@ -309,23 +310,21 @@ $(document).ready(function () {
 			$("#STOUpdateBtn").hide();
 			$("select[name=stoArrStdPst]").val("90");
 			$("input[name=stoTrialCnt]").val("15");
-			$("select[name=stoNameTmpl]").val($("select[name=stoNameTmpl] option:first").val());
-			$("select[name=stoNameTmpl]").show();
-			$("input[name=stoName]").val("").hide();
+			$("input[name=stoName]").val("");
 			$("input[name=stoContents]").val("");
 			$("input[name=stoUrgeContents]").val("");
 			$("input[name=stoEnforceContents]").val("");
 			$("input[name=stoMemoContents]").val("");
 		} else {
 			//수정
+			$("input[name=stoName]").attr("data-code", flag);
+			
 			$("#STORegistModalLabel").text("STO 수정");
 			$("#STOSaveBtn").hide();
 			$("#STOUpdateBtn").show();
 			$("select[name=stoArrStdPst]").val($("#labelStoArrStdPst").text());
 			$("input[name=stoTrialCnt]").val($("#labelStoTrialCnt").text());
 			$("input[name=stoName]").val($("#labelStoName").text());
-			$("select[name=stoNameTmpl]").hide();
-			$("input[name=stoName]").show();
 			$("input[name=stoContents]").val($("#labelStoContents").text());
 			$("input[name=stoUrgeContents]").val($("#labelStoUrgeContents").text());
 			$("input[name=stoEnforceContents]").val($("#labelStoEnforceContents").text());
@@ -346,9 +345,6 @@ $(document).ready(function () {
 	};
 	
 	$.registSto = function(flag) {
-		if($("select[name=stoNameTmpl]").val() != ""){
-			$("input[name=stoName]").val($("select[name=stoNameTmpl]").val());
-		}
 		if($("input[name=stoTrialCnt]").val() == 0){
 			$("input[name=stoTrialCnt]").focus();
 			alert("도달 기준 횟수를 입력하세요.");
@@ -360,9 +356,21 @@ $(document).ready(function () {
 			return;
 		}
 		
+		var stoName = '';
+		$("input[name=stoName]:last").remove();
+		$("input[name=stoName]").each(function(index, item) {
+			if(index != 0 ){
+				stoName += '||';
+			}
+			stoName += $(item).val();
+		});
+		$("input[name=stoName]").remove();
+		
+		$("#STOForm").append('<input type="hidden" name="stoName" value="'+stoName+'">')
+		
 		var params = $("#STOForm").serialize();
 		var url = (flag == 0) ? "/pgb/pgbStoInsert.ajax" : "/pgb/pgbStoUpdate.ajax";
-		
+
 		$.ajax({
             type : "POST",
             url : url,
@@ -484,26 +492,51 @@ $(document).ready(function () {
 				ltoSeq : ltoSeq
 			};
 		
+		$("input[name=stoName]").remove();
+		$("#stoNameList").append('<input type="text" class="form-control mb-3" name="stoName" placeholder="직접 입력..." data-code="0">');
+		
 		$.ajax({
             type : "POST",
             url : "/pgb/pgbStoTmplListSelect.ajax",
             data : params,
             success : function(res){
+            	console.log("단기목표 템플릿 수 : " + res.dataList.length)
             	if(res.dataList.length > 0){
-            		$("select[name=stoNameTmpl]").empty()
             		res.dataList.forEach(function(item) {
-                		var html = '<option value="'+item.stoName+'">'+item.stoName+'</option>';
-                		$("select[name=stoNameTmpl]").append(html)
-    				});
-                	$("select[name=stoNameTmpl]").append('<option value="">직접입력</option>');
-
-            		$("input[name=stoName]").hide();
-        			$("select[name=stoNameTmpl]").show();
-            	} else {
-            		$("input[name=stoName]").show();
-        			$("select[name=stoNameTmpl]").hide();
+            			var input = $("input[name=stoName]:last").clone();
+            			input.val(item.stoName);
+            			$("#stoNameList").append(input);
+					});
+            		$("#stoNameList").append($("input[name=stoName]:last").clone().val(""));
+            		
+            		$("input[name=stoName]:first").remove();
             	}
-            	
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("서버오류. 담당자에게 연락하세요.")
+            }
+        });
+	};
+	
+	$.deleteSto = function() {
+
+		if(!confirm("STO를 삭제하시겠습니까?")){
+			return ;
+		}
+		
+		var stoSeq = $('button[name=stoItemBtn].active').attr('data-value');
+		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
+		var params = {
+				stoSeq : stoSeq
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/pgb/pgbStoDelete.ajax",
+            data : params,
+            success : function(res){
+            	$.settingSto(ltoSeq);
+            	$.stautsAutoUpdate("LTO");
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -532,7 +565,7 @@ $(document).on("click", "button[name=ltoItemBtn]", function() {
 		$(this).addClass("active");
 		
 		$.settingLtoDetail($(this).attr("data-value"));
-		$("#ltoCard").collapse("show");
+//		$("#ltoCard").collapse("show");
 		
 		$.settingSto($(this).attr("data-value"));
 		
@@ -553,12 +586,17 @@ $(document).on("click", "button[name=stoItemBtn]", function() {
 	}
 });
 
-$(document).on("change", "select[name=stoNameTmpl]", function() {
-	if($(this).val() == ""){
-		$(this).hide();
-		$("input[name=stoName]").val("");
-		$("input[name=stoName]").show();
-	} else {
-		
+$(document).on("keyup", "input[name=stoName]", function() {
+	if($(this).attr("data-code") == 0){
+		if($(this).val() == ""){
+			if($("input[name=stoName]").length > 1){
+				$(this).remove();
+			}
+		} else {
+			if($("input[name=stoName]:last").val() != ""){
+				var input = $(this).clone().val("");
+				$("#stoNameList").append(input);
+			}
+		}
 	}
 });

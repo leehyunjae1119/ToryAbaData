@@ -191,4 +191,12 @@ public class pgbDaoImpl implements pgbDao {
 		return resultList;
 	}
 
+	@Override
+	public int pgbStoDelete(pgbVO pgbVO) throws Exception {
+		
+		int result = sqlSession.update(namespace + "pgbStoDelete", pgbVO);
+
+		return result;
+	}
+
 }

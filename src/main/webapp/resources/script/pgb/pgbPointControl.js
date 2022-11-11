@@ -182,6 +182,9 @@ $(document).ready(function () {
 			if(!$("#labelStoStatus_CMP").hasClass("active")){
 				$("button[name=pointAddBtn]").hide();
 				$("button[name=roundAddBtn]").show();
+			} else {
+				$("button[name=pointAddBtn]").show();
+				$("button[name=roundAddBtn]").hide();
 			}
 		} else {
 			$("button[name=pointAddBtn]").attr("disabled", false);

@@ -1,16 +1,24 @@
 $(document).ready(function () {
+	
+	$('#collapseCardDomain').on('show.bs.collapse', function () {
+		$("#collapseCardLTO").collapse('hide');
+		$("#collapseCardSTO").collapse('hide');
+	});
+	
+	$('#collapseCardLTO').on('show.bs.collapse', function () {
+		$("#collapseCardDomain").collapse('hide');
+		$("#collapseCardSTO").collapse('hide');
+	});
+	
+	$('#collapseCardSTO').on('show.bs.collapse', function () {
+		$("#collapseCardDomain").collapse('hide');
+		$("#collapseCardLTO").collapse('hide');
+	});
 
 	//초기 동작
 	$.init = function() {
 		$.goDomainListSelect();
-		$("#collapseCardLTO").collapse('hide');
-//		$("#collapseCardSTO").collapse('hide');
-	};
-	
-	$.collapseCardHide = function() {
-		$("#collapseCardLTO").collapse('hide');
-//		$("#collapseCardSTO").collapse('hide');
-		$("#collapseCardDomain").collapse('hide');
+
 	};
 	
 	$.getCurriculumSeq = function(obj) {

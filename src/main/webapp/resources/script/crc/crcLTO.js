@@ -120,11 +120,9 @@ $(document).ready(function () {
 	$.goLTOListSelect = function() {
 		$("#spanLTOName").text("");
 		$("#collapseCardDomain").collapse('hide');
-//		$("#collapseCardSTO").collapse('hide');
+		$("#collapseCardSTO").collapse('hide');
 //		$("#STOTablemBody").empty();
 //		$("#stoLtoSeq").val(0);
-		
-		$("#collapseCardLTO").collapse('show');
 		
 		var params = $("#LTOForm").serialize();
 		
@@ -136,6 +134,8 @@ $(document).ready(function () {
             	console.log(res.dataList);
             	$("#LTOTablemBody").empty();
             	$.makeLTODataRow(res.dataList);
+            	
+            	$("#collapseCardLTO").collapse('show');
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
