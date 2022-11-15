@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.tad.dct.service.dctService;
+import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 import com.tad.crc.dao.crcDao;
 import com.tad.crc.vo.crcVO;
@@ -38,13 +39,11 @@ public class dctServiceImpl implements dctService {
 
 	@Override
 	public int dctCenterUpdate(dctVO dctVO) throws Exception {
-		// TODO Auto-generated method stub
 		return dctDao.dctCenterUpdate(dctVO);
 	}
 
 	@Override
 	public int dctCenterDelete(dctVO dctVO) throws Exception {
-		// TODO Auto-generated method stub
 		return dctDao.dctCenterDelete(dctVO);
 	}
 
@@ -68,7 +67,6 @@ public class dctServiceImpl implements dctService {
 
 	@Override
 	public int dctClassDelete(dctVO dctVO) throws Exception {
-		// TODO Auto-generated method stub
 		return dctDao.dctClassDelete(dctVO);
 	}
 	
@@ -96,13 +94,11 @@ public class dctServiceImpl implements dctService {
 	
 	@Override
 	public int dctStudentUpdate(dctVO dctVO) throws Exception {
-		// TODO Auto-generated method stub
 		return dctDao.dctStudentUpdate(dctVO);
 	}
 	
 	@Override
 	public int dctStudentDelete(dctVO dctVO) throws Exception {
-		// TODO Auto-generated method stub
 		return dctDao.dctStudentDelete(dctVO);
 	}
 	
@@ -128,6 +124,11 @@ public class dctServiceImpl implements dctService {
 	@Override
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception {
 		return dctDao.dctCompletionListSelect(dctVO);
+	}
+
+	@Override
+	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception {
+		return dctDao.dctRunUnitListSelect(dctChartVO);
 	}
 
 }

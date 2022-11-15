@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tad.dct.dao.dctDao;
+import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 
 @Repository
@@ -142,6 +143,14 @@ public class dctDaoImpl implements dctDao {
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception {
 		
 		List<dctVO> resultList = sqlSession.selectList(namespace + "dctCompletionListSelect", dctVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception {
+		
+		List<dctChartVO> resultList = sqlSession.selectList(namespace + "dctRunUnitListSelect", dctChartVO);
 		
 		return resultList;
 	}

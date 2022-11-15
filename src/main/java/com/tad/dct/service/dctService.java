@@ -2,6 +2,7 @@ package com.tad.dct.service;
 
 import java.util.List;
 
+import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 
 public interface dctService {
@@ -35,4 +36,6 @@ public interface dctService {
 	public List<List<dctVO>> dctCurriculumListSelect(dctVO dctVO) throws Exception;
 	
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception;
 }

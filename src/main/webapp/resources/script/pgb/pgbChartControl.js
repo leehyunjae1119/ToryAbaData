@@ -102,6 +102,16 @@ var _config = {
 					annotations : {}
 				},
 				tooltip : {
+					titleFont: {
+						size: 20,
+						weight: 'bold',
+					},
+					bodyFont: {
+						size: 16,
+						lineHeight:1.6,
+					},
+					padding: 20,
+					displayColors: false,
 					callbacks: {
 	                    label: function(context) {
 	                    	var x = context.parsed.x;

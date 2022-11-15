@@ -2,6 +2,7 @@ package com.tad.dct.dao;
 
 import java.util.List;
 
+import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 
 public interface dctDao {
@@ -39,4 +40,6 @@ public interface dctDao {
 	public List<dctVO> dctDomainSeqListSelect(dctVO dctVO) throws Exception;
 	
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception;
 }

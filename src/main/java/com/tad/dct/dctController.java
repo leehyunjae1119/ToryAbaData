@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.tad.common.util.SessionManager;
 import com.tad.dct.service.dctService;
 import com.tad.pgb.service.pgbService;
+import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 import com.tad.pgb.vo.pgbVO;
 
@@ -91,6 +92,26 @@ public class dctController {
 		model.addAttribute("dataList", dataList);
 		
 		return "/dct/completionBoard";
+	}
+	
+	@RequestMapping(value = "/runUnitBoard", method = RequestMethod.GET)
+	public String runUnitBoard(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws Exception {
+		int studentSeq = Integer.parseInt( (String)request.getParameter("studentSeq") );
+		
+		pgbVO pgbVO = new pgbVO();
+		dctVO dctVO = new dctVO();
+		
+		pgbVO.setStudentSeq(studentSeq);
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		dctVO.setStudentSeq(studentSeq);
+		dctVO.setCenterName(data.getCenterName());
+		dctVO.setClassName(data.getClassName());
+		dctVO.setStudentName(data.getStudentName());
+		
+		model.addAttribute("studentData", dctVO);
+		
+		return "/dct/runUnitBoard";
 	}
 	
 	@ResponseBody
@@ -330,6 +351,21 @@ public class dctController {
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctRunUnitListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctRunUnitListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctChartVO dctChartVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		List<dctChartVO> dataList = dctService.dctRunUnitListSelect(dctChartVO);
+		
+		resultMap.put("dataList", dataList);
+		json = objectMapper.writeValueAsString(resultMap);
 		return json;
 	}
 	

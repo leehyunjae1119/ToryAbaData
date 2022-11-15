@@ -51,7 +51,7 @@
 			<div class="pb-3">
 				<div class="card bg-dark text-white c-h-58">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-						<button type="button" class="btn btn-dark c-fill-up" id="">런유닛 그래프</button>
+						<button type="button" class="btn btn-dark c-fill-up" onclick="$.goRunUnitBoard(${studentSeq });" id="">런유닛 그래프</button>
 					</div>
 				</div>
 			</div>

@@ -99,6 +99,22 @@ $(document).ready(function () {
         document.body.appendChild(form);
         form.submit();
 	};
+	
+	$.goRunUnitBoard = function(studentSeq) {
+		var form = document.createElement("form");
+		form.setAttribute("charset", "UTF-8");
+		form.setAttribute("method", "GET");  //Post 방식
+		form.setAttribute("action", "/dct/runUnitBoard"); //요청 보낼 주소
+		
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", "studentSeq");
+		hiddenField.setAttribute("value", studentSeq);
+		form.appendChild(hiddenField);
+		
+		document.body.appendChild(form);
+		form.submit();
+	};
 
 	//초기 동작
 	$.init = function() {
