@@ -50,7 +50,7 @@ $(document).ready(function () {
 	
 	$.templateCard = function(data) {
 		html = '<div class="col-xl-3 col-md-6 mb-4">'
-			+ '<div class="card border-left-warning shadow h-100 py-2">'
+			+ '<div class="card border-left-warning shadow h-100 py-2" style="min-height: 9rem;">'
 			+ '<div class="card-body custom-cursor-pointer" onclick="$.enterStudent(\''+data.studentSeq+'\');">'
 			+ '<div class="row no-gutters align-items-center">'
 			+ '<div class="col mr-2">'
@@ -70,7 +70,7 @@ $(document).ready(function () {
 	
 	$.makeAddBtn = function() {
 		var html = '<div class="col-xl-3 col-md-6 mb-4">'
-				 + '<div class="card border-dashed-line shadow h-100 py-2 align-items-center justify-content-center" id="studentAddBtn" onclick="$.openSaveModal();">'
+				 + '<div class="card border-dashed-line shadow h-100 py-2 align-items-center justify-content-center" id="studentAddBtn" onclick="$.openSaveModal();" style="min-height: 9rem;">'
 				 + '<i class="fas fa-plus-square fa-2x"></i>'
 				 + '</div>'
 				 + '</div>';

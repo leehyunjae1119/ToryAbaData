@@ -38,4 +38,14 @@ public interface dctService {
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
 	
 	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctCriteriaListSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctDomainSelect(dctVO dctVO) throws Exception;
+	
+	public int dctDatePickerUpdate(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctDatePickerSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<List<dctChartVO>> dctDomainChartDataSelect(dctChartVO dctChartVO) throws Exception;
 }

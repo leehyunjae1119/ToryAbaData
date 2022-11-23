@@ -1,6 +1,7 @@
 package com.tad.dct.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -129,6 +130,61 @@ public class dctServiceImpl implements dctService {
 	@Override
 	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception {
 		return dctDao.dctRunUnitListSelect(dctChartVO);
+	}
+	
+	@Override
+	public List<dctChartVO> dctCriteriaListSelect(dctChartVO dctChartVO) throws Exception {
+		return dctDao.dctCriteriaListSelect(dctChartVO);
+	}
+	
+	@Override
+	public List<dctChartVO> dctDomainSelect(dctVO dctVO) throws Exception {
+		System.out.println("zxc");
+		return dctDao.dctDomainSelect(dctVO);
+	}
+
+	@Override
+	public int dctDatePickerUpdate(dctChartVO dctChartVO) throws Exception {
+		
+		int deleteResult = dctDao.dctDatePickerDelete(dctChartVO);
+		
+		String[] strArr = dctChartVO.getPickerDt().split("\\|\\|");
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(strArr));
+        
+        int result = 0;
+        for(String pickerDt : list) {
+        	dctChartVO.setPickerDt(pickerDt);
+        	int insertResult = dctDao.dctDatePickerInsert(dctChartVO);
+        	result += insertResult;
+        }
+		return result;
+	}
+
+	@Override
+	public List<dctChartVO> dctDatePickerSelect(dctChartVO dctChartVO) throws Exception {
+		return dctDao.dctDatePickerSelect(dctChartVO);
+	}
+
+	@Override
+	public List<List<dctChartVO>> dctDomainChartDataSelect(dctChartVO dctChartVO) throws Exception {
+
+		List<List<dctChartVO>> resultList = new ArrayList<List<dctChartVO>>();
+		try {
+			List<dctChartVO> datePicker = dctDao.dctDatePickerSelect(dctChartVO);
+			
+			for(dctChartVO vo : datePicker) {
+				dctChartVO paramVO = new dctChartVO();
+				paramVO.setStudentSeq(vo.getPickerTarget());
+				paramVO.setPickerDt(vo.getPickerDt());
+				
+				List<dctChartVO> result = dctDao.dctDomainChartDataSelect(paramVO);
+				
+				resultList.add(result);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resultList;
 	}
 
 }

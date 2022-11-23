@@ -42,4 +42,16 @@ public interface dctDao {
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception;
 	
 	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctCriteriaListSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctDomainSelect(dctVO dctVO) throws Exception;
+	
+	public int dctDatePickerDelete(dctChartVO dctChartVO) throws Exception;
+	
+	public int dctDatePickerInsert(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctDatePickerSelect(dctChartVO dctChartVO) throws Exception;
+	
+	public List<dctChartVO> dctDomainChartDataSelect(dctChartVO dctChartVO) throws Exception;
 }

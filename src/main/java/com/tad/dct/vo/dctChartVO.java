@@ -25,6 +25,21 @@ public class dctChartVO implements Serializable {
     private String urgCnt;
     private String faiCnt;
     
+    private String weekStart;
+    private String weekEnd;
+    private String weekSeq;
+    private String rununit;
+    private String arrCnt;
+    private String criterion;
+    
+    private int pickerSeq;
+    private String pickerDvCd;
+    private int pickerSelector;
+    private int pickerTarget;
+    private String pickerDt;
+    
+    private String cmpLtoCnt;
+    
 	public int getStudentSeq() {
 		return studentSeq;
 	}
@@ -85,4 +100,77 @@ public class dctChartVO implements Serializable {
 	public void setFaiCnt(String faiCnt) {
 		this.faiCnt = faiCnt;
 	}
+	public String getWeekStart() {
+		return weekStart;
+	}
+	public void setWeekStart(String weekStart) {
+		this.weekStart = weekStart;
+	}
+	public String getWeekEnd() {
+		return weekEnd;
+	}
+	public void setWeekEnd(String weekEnd) {
+		this.weekEnd = weekEnd;
+	}
+	public String getWeekSeq() {
+		return weekSeq;
+	}
+	public void setWeekSeq(String weekSeq) {
+		this.weekSeq = weekSeq;
+	}
+	public String getRununit() {
+		return rununit;
+	}
+	public void setRununit(String rununit) {
+		this.rununit = rununit;
+	}
+	public String getArrCnt() {
+		return arrCnt;
+	}
+	public void setArrCnt(String arrCnt) {
+		this.arrCnt = arrCnt;
+	}
+	public String getCriterion() {
+		return criterion;
+	}
+	public void setCriterion(String criterion) {
+		this.criterion = criterion;
+	}
+	public int getPickerSeq() {
+		return pickerSeq;
+	}
+	public void setPickerSeq(int pickerSeq) {
+		this.pickerSeq = pickerSeq;
+	}
+	public String getPickerDvCd() {
+		return pickerDvCd;
+	}
+	public void setPickerDvCd(String pickerDvCd) {
+		this.pickerDvCd = pickerDvCd;
+	}
+	public int getPickerSelector() {
+		return pickerSelector;
+	}
+	public void setPickerSelector(int pickerSelector) {
+		this.pickerSelector = pickerSelector;
+	}
+	public int getPickerTarget() {
+		return pickerTarget;
+	}
+	public void setPickerTarget(int pickerTarget) {
+		this.pickerTarget = pickerTarget;
+	}
+	public String getPickerDt() {
+		return pickerDt;
+	}
+	public void setPickerDt(String pickerDt) {
+		this.pickerDt = pickerDt;
+	}
+	public String getCmpLtoCnt() {
+		return cmpLtoCnt;
+	}
+	public void setCmpLtoCnt(String cmpLtoCnt) {
+		this.cmpLtoCnt = cmpLtoCnt;
+	}
+    
 }

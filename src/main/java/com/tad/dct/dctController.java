@@ -21,6 +21,7 @@ import com.tad.dct.service.dctService;
 import com.tad.pgb.service.pgbService;
 import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
+import com.tad.lgn.vo.lgnVO;
 import com.tad.pgb.vo.pgbVO;
 
 @Controller
@@ -112,6 +113,30 @@ public class dctController {
 		model.addAttribute("studentData", dctVO);
 		
 		return "/dct/runUnitBoard";
+	}
+	
+	@RequestMapping(value = "/criteriaBoard", method = RequestMethod.GET)
+	public String criteriaBoard(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws Exception {
+		int studentSeq = Integer.parseInt( (String)request.getParameter("studentSeq") );
+		
+		pgbVO pgbVO = new pgbVO();
+		dctVO dctVO = new dctVO();
+		
+		pgbVO.setStudentSeq(studentSeq);
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		dctVO.setStudentSeq(studentSeq);
+		dctVO.setCenterName(data.getCenterName());
+		dctVO.setClassName(data.getClassName());
+		dctVO.setStudentName(data.getStudentName());
+		
+		System.out.println("asd");
+		List<dctChartVO> domainList = dctService.dctDomainSelect(dctVO);
+		
+		model.addAttribute("studentData", dctVO);
+		model.addAttribute("domainList", domainList);
+		
+		return "/dct/criteriaBoard";
 	}
 	
 	@ResponseBody
@@ -366,6 +391,73 @@ public class dctController {
 		
 		resultMap.put("dataList", dataList);
 		json = objectMapper.writeValueAsString(resultMap);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctCriteriaListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctCriteriaListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctChartVO dctChartVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<dctChartVO> dataList = dctService.dctCriteriaListSelect(dctChartVO);
+		
+		resultMap.put("dataList", dataList);
+		json = objectMapper.writeValueAsString(resultMap);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctDatePickerUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctDatePickerUpdate(HttpServletRequest request, HttpServletResponse response, Model model, dctChartVO dctChartVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		lgnVO lgnVO = (lgnVO)sessionManager.getSession(request);
+		dctChartVO.setPickerSelector(lgnVO.getMemberSeq());
+		int result = dctService.dctDatePickerUpdate(dctChartVO);
+		
+		resultMap.put("result", result);
+		json = objectMapper.writeValueAsString(resultMap);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctDatePickerSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctDatePickerSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctChartVO dctChartVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		lgnVO lgnVO = (lgnVO)sessionManager.getSession(request);
+		dctChartVO.setPickerSelector(lgnVO.getMemberSeq());
+		List<dctChartVO> dataList = dctService.dctDatePickerSelect(dctChartVO);
+		
+		resultMap.put("dataList", dataList);
+		json = objectMapper.writeValueAsString(resultMap);
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctDomainChartDataSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctDomainChartDataSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctChartVO dctChartVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		lgnVO lgnVO = (lgnVO)sessionManager.getSession(request);
+		dctChartVO.setPickerSelector(lgnVO.getMemberSeq());
+		List<List<dctChartVO>> dataList = dctService.dctDomainChartDataSelect(dctChartVO);
+		
+		resultMap.put("dataList", dataList);
+		json = objectMapper.writeValueAsString(resultMap);
+		
 		return json;
 	}
 	

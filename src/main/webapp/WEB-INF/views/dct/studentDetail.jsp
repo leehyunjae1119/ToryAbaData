@@ -58,7 +58,7 @@
 			<div class="pb-3">
 				<div class="card bg-dark text-white c-h-58">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-						<button type="button" class="btn btn-dark c-fill-up" id="">크리테리아 그래프</button>
+						<button type="button" class="btn btn-dark c-fill-up" onclick="$.goCriteriaBoard(${studentSeq });" id="">크리테리아 그래프</button>
 					</div>
 				</div>
 			</div>
@@ -75,10 +75,10 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="card shadow mb-4">
-				<a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+				<a href="#collapseCardCurriculurm" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardCurriculurm">
 					<h6 class="m-0 font-weight-bold text-primary">커리큘럼</h6>
 				</a>
-				<div class="collapse show" id="collapseCardExample">
+				<div class="collapse show" id="collapseCardCurriculurm">
 					<input type="hidden" id="studentSeq" name="studentSeq" value="${studentSeq }">
 					<div class="card-body">
 						<div class="row flex-nowrap align-items-end contents-over-scroll" id="curriculumBoard">
@@ -89,9 +89,62 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card shadow mb-4">
+				<a href="#collapseCardDomainChart" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="#collapseCardDomainChart">
+					<h6 class="m-0 font-weight-bold text-primary">영역별 발달지표</h6>
+				</a>
+				<div class="collapse show" id="collapseCardDomainChart">
+					<div class="card-body">
+						<div class="c-row" id="domainChartLabel" style="overflow: auto;">
+							<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+								<canvas id="domainChart"></canvas>
+							</div>
+						</div>
+						<div class="c-row" id="domainEmptyLabel" style="display:none;">
+							<span class="p-4">설정된 데이터가 없습니다.</span>
+						</div>
+						<div class="c-row c-cr">
+							<a class="btn btn-primary" data-toggle="modal" data-target="#datePickerModal">그래프 불러오기</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!-- modal -->
 	<jsp:include page="/WEB-INF/views/pgb/pgbEditModal.jsp"/>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="datePickerModal" tabindex="-1" role="dialog" aria-labelledby="datePickerModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="datePickerModalLabel">그래프 불러오기</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="datePickerModalBody">
+					<div class="c-row c-cb mb-3">
+						<p class="m-0">불러올 날짜를 선택하세요. (최대 5개)</p>
+						<button type="button" class="btn btn-outline-purple btn-sm m-0" name="datePickAddBtn">
+							<i class="fas fa-plus"></i>
+							<span>추가</span>
+						</button>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary" id="saveDatePicker">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <script src="../script/dct/dctStudentDetail.js"></script>
+<script src="../script/dct/domainChart.js"></script>
