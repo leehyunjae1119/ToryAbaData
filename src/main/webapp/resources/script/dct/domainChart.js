@@ -83,7 +83,7 @@ $(document).ready(function () {
             		_dc_setDatasets(res.dataList);
             		_dc_setConfig();
             		
-            		_dc_setChartWidth();
+//            		_dc_setChartWidth();
             		_dc_createChart("domainChart");
             		
             		$("#domainChartLabel").show();

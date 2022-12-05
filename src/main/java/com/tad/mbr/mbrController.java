@@ -87,4 +87,21 @@ public class mbrController {
 		return json;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/mbrMemberPwReset.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String mbrMemberPwReset(HttpServletRequest request, HttpServletResponse response, Model model, mbrVO mbrVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = mbrService.mbrMemberPwReset(mbrVO);
+		
+		resultMap.put("dataList", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
 }

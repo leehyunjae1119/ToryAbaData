@@ -27,7 +27,7 @@
  				#{memberName },
  				#{memberEmail },
  				#{memberCp },
- 				null,
+ 				'level3',
  				'N'
  			)
  	</select>

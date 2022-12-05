@@ -35,7 +35,7 @@
 						<col width="10%" />
 						<col width="10%" />
 						<col width="10%" />
-<!-- 						<col width="10%" /> -->
+						<col width="10%" data-auth="level1" />
 					</colgroup>
 					<thead>
 <!-- 								번호 아이디 이름 이메일 연락처 권한레벨 승인유무 가입일자 -->
@@ -47,28 +47,10 @@
 							<th scope="col">TEL</th>
 							<th scope="col">Level</th>
 							<th scope="col">Approval</th>
-<!-- 							<th scope="col">Sign-up Date</th> -->
+							<th scope="col" data-auth="level1">PW Reset</th>
 						</tr>
 					</thead>
 					<tbody id="memberTableBody">
-						<tr>
-							<th scope="row" class="text-center">1</th>
-							<td>danepo91</td>
-							<td>이현재</td>
-							<td>danepo12@naver.com</td>
-							<td>01045192917</td>
-							<td>
-								<select>
-									<option>LEVEL1</option>
-									<option>LEVEL2</option>
-									<option>LEVEL3</option>
-									<option>MASTER</option>
-								</select>
-							</td>
-							<td>
-								<input type="checkbox" class="approvalYnToggle" data-toggle="toggle" data-size="sm" onchange="">
-							</td>
-						</tr>
 					</tbody>
 				</table>
 			</div>

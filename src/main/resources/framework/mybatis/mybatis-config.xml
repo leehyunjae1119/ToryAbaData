@@ -12,6 +12,7 @@
 		<typeAlias type="com.tad.dct.vo.dctVO" alias="dctVo" />
 		<typeAlias type="com.tad.dct.vo.dctChartVO" alias="dctChartVo" />
 		<typeAlias type="com.tad.mbr.vo.mbrVO" alias="mbrVo" />
+		<typeAlias type="com.tad.ntc.vo.ntcVO" alias="ntcVo" />
 		<typeAlias type="com.tad.crc.vo.crcVO" alias="crcVo" />
 		<typeAlias type="com.tad.pgb.vo.pgbVO" alias="pgbVo" />
 		<typeAlias type="com.tad.pgb.vo.pgbDtoVO" alias="pgbDtoVo" />

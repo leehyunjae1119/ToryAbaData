@@ -33,4 +33,10 @@ public class mbrDaoImpl implements mbrDao {
 		return result;
 	}
 	
+	@Override
+	public int mbrMemberPwReset(mbrVO mbrVO) throws Exception {
+		int result = sqlSession.update(namespace + "mbrMemberPwReset", mbrVO);
+		return result;
+	}
+	
 }

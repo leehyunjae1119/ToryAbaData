@@ -33,7 +33,7 @@
 <!-- 				</a> -->
 				<a class="dropdown-item" href="../mbr/memberBoard">
 					<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>
-					Member Approval
+					Member Management
 				</a>
 				<a class="dropdown-item" href="javascript:void(0);">
 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>

@@ -11,4 +11,6 @@ public interface mbrService {
 	public int mbrApprovalYnUpdate(mbrVO mbrVO) throws Exception;
 	
 	public int mbrMemberAuthCdUpdate(mbrVO mbrVO) throws Exception;
+	
+	public int mbrMemberPwReset(mbrVO mbrVO) throws Exception;
 }

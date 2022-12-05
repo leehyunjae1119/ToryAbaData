@@ -11,6 +11,7 @@
 				  FROM tb_member tm
 				     , (SELECT @ROWNUM := 0 ) rn
 				 WHERE 1=1
+				   AND member_auth_cd != 'master'
 				 <if test="searchText1 != null and searchText1 != ''">
 				   AND (
 					     	member_id LIKE CONCAT('%',#{searchText1},'%')
@@ -34,6 +35,12 @@
 	<update id="mbrMemberAuthCdUpdate" parameterType="mbrVo">
 		UPDATE tb_member 
 		   SET member_auth_cd = #{memberAuthCd }
+		 WHERE member_seq = #{memberSeq }
+	</update>
+	
+	<update id="mbrMemberPwReset" parameterType="mbrVo">
+		UPDATE tb_member 
+		   SET member_pw = 'toryABA123!'
 		 WHERE member_seq = #{memberSeq }
 	</update>
 	

@@ -111,10 +111,10 @@ $(document).ready(function () {
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.domainSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
 			 + '	<td onclick="$.onclickDomainItem(this)" class="crcName">'+ data.domainName +'</td>'
-			 + '	<td>'
+			 + '	<td data-auth="level1">'
 			 + '		<input type="checkbox" class="useYnToggle" data-toggle="toggle" data-size="sm" onchange="$.useYnToggleChange(this);" '+ flag +'>'
 			 + '	</td>'
-			 + '	<td>'
+			 + '	<td data-auth="level1">'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openDomainUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'
 			 + '		</a>'
@@ -139,6 +139,8 @@ $(document).ready(function () {
             	$("#domainTableBody").empty();
             	$.makeDomainDataRow(res.dataList);
             	$('.useYnToggle').bootstrapToggle();
+            	
+            	_checkAuth();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")

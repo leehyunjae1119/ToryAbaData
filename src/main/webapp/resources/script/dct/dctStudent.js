@@ -34,6 +34,8 @@ $(document).ready(function () {
             success : function(res){
             	$("#studentBoard").empty();
             	$.makeStudentCard(res.dataList);
+            	
+            	_checkAuth();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -60,8 +62,8 @@ $(document).ready(function () {
 			+ '</div>'
 			+ '</div>'
 			+ '<div class="custom-card-link">'
-			+ '<a href="javascript:void(0);" class="card-link" onclick="$.openUpdateModal(\''+data.studentSeq+'\');">수정</a>'
-			+ '<a href="javascript:void(0);" class="card-link" onclick="$.onclickStudentRemove(\''+data.studentSeq+'\');">삭제</a>'
+			+ '<a href="javascript:void(0);" class="card-link" data-auth="level2" onclick="$.openUpdateModal(\''+data.studentSeq+'\');">수정</a>'
+			+ '<a href="javascript:void(0);" class="card-link" data-auth="level2" onclick="$.onclickStudentRemove(\''+data.studentSeq+'\');">삭제</a>'
 			+ '</div>'
 			+ '</div>'
 			+ '</div>';
@@ -69,7 +71,7 @@ $(document).ready(function () {
 	};
 	
 	$.makeAddBtn = function() {
-		var html = '<div class="col-xl-3 col-md-6 mb-4">'
+		var html = '<div class="col-xl-3 col-md-6 mb-4" data-auth="level2">'
 				 + '<div class="card border-dashed-line shadow h-100 py-2 align-items-center justify-content-center" id="studentAddBtn" onclick="$.openSaveModal();" style="min-height: 9rem;">'
 				 + '<i class="fas fa-plus-square fa-2x"></i>'
 				 + '</div>'

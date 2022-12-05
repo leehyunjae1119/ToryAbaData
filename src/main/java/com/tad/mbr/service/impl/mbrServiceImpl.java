@@ -33,4 +33,9 @@ public class mbrServiceImpl implements mbrService {
 	public int mbrMemberAuthCdUpdate(mbrVO mbrVO) throws Exception {
 		return mbrDao.mbrMemberAuthCdUpdate(mbrVO);
 	}
+	
+	@Override
+	public int mbrMemberPwReset(mbrVO mbrVO) throws Exception {
+		return mbrDao.mbrMemberPwReset(mbrVO);
+	}
 }

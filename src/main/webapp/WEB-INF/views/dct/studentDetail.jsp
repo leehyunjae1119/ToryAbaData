@@ -99,7 +99,7 @@
 				<div class="collapse show" id="collapseCardDomainChart">
 					<div class="card-body">
 						<div class="c-row" id="domainChartLabel" style="overflow: auto;">
-							<div class="chart-container" style="position: relative; height:40vh; width:80vw">
+							<div class="chart-container" style="position: relative; height:50vh; width:80vw">
 								<canvas id="domainChart"></canvas>
 							</div>
 						</div>

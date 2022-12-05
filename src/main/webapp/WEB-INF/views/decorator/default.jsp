@@ -35,21 +35,34 @@
 		SessionManager s = new SessionManager();
 		lgnVO vo = (lgnVO) s.getSession(request);
 		
+		int authSeq = 0;
 		String authId = "";
 		String authName = "";
+		String authCd = "";
 		
 		if(vo == null){
 			response.sendRedirect("../lgn/login");
 		} else {
+			authSeq = vo.getMemberSeq();
 			authId = vo.getMemberId();
 			authName = vo.getMemberName();
+			authCd = vo.getMemberAuthCd();
 		}
 	%>
 
+<c:set var="authSeq" value="<%=authSeq %>" scope="request" />
 <c:set var="authId" value="<%=authId %>" scope="request" />
 <c:set var="authName" value="<%=authName %>" scope="request" />
+<c:set var="authCd" value="<%=authCd %>" scope="request" />
 
 </head>
+
+<script type="text/javascript">
+	var authSeq = "${authSeq}";
+	var authName = "${authName}";
+	var authCd = "${authCd}";
+</script> 
+
 <body>
 	<!-- Page Wrapper -->
 	<div id="wrapper">

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.ntc.dao.ntcDao">
+	
+	<select id="ntcNoticeListSelect" parameterType="ntcVo" resultType="ntcVo">
+	
+		SELECT * 
+		  FROM (
+				SELECT *
+				  FROM (
+				  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+							 , tn.notice_seq 
+							 , tn.notice_title 
+							 , tn.notice_contents 
+							 , tn.notice_reg_mbr_seq
+							 , (SELECT member_name FROM tb_member tm WHERE tm.member_seq = tn.notice_reg_mbr_seq) AS member_name
+							 , tn.notice_reg_dt 
+						  FROM tb_notice tn
+						     , (SELECT @ROWNUM := 0 ) rn
+						 WHERE 1=1
+						 <if test="searchText1 != null and searchText1 != ''">
+						   AND (
+							     	notice_title LIKE CONCAT('%',#{searchText1},'%')
+							     OR notice_contents LIKE CONCAT('%',#{searchText1},'%')
+						       ) 
+						 </if>
+				  	   ) sub
+				 ORDER BY sub.rownum DESC
+		) main
+		LIMIT #{startNum}, 10
+
+	</select>
+	
+	<select id="ntcNoticeListSelectCnt" parameterType="ntcVo" resultType="ntcVo">
+	
+		SELECT CASE WHEN (COUNT(*) % 10) = 0
+			THEN TRUNCATE(COUNT(*) / 10, 0)
+			ELSE TRUNCATE(COUNT(*) / 10, 0) + 1 END AS page_cnt
+		FROM tb_notice tn
+		WHERE 1=1
+		<if test="searchText1 != null and searchText1 != ''">
+		   AND (
+			     	notice_title LIKE CONCAT('%',#{searchText1},'%')
+			     OR notice_contents LIKE CONCAT('%',#{searchText1},'%')
+		       ) 
+		 </if>
+	</select>
+	
+	<select id="ntcNoticeOneSelect" parameterType="ntcVo" resultType="ntcVo">
+	
+		SELECT notice_seq
+			 , notice_title
+			 , notice_contents
+			 , notice_reg_mbr_seq
+			 , (SELECT member_name FROM tb_member tm WHERE tm.member_seq = tn.notice_reg_mbr_seq) AS member_name
+			 , notice_reg_dt
+		  FROM tb_notice tn
+		 WHERE notice_seq = #{noticeSeq }
+	</select>
+	
+	<insert id="ntcNoticeInsert" parameterType="ntcVo">
+	
+		INSERT INTO tb_notice (notice_title, notice_contents, notice_reg_mbr_seq) 
+		VALUES(#{noticeTitle }, #{noticeContents }, #{noticeRegMbrSeq })
+	</insert>
+	
+	<update id="ntcNoticeUpdate" parameterType="ntcVo">
+	
+		UPDATE tb_notice SET notice_title = #{noticeTitle }, notice_contents = #{noticeContents }
+		WHERE notice_seq = #{noticeSeq }
+	</update>
+	
+	<delete id="ntcNoticeDelete" parameterType="ntcVo">
+	
+		DELETE FROM tb_notice 
+		WHERE notice_seq = #{noticeSeq }
+	</delete>
+</mapper>
+		
+		
+		

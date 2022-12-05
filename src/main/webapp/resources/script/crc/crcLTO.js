@@ -104,7 +104,7 @@ $(document).ready(function () {
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
 			 + '	<td onclick="$.onclickLTOItem(this);" class="crcName">'+ data.ltoName +'</td>'
 //			 + '	<td onclick="" class="crcName">'+ data.ltoName +'</td>'
-			 + '	<td>'
+			 + '	<td data-auth="level1">'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openLTOUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'
 			 + '		</a>'
@@ -136,6 +136,8 @@ $(document).ready(function () {
             	$.makeLTODataRow(res.dataList);
             	
             	$("#collapseCardLTO").collapse('show');
+            	
+            	_checkAuth();
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")

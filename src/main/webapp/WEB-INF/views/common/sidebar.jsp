@@ -30,6 +30,11 @@
 				<span>Curriculum</span>
 			</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" id="_ntcMenu" >
+				<span>Notice</span>
+			</a>
+		</li>
 <!-- 		<li class="nav-item"> -->
 <!-- 			<a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseTwo" -->
 <!-- 				aria-expanded="true" aria-controls="collapseTwo"> -->

@@ -13,13 +13,13 @@
 								<colgroup>
 									<col width="10%" />
 									<col width="75%" />
-									<col width="15%" />
+									<col width="15%" data-auth="level1" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col" class="text-center">No</th>
 										<th scope="col">LTO 이름</th>
-										<th scope="col">설정</th>
+										<th scope="col" data-auth="level1">설정</th>
 									</tr>
 								</thead>
 								<tbody id="LTOTablemBody">
@@ -27,7 +27,7 @@
 							</table>
 						</div>
 						<div class="d-flex flex-row align-items-center justify-content-end">
-							<a href="#" class="btn btn-secondary mb-3 mr-3" onclick="$.openLTOSaveModal();">
+							<a href="#" class="btn btn-secondary mb-3 mr-3" onclick="$.openLTOSaveModal();" data-auth="level1">
 								<span class="icon">
 									<i class="fas fa-plus"></i>
 									<span class="text pl-2">LTO 추가</span>

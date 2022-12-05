@@ -106,7 +106,7 @@ $(document).ready(function () {
 //			 + '	<td>'+ data.stoArrStdPst +'%</td>'
 //			 + '	<td>'+ data.stoTrialCnt +'</td>'
 //			 + '	<td>'+ data.stoArrStdCnt +'</td>'
-			 + '	<td>'
+			 + '	<td data-auth="level1">'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openSTOUpdateModal(this);">' 
 			 + '			<i class="fas fa-edit"></i>'
 			 + '		</a>'
@@ -134,6 +134,8 @@ $(document).ready(function () {
             	console.log(res.dataList);
             	$("#STOTableBody").empty();
             	$.makeSTODataRow(res.dataList);
+            	
+            	_checkAuth();
             	
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
