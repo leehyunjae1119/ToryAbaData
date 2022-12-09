@@ -1,5 +1,10 @@
 $(document).ready(function () {
-	 $('[data-toggle="tooltip"]').tooltip();
+	
+	$.openReport = function() {
+		$("#reportModal").modal("show");
+	};
+	
+	$('[data-toggle="tooltip"]').tooltip();
 	
 	var isToggleProfile = false;
 	
@@ -42,6 +47,7 @@ $(document).ready(function () {
 	};
 	
 	$.makeCurriculumBoard = function(dataList) {
+		
 		$("#curriculumBoard").empty();
 		dataList.forEach(function(data) {
 			var domainScsClass = data[0].domainStatus == 'CMP' ? 'bg-success text-white' : '';

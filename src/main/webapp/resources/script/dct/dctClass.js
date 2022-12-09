@@ -101,7 +101,7 @@ $(document).ready(function () {
 	};
 	
 	$.onValidation = function(className) {
-		if(!className){
+		if(!nullCheck(className)){
 			alert("센터 이름을 입력하세요.");
 			$("#className").focus();
 			return true;

@@ -98,7 +98,7 @@ $(document).ready(function () {
 	};
 	
 	$.onValidation = function(centerName) {
-		if(!centerName){
+		if(!nullCheck(centerName)){
 			alert("센터 이름을 입력하세요.");
 			$("#centerName").focus();
 			return true;

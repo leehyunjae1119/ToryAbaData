@@ -130,25 +130,51 @@
 	</select>
 	
 	<select id="dctCompletionListSelect" parameterType="dctVo" resultType="dctVo">
-		SELECT *
-		  FROM (
-				SELECT @ROWNUM := @ROWNUM + 1 AS rownum
-				     , td.domain_name AS domain_name
-				     , tl.lto_name AS lto_name
-				     , ts.sto_name AS sto_name
-				     , ts.sto_arr_dt AS sto_arr_dt
-				  FROM (SELECT @ROWNUM := 0 ) rn, tb_domain td 
-				  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq 
-				  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq 
-				 WHERE td.student_seq = #{studentSeq }
-				   AND ts.sto_arr_yn = 'Y'
-				   <if test="startDt != null and startDt !=''">
-				    	<if test="endDt != null and endDt !=''">
-					   	AND ( date(ts.sto_arr_dt) between #{startDt } and #{endDt } )
-					   </if>
+		SELECT * 
+	  	  FROM (
+				SELECT *
+				  FROM (
+						SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+						     , td.domain_name AS domain_name
+						     , tl.lto_name AS lto_name
+						     , ts.sto_name AS sto_name
+						     , ts.sto_arr_dt AS sto_arr_dt
+						  FROM (SELECT @ROWNUM := 0 ) rn, tb_domain td 
+						  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq 
+						  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq 
+						 WHERE td.student_seq = #{studentSeq }
+						   AND ts.sto_arr_yn = 'Y'
+						   <if test="startDt != null and startDt !=''">
+						    	<if test="endDt != null and endDt !=''">
+							   	AND ( date(ts.sto_arr_dt) between #{startDt } and #{endDt } )
+							   </if>
+						   </if>
+						   <if test="domainSeq != null and domainSeq !=''">
+						   	AND td.domain_seq = #{domainSeq}
+						   </if>
+						) sub
+				 ORDER BY sub.rownum DESC
+			) main
+			LIMIT #{startNum}, 10
+	</select>
+	
+	<select id="dctCompletionListSelectCnt" parameterType="dctVo" resultType="dctVo">
+			SELECT CASE WHEN (COUNT(*) % 10) = 0
+					THEN TRUNCATE(COUNT(*) / 10, 0)
+					ELSE TRUNCATE(COUNT(*) / 10, 0) + 1 END AS page_cnt
+			  FROM tb_domain td 
+			  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq 
+			  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq 
+			 WHERE td.student_seq = #{studentSeq }
+			   AND ts.sto_arr_yn = 'Y'
+			   <if test="startDt != null and startDt !=''">
+			    	<if test="endDt != null and endDt !=''">
+				   	AND ( date(ts.sto_arr_dt) between #{startDt } and #{endDt } )
 				   </if>
-				) sub
-		 ORDER BY sub.rownum DESC
+			   </if>
+			   <if test="domainSeq != null and domainSeq !=''">
+			   	AND td.domain_seq = #{domainSeq}
+			   </if>
 	</select>
 	
 	<select id="dctRunUnitListSelect" parameterType="dctChartVo" resultType="dctChartVo">
@@ -290,5 +316,45 @@
 		   AND td.del_yn = 'N'
 		 GROUP BY td.domain_seq
 		 ORDER BY td.domain_seq DESC
+	</select>
+	
+	<select id="dctDomainListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT td.domain_seq ,
+		       td.domain_name ,
+		       td.domain_status
+		  FROM tb_domain td
+		 WHERE td.student_seq = #{studentSeq }
+		   AND td.del_yn = 'N'
+		 ORDER BY td.domain_seq DESC
+	</select>
+	<select id="dctLtoListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT td.domain_seq ,
+		       td.domain_name ,
+		       td.domain_status ,
+		       tl.lto_seq ,
+		       tl.lto_name ,
+		       tl.lto_status
+		  FROM tb_domain td
+		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+		 WHERE td.student_seq = #{studentSeq }
+		   AND td.del_yn = 'N'
+		 ORDER BY td.domain_seq DESC, tl.lto_seq DESC
+	</select>
+	<select id="dctStoListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT td.domain_seq ,
+		       td.domain_name ,
+		       td.domain_status ,
+		       tl.lto_seq ,
+		       tl.lto_name ,
+		       tl.lto_status,
+		       ts.sto_seq ,
+		       ts.sto_name ,
+		       ts.sto_status 
+		  FROM tb_domain td
+		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+		  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq  AND ts.del_yn = 'N'
+		 WHERE td.student_seq = #{studentSeq }
+		   AND td.del_yn = 'N'
+		 ORDER BY td.domain_seq DESC, tl.lto_seq DESC, ts.sto_seq DESC
 	</select>
 </mapper>

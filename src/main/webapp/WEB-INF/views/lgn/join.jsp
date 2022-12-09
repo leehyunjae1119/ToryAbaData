@@ -82,7 +82,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="../js/sb-admin-2.min.js"></script>
+	<script src="../script/common/common.js"></script>
 	<script src="../script/lgn/lgnMain.js"></script>
-
 </body>
 </html>

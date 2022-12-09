@@ -146,6 +146,14 @@ public class dctDaoImpl implements dctDao {
 		
 		return resultList;
 	}
+	
+	@Override
+	public dctVO dctCompletionListSelectCnt(dctVO dctVO) throws Exception {
+		
+		dctVO result = sqlSession.selectOne(namespace + "dctCompletionListSelectCnt", dctVO);
+		
+		return result;
+	}
 
 	@Override
 	public List<dctChartVO> dctRunUnitListSelect(dctChartVO dctChartVO) throws Exception {
@@ -199,6 +207,30 @@ public class dctDaoImpl implements dctDao {
 	public List<dctChartVO> dctDomainChartDataSelect(dctChartVO dctChartVO) throws Exception {
 		
 		List<dctChartVO> resultList = sqlSession.selectList(namespace + "dctDomainChartDataSelect", dctChartVO);
+		
+		return resultList;
+	}
+
+	@Override
+	public List<dctVO> dctDomainListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctDomainListSelect", dctVO);
+		
+		return resultList;
+	}
+	
+	@Override
+	public List<dctVO> dctLtoListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctLtoListSelect", dctVO);
+		
+		return resultList;
+	}
+	
+	@Override
+	public List<dctVO> dctStoListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctStoListSelect", dctVO);
 		
 		return resultList;
 	}

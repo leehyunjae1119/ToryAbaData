@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="container-fluid">
-
+	<input type="hidden" id="pageNum" value="1"/>
+	<input type="hidden" id="studentSeq" value="${studentData.studentSeq }"/>
 	<h1 class="h3 mb-0 text-gray-800 mb-4">Completion List</h1>
 	<p class="mb-2">${studentData.centerName } > ${studentData.className } > ${studentData.studentName } </p>
 
@@ -10,6 +11,9 @@
 		<div class="input-group mr-3">
 			<select class="form-control c-w-150" id="domainSeq" name="domainSeq" style="width: 15rem;">
 				<option value="" selected>발달영역 선택</option>
+				<c:forEach var="domain" items="${domainList }" >
+					<option value="${domain.domainSeq }">${domain.domainName }</option>
+				</c:forEach>
 			</select>
 		</div>
 		<div class="c-input-group mr-0">
@@ -21,7 +25,7 @@
 				<input type="date" class="form-control" id="endDt" name="endDt" min="1900-01-01" max="9999-12-31">
 			</div>
 			<div class="input-group mr-0">
-				<button class="btn btn-primary" type="button" onclick="$.goSearch();">
+				<button class="btn btn-primary" type="button" onclick="$.goSearch(1);">
 					<i class="fas fa-search fa-sm"></i>
 					<span>검색</span>
 				</button>
@@ -53,44 +57,16 @@
 							<th scope="col">준거도달일자</th>
 						</tr>
 					</thead>
-					<tbody>
-						<c:forEach items="${dataList }" var="item" >
-							<tr class="tr-vertical-align">
-								<th scope="row" class="text-center">${item.rownum }</th>
-								<td>${item.domainName }</td>
-								<td>${item.ltoName }</td>
-								<td>${item.stoName }</td>
-								<td>${item.stoArrDt }</td>
-							</tr>
-						</c:forEach>
+					<tbody id="ncompletionTableBody">
 					</tbody>
 				</table>
 			</div>
+			<nav aria-label="Page navigation" id="cmpPaging">
+			</nav>
 		</div>
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled">
-					<a class="page-link" href="#" tabindex="-1">
-						<span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-					</a>
-				</li>
-				
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				
-				<li class="page-item">
-					<a class="page-link" href="#">
-						<span aria-hidden="true">&raquo;</span>
-						<span class="sr-only">Next</span>
-					</a>
-				</li>
-			</ul>
-		</nav>
 	</div>
 </div>
 
 
-<!-- <script src="../script/mbr/mbrMain.js"></script> -->
+<script src="../script/dct/dctCompletion.js"></script>
 

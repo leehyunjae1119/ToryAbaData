@@ -16,19 +16,19 @@
 				<div class="card-body">
 					<div class="pb-2">
 						<span class="small text-warning">이름</span></br>
-						<span class="">${date.studentName }</span>
+						<span class="profileName">${date.studentName }</span>
 					</div>
 					<div class="pb-2">
 						<span class="small text-warning">생년월일</span></br>
-						<span class="">${date.studentBirth }</span>
+						<span class="profileBirth">${date.studentBirth }</span>
 					</div>
 					<div class="pb-2">
 						<span class="small text-warning">프로그램 기간</span></br>
-						<span class="">${date.studentStartDt } ~ ${date.studentEndDt }</span>
+						<span class="profileProgramDt">${date.studentStartDt } ~ ${date.studentEndDt }</span>
 					</div>
 					<div class="pb-2">
 						<span class="small text-warning">특징</span></br>
-						<span class="">${date.studentEtc }</span>
+						<span class="profileEtc">${date.studentEtc }</span>
 					</div>
 				</div>
 			</div>
@@ -65,7 +65,7 @@
 			<div class="pb-3">
 				<div class="card bg-dark text-white c-h-58">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-						<button type="button" class="btn btn-dark c-fill-up" id="">보고서</button>
+						<button type="button" class="btn btn-dark c-fill-up" onclick="$.openReport(${studentSeq });" id="">보고서</button>
 					</div>
 				</div>
 			</div>
@@ -144,6 +144,9 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal -->
+	<jsp:include page="/WEB-INF/views/dct/reportModal.jsp"/>
 </div>
 
 <script src="../script/dct/dctStudentDetail.js"></script>

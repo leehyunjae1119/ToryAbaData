@@ -15,7 +15,7 @@ $(document).ready(function () {
 		
 		var ltoName = $("#ltoName").val();
 		
-		if(!ltoName){
+		if(!nullCheck(ltoName)){
 			alert("LTO 이름을 입력하세요.");
 			$("#ltoName").focus();
 			return true;

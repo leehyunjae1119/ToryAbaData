@@ -15,7 +15,7 @@ $(document).ready(function () {
 		
 		var stoName = $("#stoName").val();
 		
-		if(!stoName){
+		if(!nullCheck(stoName)){
 			alert("STO 이름을 입력하세요.");
 			$("#stoName").focus();
 			return true;

@@ -133,31 +133,31 @@ $(document).ready(function () {
 	};
 	
 	$.onValidation = function(studentName) {
-		if(!$("#studentName").val()){
+		if(!nullCheck($("#studentName").val())){
 			alert("아동 이름을 입력하세요.");
 			$("#studentName").focus();
 			return true;
 		}
 		
-		if(!$("#studentBirth").val()){
+		if(!nullCheck($("#studentBirth").val())){
 			alert("아동 생년월일을 입력하세요.");
 			$("#studentBirth").focus();
 			return true;
 		}
 		
-		if(!$("#studentEtc").val()){
+		if(!nullCheck($("#studentEtc").val())){
 			alert("아동 특징을 입력하세요.");
 			$("#studentEtc").focus();
 			return true;
 		}
 		
-		if(!$("#studentStartDt").val()){
+		if(!nullCheck($("#studentStartDt").val())){
 			alert("프로그램 시작일을 입력하세요.");
 			$("#studentStartDt").focus();
 			return true;
 		}
 		
-		if(!$("#studentEndDt").val()){
+		if(!nullCheck($("#studentEndDt").val())){
 			alert("프로그램 종료일을 입력하세요.");
 			$("#studentEndDt").focus();
 			return true;

@@ -350,6 +350,7 @@ $(document).ready(function () {
 			alert("도달 기준 횟수를 입력하세요.");
 			return;
 		}
+		console.log($("input[name=stoName]").val().trim())
 		if($("input[name=stoName]").val().trim() == ""){
 			$("input[name=stoName]").focus();
 			alert("STO 이름을 입력하세요.");

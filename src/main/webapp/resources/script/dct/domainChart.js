@@ -75,7 +75,6 @@ $(document).ready(function () {
             url : "/dct/dctDomainChartDataSelect.ajax",
             data : params,
             success : function(res){
-            	console.log(res.dataList);
             	if(res.dataList.length > 0){
             		_dc_dataList = res.dataList;
             		
@@ -151,6 +150,7 @@ var NAMED_COLORS = [
 ];
 
 var domainChart;
+var domainChart2;
 var _dc_dataList = new Array();
 var _dc_labels = new Array();
 var _dc_datasets = new Array();
@@ -200,7 +200,7 @@ var _dc_config = {
 			
 				},
 				y: {
-					stacked: true,
+					stacked: false,
 					title : {
 						display: true,
 						text: 'LTO Unit',
@@ -274,8 +274,6 @@ function _dc_setDatasets(dataList) {
 function _dc_setConfig() {
 	_dc_config.data.labels = _dc_labels;
 	_dc_config.data.datasets = _dc_datasets;
-	
-	console.log(_dc_config);
 };
 
 function _dc_setChartWidth() {
@@ -291,4 +289,13 @@ function _dc_createChart(id) {
 	}
 	$("#"+id).attr("width", _dc_chartWidth)
 	domainChart = new Chart(ctx, _dc_config);
+};
+function _dc_createChart2(id) {
+	var ctx = document.getElementById(id);
+	
+	if(Chart.getChart(id)){
+		domainChart2.destroy();
+	}
+	$("#"+id).attr("width", _dc_chartWidth)
+	domainChart2 = new Chart(ctx, _dc_config);
 };

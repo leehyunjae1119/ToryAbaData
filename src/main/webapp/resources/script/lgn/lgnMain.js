@@ -28,13 +28,13 @@ $(document).ready(function () {
 	};
 	
 	$.onLoginValidation = function(id, pw) {
-		if(!id){
+		if(!nullCheck(id)){
 			alert("아이디를 입력하세요.");
 			$("#memberId").focus();
 			return true;
 		}
 		
-		if(!pw){
+		if(!nullCheck(pw)){
 			alert("비밀번호를 입력하세요.");
 			$("#memberPw").focus();
 			return true;
@@ -90,7 +90,7 @@ $(document).ready(function () {
 		var emailPattern 	= /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 		var cpPattern 		= /^[0-9]{8,12}$/;
 
-		if(!id){
+		if(!nullCheck(id)){
 			alert("아이디를 입력하세요.");
 			$("#memberId").focus();
 			return true;
@@ -101,7 +101,7 @@ $(document).ready(function () {
 			return true;
 		}
 		
-		if(!pw){
+		if(!nullCheck(pw)){
 			alert("비밀번호를 입력하세요.");
 			$("#memberPw").focus();
 			return true;
@@ -118,13 +118,13 @@ $(document).ready(function () {
 			return true;
 		}
 		
-		if(!name){
+		if(!nullCheck(name)){
 			alert("이름을 입력하세요.");
 			$("#memberName").focus();
 			return true;
 		}
 		
-		if(!cp){
+		if(!nullCheck(cp)){
 			alert("연락처를 입력하세요.");
 			$("#memberCp").focus();
 			return true;
@@ -136,7 +136,7 @@ $(document).ready(function () {
 			return true;
 		}
 
-		if(!email){
+		if(!nullCheck(email)){
 			alert("이메일을 입력하세요.");
 			$("#memberEmail").focus();
 			return true;

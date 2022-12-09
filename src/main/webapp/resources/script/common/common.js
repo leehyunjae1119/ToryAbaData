@@ -7,8 +7,6 @@ function isSideBarToggle() {
 
 function _checkAuth() {
 
-	console.log("memberAuth : " + authCd)
-	
 	if(authCd == "master"){
 		
 	} else if (authCd == "level1") {
@@ -48,6 +46,17 @@ function _pagination(id, pagingObject) {
 
 	$("#"+id).empty();
 	$("#"+id).append(pagingHtml);
+}
+
+function nullCheck(str) {
+	if(str){
+		if(str.replace(/ /g, '') === ''){
+			return false;
+		} else {
+			return true;
+		}
+	}
+	return false;
 }
 
 $(document).ready(function () {
@@ -93,7 +102,6 @@ $(document).ready(function () {
             success : function(res){
             	if(res.dataList){
             		res.dataList.forEach(function(item) {
-            			console.log(item.text);
             			$.makeComboBoxOption(id, item.text, item.value, value);
 					});
             	}
@@ -104,7 +112,6 @@ $(document).ready(function () {
 	};
 	
 	$.makeComboBoxOption = function(id, text, value, selected) {
-		console.log(text);
 		var opt = "";
 		
 		if(text == "선택"){
@@ -182,6 +189,7 @@ $(document).ready(function () {
 		return variable;
 	}
 	
+
 });
 
 

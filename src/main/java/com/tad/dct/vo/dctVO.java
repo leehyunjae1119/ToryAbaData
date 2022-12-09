@@ -1,12 +1,15 @@
 package com.tad.dct.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.tad.common.vo.pagingVO;
+
 
 @Component(value="dctVO")
-public class dctVO implements Serializable {
+public class dctVO extends pagingVO implements Serializable {
 	
 	/**
 	 * 
@@ -38,11 +41,16 @@ public class dctVO implements Serializable {
     private String ltoStatus;
     
     private int rownum; 
+    private int stoSeq; 
     private String stoName; 
+    private String stoStatus; 
     private String stoArrDt; 
     
     private String startDt;
     private String endDt;
+    
+    private List<dctVO> ltoList;
+    private List<dctVO> stoList;
 	
 	public int getMemberSeq() {
 		return memberSeq;
@@ -188,4 +196,29 @@ public class dctVO implements Serializable {
 	public void setEndDt(String endDt) {
 		this.endDt = endDt;
 	}
+	public int getStoSeq() {
+		return stoSeq;
+	}
+	public void setStoSeq(int stoSeq) {
+		this.stoSeq = stoSeq;
+	}
+	public String getStoStatus() {
+		return stoStatus;
+	}
+	public void setStoStatus(String stoStatus) {
+		this.stoStatus = stoStatus;
+	}
+	public List<dctVO> getLtoList() {
+		return ltoList;
+	}
+	public void setLtoList(List<dctVO> ltoList) {
+		this.ltoList = ltoList;
+	}
+	public List<dctVO> getStoList() {
+		return stoList;
+	}
+	public void setStoList(List<dctVO> stoList) {
+		this.stoList = stoList;
+	}
+	
 }

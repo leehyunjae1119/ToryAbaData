@@ -15,7 +15,7 @@ $(document).ready(function () {
 		
 		var domainName = $("#domainName").val();
 		
-		if(!domainName){
+		if(!nullCheck(domainName)){
 			alert("발달영역 이름을 입력하세요.");
 			$("#domainName").focus();
 			return true;

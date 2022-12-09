@@ -327,15 +327,145 @@ tr.c-tr-hover:hover {
 }
 
 .c-form-control {
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #6e707e;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #d1d3e2;
-  border-radius: 0.35rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+	height: calc(1.5em + 0.75rem + 2px);
+	padding: 0.375rem 0.75rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	color: #6e707e;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #d1d3e2;
+	border-radius: 0.35rem;
+	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.c-modal-header {
+    border-top-left-radius: calc(0.3rem - 1px);
+    border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.tablist {
+	display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.tablist .tablist-item{
+    width: 50%;
+    text-align: center;
+    padding: 1rem;
+    background: #f2f2f2;
+    border: 1px solid #e3e6f0;
+    cursor: pointer;
+}
+
+.tablist .tablist-item:hover{
+	background-color: #d8b37d;
+	border-color: #d8b37d;
+}
+
+.tablist .tablist-item.active:hover{
+	background-color: rgb(0, 0, 0, 0);
+	border-color: rgb(0, 0, 0, 0);
+}
+
+.tablist .tablist-item:hover > a{
+	color: #ffffff;
+	cursor: pointer;
+}
+
+.tablist .tablist-item.active > a{
+	color: #636363;
+	cursor: default;
+}
+
+.tablist .tablist-item.active{
+	background: #ffffff;
+	border: 0px;
+	cursor: default;
+}
+
+.tablist .tablist-item > a {
+	color: #636363;
+    text-decoration: none;
+}
+
+.report-title {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #000000;
+    margin: 2rem;
+}
+.report-title > span {
+	border: 1px solid;
+    padding: 1rem 10rem;
+}
+
+.report-info {
+	display: flex;
+    justify-content: space-around;
+    font-size: 22px;
+    color: #000000;
+}
+.report-info div {
+	width: 75%;
+}
+.report-info div:last-child {
+	width: 25%;
+}
+.report-info ul {
+	list-style: none;
+	margin: 0px;
+    padding: 0px;
+}
+.report-info ul > li {
+	margin-bottom: 1rem;
+}
+
+.report-table > table th, .report-table > table td{
+    border: 1px solid #000000;
+	font-size: 18px;
+	color: #000000;
+}
+.report-table > table td > input {
+	border: 0px;
+	text-overflow: ellipsis;
+    width: 80%;
+}
+
+.report-tr li, .report-tr div, .report-tr th {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.report-tr th {
+	text-align: center;
+}
+
+.clear-input {
+	border: 0px;
+    text-overflow: ellipsis;
+    width: auto;
+    background-color: rgb(0, 0, 0, 0);
+}
+
+.white-space-nowrap {
+	white-space:nowrap;
+	margin-right: 0.5em;
+}
+
+.explanation {
+	display: inline-block;
+    vertical-align: top;
+	padding: 0px 0px 0px 5px;
+	margin: 0px;
+    border: 0px;
+    width: 85%;
+    resize: none;
+    overflow: hidden
 }

@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tad.common.util.SessionManager;
+import com.tad.common.util.pagingUtil;
+import com.tad.common.vo.pagingVO;
 import com.tad.dct.service.dctService;
 import com.tad.pgb.service.pgbService;
 import com.tad.dct.vo.dctChartVO;
 import com.tad.dct.vo.dctVO;
 import com.tad.lgn.vo.lgnVO;
+import com.tad.ntc.vo.ntcVO;
 import com.tad.pgb.vo.pgbVO;
 
 @Controller
@@ -87,12 +90,34 @@ public class dctController {
 		dctVO.setClassName(data.getClassName());
 		dctVO.setStudentName(data.getStudentName());
 		
-		List<dctVO> dataList = dctService.dctCompletionListSelect(dctVO);
+		List<dctVO> domainList = dctService.dctDomainListSelect(dctVO);
 		
 		model.addAttribute("studentData", dctVO);
-		model.addAttribute("dataList", dataList);
+		model.addAttribute("domainList", domainList);
 		
 		return "/dct/completionBoard";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctCompletionListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctCompletionListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<dctVO> resultList = dctService.dctCompletionListSelect(dctVO);
+		
+		dctVO result = dctService.dctCompletionListSelectCnt(dctVO);
+		
+		pagingVO pagingVO = pagingUtil.pagination(dctVO.getPageNum(), result.getPageCnt());
+		
+		resultMap.put("dataList", resultList);
+		resultMap.put("pagingVO", pagingVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
 	}
 	
 	@RequestMapping(value = "/runUnitBoard", method = RequestMethod.GET)
@@ -130,7 +155,6 @@ public class dctController {
 		dctVO.setClassName(data.getClassName());
 		dctVO.setStudentName(data.getStudentName());
 		
-		System.out.println("asd");
 		List<dctChartVO> domainList = dctService.dctDomainSelect(dctVO);
 		
 		model.addAttribute("studentData", dctVO);
@@ -461,24 +485,20 @@ public class dctController {
 		return json;
 	}
 	
-	/*
-	 * 샘플 ajax
-	 */
 	@ResponseBody
-	@RequestMapping(value = "/sample.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
-	public String sampleAjax(HttpServletRequest request, HttpServletResponse response, Model model/*  VO추가  */) throws Exception {
+	@RequestMapping(value = "/dctReportCrcListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctReportCrcListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
 		
 		String json = "";
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		resultMap.put("sampleData", null);
-		System.out.println("asdasdasd");
+		List<dctVO> dataList = dctService.dctReportCrcListSelect(dctVO);
+		
+		resultMap.put("dataList", dataList);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		
 		return json;
 	}
-		
-	
 }

@@ -124,7 +124,16 @@ public class dctServiceImpl implements dctService {
 
 	@Override
 	public List<dctVO> dctCompletionListSelect(dctVO dctVO) throws Exception {
+		int startNum = 0;
+		
+		startNum = (dctVO.getPageNum() - 1) * 10;
+		dctVO.setStartNum(startNum);
+		
 		return dctDao.dctCompletionListSelect(dctVO);
+	}
+	@Override
+	public dctVO dctCompletionListSelectCnt(dctVO dctVO) throws Exception {
+		return dctDao.dctCompletionListSelectCnt(dctVO);
 	}
 
 	@Override
@@ -139,7 +148,6 @@ public class dctServiceImpl implements dctService {
 	
 	@Override
 	public List<dctChartVO> dctDomainSelect(dctVO dctVO) throws Exception {
-		System.out.println("zxc");
 		return dctDao.dctDomainSelect(dctVO);
 	}
 
@@ -185,6 +193,39 @@ public class dctServiceImpl implements dctService {
 			// TODO: handle exception
 		}
 		return resultList;
+	}
+
+	@Override
+	public List<dctVO> dctReportCrcListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> dtoList = dctDao.dctDomainListSelect(dctVO);
+		List<dctVO> ltoList = dctDao.dctLtoListSelect(dctVO);
+		List<dctVO> stoList = dctDao.dctStoListSelect(dctVO);
+		
+		for(dctVO domainVO : dtoList) {
+			List<dctVO> lList = new ArrayList<dctVO>();
+			
+			for(dctVO ltoVO : ltoList) {
+				List<dctVO> sList = new ArrayList<dctVO>();
+				for(dctVO stoVO : stoList) {
+					if(ltoVO.getLtoSeq() == stoVO.getLtoSeq()) {
+						sList.add(stoVO);
+					}
+				}
+				ltoVO.setStoList(sList);
+				
+				if(domainVO.getDomainSeq() == ltoVO.getDomainSeq()) {
+					lList.add(ltoVO);
+				}
+			}
+			domainVO.setLtoList(lList);
+		}
+		return dtoList;
+	}
+
+	@Override
+	public List<dctVO> dctDomainListSelect(dctVO dctVO) throws Exception {
+		return dctDao.dctDomainListSelect(dctVO);
 	}
 
 }
