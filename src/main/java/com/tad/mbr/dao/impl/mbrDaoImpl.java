@@ -22,6 +22,12 @@ public class mbrDaoImpl implements mbrDao {
 	}
 
 	@Override
+	public mbrVO mbrMemberListSelectCnt(mbrVO mbrVO) throws Exception {
+		mbrVO result = sqlSession.selectOne(namespace + "mbrMemberListSelectCnt", mbrVO);
+		return result;
+	}
+	
+	@Override
 	public int mbrApprovalYnUpdate(mbrVO mbrVO) throws Exception {
 		int result = sqlSession.update(namespace + "mbrApprovalYnUpdate", mbrVO);
 		return result;
@@ -38,5 +44,41 @@ public class mbrDaoImpl implements mbrDao {
 		int result = sqlSession.update(namespace + "mbrMemberPwReset", mbrVO);
 		return result;
 	}
-	
+
+	@Override
+	public mbrVO mbrMemberOneSelect(mbrVO mbrVO) throws Exception {
+		mbrVO result = sqlSession.selectOne(namespace + "mbrMemberOneSelect", mbrVO);
+		return result;
+	}
+
+	@Override
+	public int mbrProfileUpdate(mbrVO mbrVO) throws Exception {
+		int result = sqlSession.update(namespace + "mbrProfileUpdate", mbrVO);
+		return result;
+	}
+
+	@Override
+	public List<mbrVO> teachListSelect(mbrVO mbrVO) throws Exception {
+		List<mbrVO> resultList = sqlSession.selectList(namespace + "teachListSelect", mbrVO);
+		return resultList;
+	}
+
+	@Override
+	public List<mbrVO> authTeachListSelect(mbrVO mbrVO) throws Exception {
+		List<mbrVO> resultList = sqlSession.selectList(namespace + "authTeachListSelect", mbrVO);
+		return resultList;
+	}
+
+	@Override
+	public int subAuthInsert(mbrVO mbrVO) throws Exception {
+		int result = sqlSession.insert(namespace + "subAuthInsert", mbrVO);
+		return result;
+	}
+
+	@Override
+	public int subAuthDelete(mbrVO mbrVO) throws Exception {
+		int result = sqlSession.delete(namespace + "subAuthDelete", mbrVO);
+		return result;
+	}
+
 }

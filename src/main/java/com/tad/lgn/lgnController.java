@@ -122,6 +122,25 @@ public class lgnController {
 	 * 샘플 ajax
 	 */
 	@ResponseBody
+	@RequestMapping(value = "/lgnSubAuthCheck.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String lgnSubAuthCheck(HttpServletRequest request, HttpServletResponse response, Model model, lgnVO lgnVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String subAuth = lgnService.lgnSubAuthCheck(lgnVO);
+		resultMap.put("subAuth", subAuth);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	/*
+	 * 샘플 ajax
+	 */
+	@ResponseBody
 	@RequestMapping(value = "/sample.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String sampleAjax(HttpServletRequest request, HttpServletResponse response, Model model/*  VO추가  */) throws Exception {
 		

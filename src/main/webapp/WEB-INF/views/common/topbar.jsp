@@ -31,13 +31,13 @@
 <!-- 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> -->
 <!-- 					Profile -->
 <!-- 				</a> -->
+				<a class="dropdown-item" href="../mbr/mypage">
+					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+					my page
+				</a>
 				<a class="dropdown-item" href="../mbr/memberBoard">
 					<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>
 					Member Management
-				</a>
-				<a class="dropdown-item" href="javascript:void(0);">
-					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-					Activity Log
 				</a>
 				<div class="dropdown-divider"></div>
 				<a id="_logoutBtn" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">

@@ -12,7 +12,7 @@
 				     , (SELECT @ROWNUM := 0 ) rn
 				 WHERE del_yn = 'N'
 				   AND domain_tp_cd = 'TMP'
-				 ORDER BY domain_seq DESC
+				 ORDER BY domain_seq
 		  	   ) sub
 		 ORDER BY sub.rownum DESC
 	</select>
@@ -62,7 +62,7 @@
 				     , (SELECT @ROWNUM := 0 ) rn
 				 WHERE del_yn = 'N'
 				   AND domain_seq = #{ltoDomainSeq }
-				 ORDER BY lto_seq DESC
+				 ORDER BY lto_seq
 		  	   ) sub
 		 ORDER BY sub.rownum DESC
 	</select>
@@ -107,7 +107,7 @@
 				     , (SELECT @ROWNUM := 0 ) rn
 				 WHERE del_yn = 'N'
 				   AND lto_seq = #{stoLtoSeq }
-				 ORDER BY sto_seq DESC
+				 ORDER BY sto_seq
 		  	   ) sub
 		 ORDER BY sub.rownum DESC
 	</select>
@@ -184,13 +184,14 @@
 	
 	<insert id="crcLTOAutoInsert" parameterType="crcVo">
 		INSERT INTO tb_lto 
-		 	(domain_seq, tmpl_seq, lto_status, lto_name, lto_contents, lto_arr_dt)
+		 	(domain_seq, tmpl_seq, lto_status, lto_name, lto_contents, lto_arr_dt, del_yn)
 		SELECT #{newDomainSeq }
 			 , lto_seq
 			 , lto_status
 			 , lto_name
 			 , lto_contents
 			 , lto_arr_dt
+			 , 'Y'
 		  FROM tb_lto 
 		 WHERE domain_seq = #{domainSeq }
 		   AND del_yn = 'N'

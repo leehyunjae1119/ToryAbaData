@@ -15,7 +15,7 @@ public class SessionManager {
 
 	private static final String SESSION_COOKIE_NAME = "TADSESSIONCOOKIE";
 	private static final String SESSION_COOKIE_PATH = "/";
-	private static final int SESSION_COOKIE_MAXAGE = 6*60*60;
+	private static final int SESSION_COOKIE_MAXAGE = 30*24*60*60;
 	private static Map<String, Object> sessionStore = new ConcurrentHashMap<String, Object>();
 
 	

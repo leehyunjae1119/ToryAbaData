@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.tad.dct.dao.dctDao;
 import com.tad.dct.vo.dctChartVO;
+import com.tad.dct.vo.dctConsultingVO;
 import com.tad.dct.vo.dctVO;
 
 @Repository
@@ -233,5 +234,77 @@ public class dctDaoImpl implements dctDao {
 		List<dctVO> resultList = sqlSession.selectList(namespace + "dctStoListSelect", dctVO);
 		
 		return resultList;
+	}
+
+	@Override
+	public dctVO dctMainCardData() throws Exception {
+		dctVO resultList = sqlSession.selectOne(namespace + "dctMainCardData");
+		return resultList;
+	}
+
+	@Override
+	public List<dctConsultingVO> dctConsultingListSelect(dctConsultingVO dctConsultingVO) throws Exception {
+		List<dctConsultingVO> resultList = sqlSession.selectList(namespace + "dctConsultingListSelect", dctConsultingVO);
+		return resultList;
+	}
+
+	@Override
+	public dctConsultingVO dctConsultingOneSelect(dctConsultingVO dctConsultingVO) throws Exception {
+		dctConsultingVO result = sqlSession.selectOne(namespace + "dctConsultingOneSelect", dctConsultingVO);
+		return result;
+	}
+
+	@Override
+	public int dctConsultingInsert(dctConsultingVO dctConsultingVO) throws Exception {
+		int result = sqlSession.insert(namespace + "dctConsultingInsert", dctConsultingVO);
+		return result;
+	}
+
+	@Override
+	public int dctConsultingUpdate(dctConsultingVO dctConsultingVO) throws Exception {
+		int result = sqlSession.update(namespace + "dctConsultingUpdate", dctConsultingVO);
+		return result;
+	}
+
+	@Override
+	public int dctConsultingDelete(dctConsultingVO dctConsultingVO) throws Exception {
+		int result = sqlSession.delete(namespace + "dctConsultingDelete", dctConsultingVO);
+		return result;
+	}
+
+	@Override
+	public List<dctConsultingVO> dctConsultingDataDtlist(dctConsultingVO dctConsultingVO) throws Exception {
+		List<dctConsultingVO> resultList = sqlSession.selectList(namespace + "dctConsultingDataDtlist", dctConsultingVO);
+		return resultList;
+	}
+
+	@Override
+	public List<dctVO> dctVideoListSelect(dctVO dctVO) throws Exception {
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctVideoListSelect", dctVO);
+		return resultList;
+	}
+	
+	@Override
+	public dctVO dctVideoOneSelect(dctVO dctVO) throws Exception {
+		dctVO result = sqlSession.selectOne(namespace + "dctVideoOneSelect", dctVO);
+		return result;
+	}
+
+	@Override
+	public int dctVideoInsert(dctVO dctVO) throws Exception {
+		int result = sqlSession.insert(namespace + "dctVideoInsert", dctVO);
+		return result;
+	}
+
+	@Override
+	public int dctVideoUpdate(dctVO dctVO) throws Exception {
+		int result = sqlSession.update(namespace + "dctVideoUpdate", dctVO);
+		return result;
+	}
+
+	@Override
+	public int dctVideoDelete(dctVO dctVO) throws Exception {
+		int result = sqlSession.delete(namespace + "dctVideoDelete", dctVO);
+		return result;
 	}
 }

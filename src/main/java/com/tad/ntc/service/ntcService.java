@@ -18,4 +18,6 @@ public interface ntcService {
 	
 	public int ntcNoticeDelete(ntcVO ntcVO) throws Exception;
 	
+	public ntcVO ntcNoticeCntSelect() throws Exception;
+	
 }

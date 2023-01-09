@@ -67,9 +67,9 @@
 			</div>
 			<div class="modal-body">
 				<div class="c-row c-cb ml-4 mr-4">
-					<p class="h4 m-0">제목 : 
+					<p class="h4 m-0 custom-width-80">제목 : 
 						<span id="detailTitle"></span>
-						<input type="text" class="c-form-control" id="inputTitle" style="display:none;" />
+						<input type="text" class="c-form-control custom-width-80" id="inputTitle" style="display:none;" />
 					</p>
 					<div>
 						<p class="m-0 small">작성자 : <span id="detailRegName"></span></p>

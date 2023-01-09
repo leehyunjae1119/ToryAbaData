@@ -1,8 +1,9 @@
 $(document).ready(function () {
 	
-	$.goSearch = function() {
+	$.goSearch = function(pageNum) {
 		var params = {
-				searchText1 : $("#searchText1").val()
+				searchText1 : $("#searchText1").val(),
+				pageNum : pageNum
 			};
 		$.ajax({
             type : "POST",
@@ -10,6 +11,8 @@ $(document).ready(function () {
             data : params,
             success : function(res){
             	$.makeMemberDataRow(res.dataList);
+            	_pagination("mbrPaging", res.pagingVO);
+            	$("#pageNum").val(pageNum);
             	
             	_checkAuth();
             },
@@ -29,7 +32,6 @@ $(document).ready(function () {
 	};
 	
 	$.memberTemplateRow = function(item) {
-		console.log(item.memberAuthCd);
 		var flag = item.approvalYn == "Y" ? "checked" : "";
 		var authFlag = '';
 		var apprFlag = '';
@@ -125,12 +127,194 @@ $(document).ready(function () {
         });
 	};
 	
+	$.centerListSelect = function() {
+		$.ajax({
+            type : "POST",
+            url : "/mbr/centerListSelect.ajax",
+            success : function(res){
+            	$.makeCenterCard(res.dataList);
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                console.log("서버오류. 담당자에게 연락하세요.");
+            }
+        });
+	};
+	$.makeCenterCard = function(dataList) {
+		$("#centerCardBoard").empty();
+		dataList.forEach(function(item) {
+			var html = '';
+			html += '<div class="card border-left-warning py-1 m-2 center-card">';
+			html += '	<input type="hidden" value="'+item.centerSeq+'">';
+			html += '	<div class="card-body custom-cursor-pointer py-2">';
+			html += '		<div class="row no-gutters align-items-center">';
+			html += '			<div class="col mr-2">';
+			html += '				<div class="h5 mb-0 font-weight-bold text-gray-800">'+item.centerName+'</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '	</div>';
+			html += '</div>';
+			
+			$("#centerCardBoard").append(html);
+		});
+	};
+	
+	$.teachListSelect = function() {
+		var params = {
+				centerSeq : $("#centerSeq").val()
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/mbr/teachListSelect.ajax",
+            data : params,
+            success : function(res){
+            	console.log(res.dataList);
+            	
+            	$("#teachList").empty();
+            	$("#teachList").append('<option value="0" selected>선택하기...</option>');
+            	
+            	res.dataList.forEach(function(item) {
+					var html = '';
+					html += '<option value="'+item.memberSeq+'" selected>'+item.memberName+'</option>';
+					$("#teachList").append(html);
+				});
+            	
+            	$("#teachList").val(0);
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                console.log("서버오류. 담당자에게 연락하세요.");
+            }
+        });
+	};
+	
+	$.authTeachListSelect = function() {
+		var params = {
+				centerSeq : $("#centerSeq").val()
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/mbr/authTeachListSelect.ajax",
+            data : params,
+            success : function(res){
+            	console.log(res.dataList);
+            	
+            	$("#authTeachList").empty();
+            	
+            	res.dataList.forEach(function(item) {
+					var html = '';
+					html += '<li class="list-group-item c-row c-cb py-1">';
+					html += '	<input type="hidden" class="auth-mamber-seq" value="'+item.memberSeq+'">';
+					html += '	<span>'+item.memberName+'</span>';
+					html += '	<div class="remove-btn">';
+					html += '		<button class="btn" type="button" onclick="$.deleteSubAuth(\''+item.memberSeq+'\')"><i class="fas fa-times-circle"></i></button>';
+					html += '	</div> ';
+					html += '</li>';
+					$("#authTeachList").append(html);
+				});
+            	
+            	if(res.dataList.length == 0){
+            		
+            	}
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                console.log("서버오류. 담당자에게 연락하세요.");
+            }
+        });
+	};
+	
+	$(".add-btn").on('click', function() {
+		var isThisCenter = false;
+		$(".auth-mamber-seq").each(function() {
+			if($(this).val() == authSeq){
+				isThisCenter = true;
+			}
+		});
+		
+		if(authCd == 'level2' && !isThisCenter){
+			alert("소속된 지점의 권한만 부여가능합니다.");
+			return;
+		}
+		
+		var memberSeq = $("#teachList").val();
+		
+		if(memberSeq == 0){
+			return;
+		}
+		
+		var params = {
+				memberSeq : memberSeq,
+				centerSeq : $("#centerSeq").val()
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/mbr/subAuthInsert.ajax",
+            data : params,
+            success : function(res){
+            	$.teachListSelect();
+            	$.authTeachListSelect();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                console.log("서버오류. 담당자에게 연락하세요.");
+            }
+        });
+	});
+	
+	$.deleteSubAuth = function(memberSeq) {
+		var isThisCenter = false;
+		$(".auth-mamber-seq").each(function() {
+			if($(this).val() == authSeq){
+				isThisCenter = true;
+			}
+		});
+		
+		if(authCd == 'level2' && !isThisCenter){
+			alert("소속된 지점의 권한만 삭제가 가능합니다.");
+			return;
+		}
+		
+		var params = {
+				memberSeq : memberSeq,
+				centerSeq : $("#centerSeq").val()
+			};
+		
+		$.ajax({
+            type : "POST",
+            url : "/mbr/subAuthDelete.ajax",
+            data : params,
+            success : function(res){
+            	$.teachListSelect();
+            	$.authTeachListSelect();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                console.log("서버오류. 담당자에게 연락하세요.");
+            }
+        });
+	};
+	
 	$.init = function() {
-		$.goSearch();
+		$.goSearch(1);
 		$('.approvalYnToggle').bootstrapToggle();
+		
+		$.centerListSelect();
 	};
 	
 	$.init();
+});
+
+$(document).on("click", ".center-card", function() {
+	$(".center-card").removeClass("bg-primary");
+	$(this).addClass("bg-primary");
+	var centerSeq = $(this).children('input').val();
+	
+	$("#centerSeq").val(centerSeq);
+	
+	$("#teachList").prop("disabled", false);
+	$(".add-btn").prop("disabled", false);
+	
+	$.teachListSelect();
+	$.authTeachListSelect();
 });
 
 $(document).on("click", ".toggle", function() {

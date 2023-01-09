@@ -27,6 +27,124 @@ $(document).ready(function () {
 		$("#stoCard").collapse("hide");
 	});
 	
+	$(".add-btn").on("click", function() {
+		var ltoName = "";
+		var ltoSeq = 0;
+		var hasChoose = false;
+		var dataType = $(this).attr("data-value")=='Y' ? true : false;
+		
+		if(dataType){
+			ltoName = $("#ltoNameText").val();
+			$("#ltoNameText").val("");
+			if(ltoName.trim() === ""){
+				alert("LTO 이름을 선택 또는 입력 하세요.");
+				return;
+			}
+		} else {
+			ltoSeq = $("#ltoTempletList").val();
+			ltoName = $("#ltoTempletList option:checked").text();
+			
+			if(ltoSeq == 0){
+				alert("LTO 이름을 선택 또는 입력 하세요.");
+				return;
+			}
+			
+			$("input[name=insertLtoSeq]").each(function(i) {
+				if($(this).val() == ltoSeq){
+					hasChoose = true;
+				}
+			});
+			
+			if(hasChoose){
+				alert("이미 선택된 LTO 입니다.");
+				return
+			}
+		}
+		
+		var html = '';
+		html += '<div class="input-group mb-3">                                                                                 ';
+		html += '	<input type="text" class="form-control" name="insertLtoName" value="'+ltoName+'"readonly="readonly">              ';
+		html += '	<input type="hidden" name="insertLtoSeq" value="'+ltoSeq+'" >              			   							';
+		html += '	<div class="input-group-append remove-btn">                                                                 ';
+		html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';
+		html += '	</div>                                                                                                      ';
+		html += '</div>                                                                                                         ';
+		
+		$("#ltoNameGroup").append(html);
+	});
+	
+	$(".add-btn2").on("click", function() {
+		var stoName = "";
+		var stoSeq = 0;
+		var hasChoose = false;
+		var dataType = $(this).attr("data-value")=='Y' ? true : false;
+		
+		if(dataType){
+			stoName = $("#stoNameText").val();
+			$("#stoNameText").val("");
+			if(stoName.trim() === ""){
+				alert("STO 이름을 선택 또는 입력 하세요.");
+				return;
+			}
+		} else {
+			stoSeq = $("#stoTempletList").val();
+			stoName = $("#stoTempletList option:checked").text();
+			
+			if(stoSeq == 0){
+				alert("STO 이름을 선택 또는 입력 하세요.");
+				return;
+			}
+			
+			$("input[name=insertStoSeq]").each(function(i) {
+				if($(this).val() == stoSeq){
+					hasChoose = true;
+				}
+			});
+			
+			if(hasChoose){
+				alert("이미 선택된 STO 입니다.");
+				return
+			}
+		}
+		
+		var html = '';
+		html += '<div class="input-group mb-3">                                                                                 ';
+		html += '	<input type="text" class="form-control" name="insertStoName" value="'+stoName+'"readonly="readonly">              ';
+		html += '	<input type="hidden" name="insertStoSeq" value="'+stoSeq+'" >              			   							';
+		html += '	<div class="input-group-append remove-btn">                                                                 ';
+		html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';
+		html += '	</div>                                                                                                      ';
+		html += '</div>                                                                                                         ';
+		
+		$("#stoNameGroup").append(html);
+	});
+	
+	$("#templetSelectYn").on("change", function() {
+		if($(this).prop("checked")){
+			$("#ltoNameText").show();
+			$("#ltoTempletList").hide();
+			$(".add-btn").attr("data-value", 'Y');
+		} else {
+			$("#ltoTempletList").show();
+			$("#ltoNameText").hide();
+			$(".add-btn").attr("data-value", 'N');
+			
+		}
+	});
+	
+	$("#templetSelectYn2").on("change", function() {
+		if($(this).prop("checked")){
+			$("#stoNameText").show();
+			$("#stoTempletList").hide();
+			$(".add-btn2").attr("data-value", 'Y');
+		} else {
+			$("#stoTempletList").show();
+			$("#stoNameText").hide();
+			$(".add-btn2").attr("data-value", 'N');
+			
+		}
+	});
+	
 	$.collapseLtoChart = function() {
 		if($("#ltoChart").hasClass("show")){
 			$("#ltoChart").collapse("hide");
@@ -109,6 +227,9 @@ $(document).ready(function () {
             	} else {
             		$("#ltoBtnGroup").empty();
                 	$("#ltoCard").collapse("hide");
+                	
+                	$("#stoBtnGroup").empty();
+                	$("#stoCard").collapse("hide");
             	}
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
@@ -166,6 +287,7 @@ $(document).ready(function () {
             url : "/pgb/pgbStoListSelect.ajax",
             data : params,
             success : function(res){
+            	
             	if(res.dataList.length > 0){
             		if(stoSeq){
                 		$.makeStoItem(res.dataList, stoSeq);
@@ -242,31 +364,74 @@ $(document).ready(function () {
 		$("input[name=domainSeq]").val(domainSeq);
 		$("input[name=ltoSeq]").val($("#ltoSeq").val());
 		
+		$("#ltoNameGroup").empty();
+		
 		if(flag == 0){
 			//등록
+			$("#templetSelectYn").prop("checked", false);
+			$("#ltoTempletList").show();
+			$("#ltoNameText").hide();
+			$(".add-btn").attr("data-value", 'N');
+			
+			$.setLtoTmplList();
 			$("#LTORegistModalLabel").text("LTO 등록");
 			$("#LTOSaveBtn").show();
 			$("#LTOUpdateBtn").hide();
 			$("input[name=ltoName]").val("");
 			$("input[name=ltoContents]").val("");
+			
+			$(".modify-input").hide();
+			$(".regist-input").show();
+			
 		} else {
 			//수정
 			$("#LTORegistModalLabel").text("LTO 수정");
 			$("#LTOSaveBtn").hide();
 			$("#LTOUpdateBtn").show();
-			$("input[name=ltoName]").val($("#labelLtoName").text());
+			$("#updateLtoName").val($("#labelLtoName").text());
 			$("input[name=ltoContents]").val($("#labelLtoContents").text());
+			
+			$(".modify-input").show();
+			$(".regist-input").hide();
+			
 		}
 		
 		$.customModal("LTORegistModal", "show");
 	};
 	
 	$.registLto = function(flag) {
+		var ltoSeq = "";
+		var ltoName = "";
 		
-		if($("input[name=ltoName]").val().trim() == ""){
-			$("input[name=ltoName]").focus();
-			alert("LTO 이름을 입력하세요.");
-			return;
+		if(flag == 0){
+			$("input[name=insertLtoSeq]").each(function(index) {
+				if(index != 0 ){
+					ltoSeq += '||';
+				}
+				ltoSeq += $(this).val();
+			});
+			$("input[name=insertLtoName]").each(function(index) {
+				if(index != 0 ){
+					ltoName += '||';
+				}
+				ltoName += $(this).val();
+			});
+			
+			if(ltoSeq == ""){
+				alert("LTO를 추가하세요.");
+				return;
+			}
+			
+			$("input[name=ltoName]").val(ltoName);
+			$("input[name=ltoSeqList]").val(ltoSeq);
+			
+		} else {
+			ltoName = $("#updateLtoName").val();
+			if(ltoName.trim() == ""){
+				alert("LTO를 입력해주세요.");
+				return;
+			}
+			$("input[name=ltoName]").val(ltoName);
 		}
 		
 		var params = $("#LTOForm").serialize();
@@ -301,10 +466,16 @@ $(document).ready(function () {
 		$("input[name=ltoSeq]").val(ltoSeq);
 		$("input[name=stoSeq]").val(stoSeq);
 		
+		$("#stoNameGroup").empty();
+		
 		if(flag == 0){
-			$("input[name=stoName]").attr("data-code", flag);
-			$.setStoTmplList();
 			//등록
+			$("#templetSelectYn2").prop("checked", false);
+			$("#stoTempletList").show();
+			$("#stoNameText").hide();
+			$(".add-btn2").attr("data-value", 'N');
+			
+			$.setStoTmplList();
 			$("#STORegistModalLabel").text("STO 등록");
 			$("#STOSaveBtn").show();
 			$("#STOUpdateBtn").hide();
@@ -315,20 +486,26 @@ $(document).ready(function () {
 			$("input[name=stoUrgeContents]").val("");
 			$("input[name=stoEnforceContents]").val("");
 			$("input[name=stoMemoContents]").val("");
+			
+			$(".modify-input").hide();
+			$(".regist-input").show();
+			
 		} else {
 			//수정
-			$("input[name=stoName]").attr("data-code", flag);
-			
 			$("#STORegistModalLabel").text("STO 수정");
 			$("#STOSaveBtn").hide();
 			$("#STOUpdateBtn").show();
+			$("#updateStoName").val($("#labelStoName").text());
 			$("select[name=stoArrStdPst]").val($("#labelStoArrStdPst").text());
 			$("input[name=stoTrialCnt]").val($("#labelStoTrialCnt").text());
-			$("input[name=stoName]").val($("#labelStoName").text());
+//			$("input[name=stoName]").val($("#labelStoName").text());
 			$("input[name=stoContents]").val($("#labelStoContents").text());
 			$("input[name=stoUrgeContents]").val($("#labelStoUrgeContents").text());
 			$("input[name=stoEnforceContents]").val($("#labelStoEnforceContents").text());
 			$("input[name=stoMemoContents]").val($("#labelStoMemoContents").text());
+
+			$(".modify-input").show();
+			$(".regist-input").hide();
 		}
 		
 		$.customModal("STORegistModal", "show");
@@ -350,24 +527,32 @@ $(document).ready(function () {
 			alert("도달 기준 횟수를 입력하세요.");
 			return;
 		}
-		console.log($("input[name=stoName]").val().trim())
-		if($("input[name=stoName]").val().trim() == ""){
-			$("input[name=stoName]").focus();
-			alert("STO 이름을 입력하세요.");
-			return;
-		}
 		
-		var stoName = '';
-		$("input[name=stoName]:last").remove();
-		$("input[name=stoName]").each(function(index, item) {
-			if(index != 0 ){
-				stoName += '||';
+		var stoName = "";
+		
+		if(flag == 0){
+			$("input[name=insertStoName]").each(function(index) {
+				if(index != 0 ){
+					stoName += ', ';
+				}
+				stoName += $(this).val();
+			});
+			
+			if(stoSeq == ""){
+				alert("STO를 추가하세요.");
+				return;
 			}
-			stoName += $(item).val();
-		});
-		$("input[name=stoName]").remove();
-		
-		$("#STOForm").append('<input type="hidden" name="stoName" value="'+stoName+'">')
+			
+			$("input[name=stoName]").val(stoName);
+			
+		} else {
+			stoName = $("#updateStoName").val();
+			if(stoName.trim() == ""){
+				alert("STO를 입력해주세요.");
+				return;
+			}
+			$("input[name=stoName]").val(stoName);
+		}
 		
 		var params = $("#STOForm").serialize();
 		var url = (flag == 0) ? "/pgb/pgbStoInsert.ajax" : "/pgb/pgbStoUpdate.ajax";
@@ -493,30 +678,58 @@ $(document).ready(function () {
 				ltoSeq : ltoSeq
 			};
 		
-		$("input[name=stoName]").remove();
-		$("#stoNameList").append('<input type="text" class="form-control mb-3" name="stoName" placeholder="직접 입력..." data-code="0">');
-		
 		$.ajax({
             type : "POST",
             url : "/pgb/pgbStoTmplListSelect.ajax",
             data : params,
             success : function(res){
-            	console.log("단기목표 템플릿 수 : " + res.dataList.length)
-            	if(res.dataList.length > 0){
-            		res.dataList.forEach(function(item) {
-            			var input = $("input[name=stoName]:last").clone();
-            			input.val(item.stoName);
-            			$("#stoNameList").append(input);
+            	$("#stoTempletList").empty();
+				$("#stoTempletList").append('<option value="0" selected>선택하기</option>');
+				
+				if(res.dataList.length > 0){
+					res.dataList.forEach(function(item) {
+						var opt = '<option value="'+item.stoSeq+'">'+item.stoName+'</option>';
+						$("#stoTempletList").append(opt);
 					});
-            		$("#stoNameList").append($("input[name=stoName]:last").clone().val(""));
-            		
-            		$("input[name=stoName]:first").remove();
-            	}
+				} else {
+					
+				}
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
             }
         });
+	};
+	
+	$.setLtoTmplList = function() {
+		var dtoSeq = $('button[name=dtoItemBtn].active').attr('data-value');
+		
+		var params = {
+				domainSeq : dtoSeq
+		};
+
+		$.ajax({
+			type : "POST",
+			url : "/pgb/pgbLtoTmplListSelect.ajax",
+			data : params,
+			success : function(res){
+				$("#ltoTempletList").empty();
+				$("#ltoTempletList").append('<option value="0" selected>선택하기</option>');
+				
+				if(res.dataList.length > 0){
+					res.dataList.forEach(function(item) {
+						var opt = '<option value="'+item.ltoSeq+'">'+item.ltoName+'</option>';
+						console.log(opt);
+						$("#ltoTempletList").append(opt);
+					});
+				} else {
+					
+				}
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+				alert("서버오류. 담당자에게 연락하세요.")
+			}
+		});
 	};
 	
 	$.deleteSto = function() {
@@ -543,6 +756,32 @@ $(document).ready(function () {
                 alert("서버오류. 담당자에게 연락하세요.")
             }
         });
+	};
+	
+	$.deleteLto = function() {
+		
+		if(!confirm("LTO를 삭제하시겠습니까?\n해당 STO도 모두 삭제됩니다.")){
+			return ;
+		}
+		
+		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
+		var dtoSeq = $('button[name=dtoItemBtn].active').attr('data-value');
+		var params = {
+				ltoSeq : ltoSeq
+		};
+		
+		$.ajax({
+			type : "POST",
+			url : "/pgb/pgbLtoDelete.ajax",
+			data : params,
+			success : function(res){
+				$.settingLto(dtoSeq);
+				$.stautsAutoUpdate("DTO");
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+				alert("서버오류. 담당자에게 연락하세요.")
+			}
+		});
 	};
 });
 
@@ -601,3 +840,23 @@ $(document).on("keyup", "input[name=stoName]", function() {
 		}
 	}
 });
+
+$(document).on("keyup", "input[name=ltoName]", function() {
+	if($(this).attr("data-code") == 0){
+		if($(this).val() == ""){
+			if($("input[name=ltoName]").length > 1){
+				$(this).remove();
+			}
+		} else {
+			if($("input[name=ltoName]:last").val() != ""){
+				var input = $(this).clone().val("");
+				$("#ltoNameList").append(input);
+			}
+		}
+	}
+});
+
+$(document).on("click", ".remove-btn", function() {
+	$(this).parent().remove();
+});
+

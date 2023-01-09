@@ -3,6 +3,12 @@
 .custom-width-100 {
 	width: 100%;
 }
+.custom-width-85 {
+	width: 85%;
+}
+.custom-width-80 {
+	width: 80%;
+}
 
 .bg-gradient-customOatmeal {
 	background-color: #EBDDCC;
@@ -43,8 +49,8 @@
 	height: 100%;
 }
 
-.c-h-58 {
-	height: 58px;
+.c-h-83 {
+	height: 83px;
 }
 
 .c-w-150 {
@@ -176,6 +182,10 @@ tr.c-tr-hover:hover {
 	padding: 0.75rem 1.25rem;
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, 0.125);
+	font-size: 12px;
+}
+
+.one-line {
 	white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -401,9 +411,15 @@ tr.c-tr-hover:hover {
     color: #000000;
     margin: 2rem;
 }
-.report-title > span {
+.report-title > .title {
+	text-align: center;
 	border: 1px solid;
     padding: 1rem 10rem;
+}
+.report-title > .title > .rogo-img{
+	width: 3rem;
+	margin-bottom: 5px;
+	margin-right: 15px;
 }
 
 .report-info {
@@ -450,7 +466,7 @@ tr.c-tr-hover:hover {
 .clear-input {
 	border: 0px;
     text-overflow: ellipsis;
-    width: auto;
+    width: 70%;
     background-color: rgb(0, 0, 0, 0);
 }
 
@@ -465,7 +481,17 @@ tr.c-tr-hover:hover {
 	padding: 0px 0px 0px 5px;
 	margin: 0px;
     border: 0px;
-    width: 85%;
     resize: none;
     overflow: hidden
+}
+
+.writer {
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 5rem;
+}
+
+.contents {
+	word-break:break-all;
 }

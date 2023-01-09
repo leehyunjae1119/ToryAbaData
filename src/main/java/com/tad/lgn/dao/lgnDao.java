@@ -9,4 +9,6 @@ public interface lgnDao {
 	public lgnVO login(lgnVO lgnVO) throws Exception;
 
 	public int join(lgnVO lgnVO) throws Exception;
+	
+	public String lgnSubAuthCheck(lgnVO lgnVO) throws Exception;
 }

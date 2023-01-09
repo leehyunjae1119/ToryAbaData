@@ -54,4 +54,9 @@ public class ntcServiceImpl implements ntcService {
 		return ntcDao.ntcNoticeDelete(ntcVO);
 	}
 
+	@Override
+	public ntcVO ntcNoticeCntSelect() throws Exception {
+		return ntcDao.ntcNoticeCntSelect();
+	}
+
 }

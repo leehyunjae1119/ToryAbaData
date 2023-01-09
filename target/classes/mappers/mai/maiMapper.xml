@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tad.mai.dao.maiDao">
+
+	<select id="maiCalenderListSelect" parameterType="maiVo" resultType="maiVo">
+		SELECT
+			tc.calender_seq,
+			tc.member_seq,
+			(SELECT member_name FROM tb_member where member_seq = tc.member_seq) as member_name,
+			tc.calender_contents,
+			tc.calender_reg_dt
+		FROM tb_calender tc
+		WHERE calender_reg_dt = #{calenderRegDt }
+	    ORDER BY tc.calender_seq DESC
+	</select>
+	
+	<select id="maiCalenderInsert" parameterType="maiVo">
+		INSERT INTO tb_calender 
+		( member_seq
+		, calender_contents
+		, calender_reg_dt
+		) 
+		VALUES
+		( #{memberSeq}
+		, #{calenderContents}
+		, #{calenderRegDt}
+		)
+	</select>
+	
+	<select id="maiCalenderDelete" parameterType="maiVo">
+		DELETE FROM tb_calender 
+		WHERE calender_seq = #{calenderSeq}
+	</select>
+	
+	<select id="maiCalenderDataDtlist" parameterType="maiVo" resultType="maiVo">
+		SELECT DISTINCT calender_reg_dt 
+		FROM tb_calender tc 
+		WHERE left(calender_reg_dt, 6) = #{calenderRegDt }
+	</select>
+</mapper>

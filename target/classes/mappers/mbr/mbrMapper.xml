@@ -4,26 +4,47 @@
 <mapper namespace="com.tad.mbr.dao.mbrDao">
 
 	<select id="mbrMemberListSelect" parameterType="mbrVo" resultType="mbrVo">
-		SELECT *
+		SELECT * 
 		  FROM (
-		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
-					 , tm.*
-				  FROM tb_member tm
-				     , (SELECT @ROWNUM := 0 ) rn
-				 WHERE 1=1
-				   AND member_auth_cd != 'master'
-				 <if test="searchText1 != null and searchText1 != ''">
-				   AND (
-					     	member_id LIKE CONCAT('%',#{searchText1},'%')
-					     OR member_name LIKE CONCAT('%',#{searchText1},'%')
-					     OR member_email LIKE CONCAT('%',#{searchText1},'%')
-					     OR member_cp LIKE CONCAT('%',#{searchText1},'%')
-				       ) 
-				 </if>
-				 ORDER BY member_reg_dt DESC
-		  	   ) sub
-		 ORDER BY sub.rownum DESC
+			SELECT *
+			  FROM (
+			  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+						 , tm.*
+					  FROM tb_member tm
+					     , (SELECT @ROWNUM := 0 ) rn
+					 WHERE 1=1
+					   AND member_auth_cd != 'master'
+					 <if test="searchText1 != null and searchText1 != ''">
+					   AND (
+						     	member_id LIKE CONCAT('%',#{searchText1},'%')
+						     OR member_name LIKE CONCAT('%',#{searchText1},'%')
+						     OR member_email LIKE CONCAT('%',#{searchText1},'%')
+						     OR member_cp LIKE CONCAT('%',#{searchText1},'%')
+					       ) 
+					 </if>
+					 ORDER BY member_reg_dt DESC
+			  	   ) sub
+			 ORDER BY sub.rownum DESC
+		) main
+		LIMIT #{startNum}, 10
+	</select>
 	
+	<select id="mbrMemberListSelectCnt" parameterType="mbrVo" resultType="mbrVo">
+	
+		SELECT CASE WHEN (COUNT(*) % 10) = 0
+			THEN TRUNCATE(COUNT(*) / 10, 0)
+			ELSE TRUNCATE(COUNT(*) / 10, 0) + 1 END AS page_cnt
+		FROM tb_member tm
+		WHERE 1=1
+		  AND member_auth_cd != 'master'
+		<if test="searchText1 != null and searchText1 != ''">
+		   AND (
+		     	member_id LIKE CONCAT('%',#{searchText1},'%')
+		     OR member_name LIKE CONCAT('%',#{searchText1},'%')
+		     OR member_email LIKE CONCAT('%',#{searchText1},'%')
+		     OR member_cp LIKE CONCAT('%',#{searchText1},'%')
+	       ) 
+		 </if>
 	</select>
 	
 	<update id="mbrApprovalYnUpdate" parameterType="mbrVo">
@@ -44,6 +65,47 @@
 		 WHERE member_seq = #{memberSeq }
 	</update>
 	
+	<select id="mbrMemberOneSelect" parameterType="mbrVo" resultType="mbrVo">
+		SELECT * FROM tb_member tm
+		WHERE member_seq = #{memberSeq }
+	</select>
+	
+	<update id="mbrProfileUpdate" parameterType="mbrVo">
+		UPDATE tb_member 
+		   SET member_name = #{memberName }
+		     , member_email = #{memberEmail }
+		     , member_cp = #{memberCp }
+		     <if test="memberPw != '' and memberPw != null">
+		  	   , member_pw = #{memberPw }
+		     </if>
+		 WHERE member_seq = #{memberSeq }
+	</update>
+	
+	<select id="teachListSelect" parameterType="mbrVo" resultType="mbrVo">
+		SELECT member_seq
+		     , member_name
+		FROM tb_member tm 
+		WHERE member_seq NOT IN (SELECT member_seq FROM tb_subauth WHERE center_seq = #{centerSeq})
+		  AND member_auth_cd NOT IN ('master', 'level1')
+	</select>
+	
+	<select id="authTeachListSelect" parameterType="mbrVo" resultType="mbrVo">
+		SELECT member_seq
+		     , (SELECT member_name FROM tb_member WHERE member_seq = ts.member_seq) AS member_name
+		     , center_seq
+		FROM tb_subauth ts
+		WHERE center_seq = #{centerSeq}
+	</select>
+	
+	<insert id="subAuthInsert" parameterType="mbrVo">
+		INSERT INTO tb_subauth (member_seq, center_seq)
+		VALUES(#{memberSeq}, #{centerSeq })
+	</insert>
+	
+	<insert id="subAuthDelete" parameterType="mbrVo">
+		DELETE FROM tb_subauth
+		WHERE member_seq = #{memberSeq} AND center_seq = #{centerSeq }
+	</insert>
 	
 </mapper>
 		

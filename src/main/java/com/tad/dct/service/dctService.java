@@ -3,6 +3,7 @@ package com.tad.dct.service;
 import java.util.List;
 
 import com.tad.dct.vo.dctChartVO;
+import com.tad.dct.vo.dctConsultingVO;
 import com.tad.dct.vo.dctVO;
 
 public interface dctService {
@@ -54,4 +55,29 @@ public interface dctService {
 	public List<List<dctChartVO>> dctDomainChartDataSelect(dctChartVO dctChartVO) throws Exception;
 
 	public List<dctVO> dctReportCrcListSelect(dctVO dctVO) throws Exception;
+	
+	public dctVO dctMainCardData() throws Exception;
+	
+	public List<dctConsultingVO> dctConsultingListSelect(dctConsultingVO dctConsultingVO) throws Exception;
+	
+	public dctConsultingVO dctConsultingOneSelect(dctConsultingVO dctConsultingVO) throws Exception;
+	
+	public int dctConsultingInsert(dctConsultingVO dctConsultingVO) throws Exception;
+	
+	public int dctConsultingUpdate(dctConsultingVO dctConsultingVO) throws Exception;
+	
+	public int dctConsultingDelete(dctConsultingVO dctConsultingVO) throws Exception;
+	
+	public List<dctConsultingVO> dctConsultingDataDtlist(dctConsultingVO dctConsultingVO) throws Exception;
+
+	public List<dctVO> dctVideoListSelect(dctVO dctVO) throws Exception;
+	
+	public dctVO dctVideoOneSelect(dctVO dctVO) throws Exception;
+	
+	public int dctVideoInsert(dctVO dctVO) throws Exception;
+	
+	public int dctVideoUpdate(dctVO dctVO) throws Exception;
+	
+	public int dctVideoDelete(dctVO dctVO) throws Exception;
+
 }

@@ -31,5 +31,25 @@
  				'N'
  			)
  	</select>
+ 	
+ 	<select id="lgnSubAuthCheck" parameterType="lgnVo" resultType="String">
+		SELECT CASE WHEN COUNT(1) > 0 THEN 'Y' ELSE 'N' END AS subAuth
+		FROM tb_subauth 
+		WHERE member_seq = #{memberSeq}
+		<if test="authCenterSeq != 0">
+			AND center_seq = #{authCenterSeq}
+		</if>
+		<if test="authClassSeq != 0">
+			AND center_seq = (SELECT center_seq FROM tb_class WHERE class_seq = #{authClassSeq})
+		</if>
+		<if test="authStudentSeq != 0">
+			AND center_seq = (SELECT tc.center_seq 
+						        FROM tb_student ts
+					           INNER JOIN tb_class tc ON ts.class_seq  =  tc.class_seq 
+						       WHERE ts.student_seq = #{authStudentSeq})
+		</if>
+		
+		
+ 	</select>
 
 </mapper>

@@ -22,6 +22,7 @@ import com.tad.common.vo.pagingVO;
 import com.tad.dct.service.dctService;
 import com.tad.pgb.service.pgbService;
 import com.tad.dct.vo.dctChartVO;
+import com.tad.dct.vo.dctConsultingVO;
 import com.tad.dct.vo.dctVO;
 import com.tad.lgn.vo.lgnVO;
 import com.tad.ntc.vo.ntcVO;
@@ -96,6 +97,46 @@ public class dctController {
 		model.addAttribute("domainList", domainList);
 		
 		return "/dct/completionBoard";
+	}
+	
+	@RequestMapping(value = "/consultingBoard", method = RequestMethod.GET)
+	public String consultingBoard(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws Exception {
+		int studentSeq = Integer.parseInt( (String)request.getParameter("studentSeq") );
+		
+		pgbVO pgbVO = new pgbVO();
+		dctVO dctVO = new dctVO();
+		
+		pgbVO.setStudentSeq(studentSeq);
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		dctVO.setStudentSeq(studentSeq);
+		dctVO.setCenterName(data.getCenterName());
+		dctVO.setClassName(data.getClassName());
+		dctVO.setStudentName(data.getStudentName());
+		
+		model.addAttribute("studentData", dctVO);
+		
+		return "/dct/consultingBoard";
+	}
+	
+	@RequestMapping(value = "/videoBoard", method = RequestMethod.GET)
+	public String videoBoard(HttpServletRequest request, HttpServletResponse response, Locale locale, Model model) throws Exception {
+		int studentSeq = Integer.parseInt( (String)request.getParameter("studentSeq") );
+		
+		pgbVO pgbVO = new pgbVO();
+		dctVO dctVO = new dctVO();
+		
+		pgbVO.setStudentSeq(studentSeq);
+		pgbVO data = pgbService.pgbModalTitleSelect(pgbVO);
+		
+		dctVO.setStudentSeq(studentSeq);
+		dctVO.setCenterName(data.getCenterName());
+		dctVO.setClassName(data.getClassName());
+		dctVO.setStudentName(data.getStudentName());
+		
+		model.addAttribute("studentData", dctVO);
+		
+		return "/dct/videoBoard";
 	}
 	
 	@ResponseBody
@@ -496,6 +537,181 @@ public class dctController {
 		List<dctVO> dataList = dctService.dctReportCrcListSelect(dctVO);
 		
 		resultMap.put("dataList", dataList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<dctConsultingVO> dataList = dctService.dctConsultingListSelect(dctConsultingVO);
+		
+		resultMap.put("dataList", dataList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingOneSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingOneSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		dctConsultingVO data = dctService.dctConsultingOneSelect(dctConsultingVO);
+		
+		resultMap.put("data", data);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingInsert.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingInsert(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctConsultingInsert(dctConsultingVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingUpdate(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctConsultingUpdate(dctConsultingVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingDelete.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingDelete(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctConsultingDelete(dctConsultingVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctConsultingDataDtlist.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctConsultingDataDtlist(HttpServletRequest request, HttpServletResponse response, Model model, dctConsultingVO dctConsultingVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<dctConsultingVO> dataList = dctService.dctConsultingDataDtlist(dctConsultingVO);
+		
+		resultMap.put("dataList", dataList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctVideoListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctVideoListSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<dctVO> dataList = dctService.dctVideoListSelect(dctVO);
+		
+		resultMap.put("dataList", dataList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctVideoOneSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctVideoOneSelect(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		dctVO data = dctService.dctVideoOneSelect(dctVO);
+		
+		resultMap.put("data", data);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctVideoInsert.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctVideoInsert(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctVideoInsert(dctVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctVideoUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctVideoUpdate(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctVideoUpdate(dctVO);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/dctVideoDelete.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String dctVideoDelete(HttpServletRequest request, HttpServletResponse response, Model model, dctVO dctVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = dctService.dctVideoDelete(dctVO);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

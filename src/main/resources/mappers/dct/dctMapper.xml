@@ -112,7 +112,7 @@
 		  FROM tb_domain 
 		 WHERE student_seq = #{studentSeq }
 		   AND del_yn = 'N'
-		 ORDER BY domain_seq DESC
+		 ORDER BY domain_seq
 	</select>
 	
 	<select id="dctCurriculumListSelect" parameterType="dctVo" resultType="dctVo">
@@ -126,7 +126,7 @@
 		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
 		 WHERE td.student_seq = #{studentSeq }
 		   AND td.del_yn = 'N'
-		 ORDER BY td.domain_seq DESC
+		 ORDER BY td.domain_seq, tl.lto_seq DESC
 	</select>
 	
 	<select id="dctCompletionListSelect" parameterType="dctVo" resultType="dctVo">
@@ -315,46 +315,233 @@
 		 WHERE td.student_seq = #{studentSeq }
 		   AND td.del_yn = 'N'
 		 GROUP BY td.domain_seq
-		 ORDER BY td.domain_seq DESC
+		 ORDER BY td.domain_seq
 	</select>
 	
 	<select id="dctDomainListSelect" parameterType="dctVo" resultType="dctVo">
-		SELECT td.domain_seq ,
-		       td.domain_name ,
-		       td.domain_status
-		  FROM tb_domain td
-		 WHERE td.student_seq = #{studentSeq }
-		   AND td.del_yn = 'N'
-		 ORDER BY td.domain_seq DESC
+		SELECT td2.domain_seq
+			 , td2.domain_name
+			 , IFNULL(main.domain_status, 'ING') AS domain_status
+		FROM tb_domain td2 
+		LEFT OUTER JOIN (
+			SELECT tmp.domain_seq
+				 , CASE WHEN SUM(CASE WHEN lto_status != 'CMP' THEN 1 ELSE 0 END) = 0
+				 		THEN 'CMP' ELSE 'ING' END AS domain_status
+			FROM (
+				SELECT
+					td.domain_seq ,
+					td.domain_name ,
+					td.domain_status ,
+					tl.lto_seq ,
+					tl.lto_name ,
+					CASE WHEN tl.lto_arr_dt > date(#{endDt })+1 THEN 'ING' ELSE tl.lto_status END AS lto_status,
+					ts.sto_seq ,
+					ts.sto_name ,
+					CASE WHEN ts.sto_arr_dt > date(#{endDt })+1 THEN 'ING' ELSE ts.sto_status END AS sto_status
+				FROM tb_domain td
+				LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+				LEFT OUTER JOIN tb_sto ts ON tl.lto_seq = ts.lto_seq AND ts.del_yn = 'N'
+				WHERE td.student_seq = #{studentSeq }
+				  AND tl.lto_status != 'WIT'
+				  AND td.del_yn = 'N'
+				  AND tl.del_yn = 'N'
+				  AND ts.del_yn = 'N'
+				  AND ts.sto_seq  IN (
+				  	SELECT sto_seq 
+					FROM tb_point tp WHERE point_reg_dt BETWEEN date(#{startDt }) and date(#{endDt })+1
+					GROUP BY sto_seq
+				  )
+			) tmp 
+			GROUP BY tmp.domain_seq
+		) main ON td2.domain_seq = main.domain_seq
+		WHERE td2.student_seq = #{studentSeq }
+		  AND td2.del_yn = 'N'
+		ORDER BY td2.domain_seq 	
 	</select>
+	
 	<select id="dctLtoListSelect" parameterType="dctVo" resultType="dctVo">
-		SELECT td.domain_seq ,
-		       td.domain_name ,
-		       td.domain_status ,
-		       tl.lto_seq ,
-		       tl.lto_name ,
-		       tl.lto_status
-		  FROM tb_domain td
-		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
-		 WHERE td.student_seq = #{studentSeq }
-		   AND td.del_yn = 'N'
-		 ORDER BY td.domain_seq DESC, tl.lto_seq DESC
+		SELECT
+			td.domain_seq ,
+			tl2.lto_seq ,
+			tl2.lto_name ,
+			IFNULL(main.lto_status, 'ING') AS lto_status
+		FROM tb_domain td
+		LEFT OUTER JOIN tb_lto tl2 ON td.domain_seq = tl2.domain_seq AND tl2.del_yn = 'N'
+		LEFT OUTER JOIN (
+			SELECT tmp.domain_seq
+				 , tmp.lto_seq
+				 , tmp.lto_status
+			FROM (
+				SELECT
+					td.domain_seq ,
+					td.domain_name ,
+					td.domain_status ,
+					tl.lto_seq ,
+					tl.lto_name ,
+					CASE WHEN tl.lto_arr_dt > date(#{endDt })+1 THEN 'ING' ELSE tl.lto_status END AS lto_status,
+					ts.sto_seq ,
+					ts.sto_name ,
+					CASE WHEN ts.sto_arr_dt > date(#{endDt })+1 THEN 'ING' ELSE ts.sto_status END AS sto_status
+				FROM tb_domain td
+				LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+				LEFT OUTER JOIN tb_sto ts ON tl.lto_seq = ts.lto_seq AND ts.del_yn = 'N'
+				WHERE td.student_seq = #{studentSeq }
+				  AND tl.lto_status != 'WIT'
+				  AND td.del_yn = 'N'
+				  AND tl.del_yn = 'N'
+				  AND ts.del_yn = 'N'
+				  AND ts.sto_seq  IN (
+				  	SELECT sto_seq 
+					FROM tb_point tp WHERE point_reg_dt BETWEEN date(#{startDt }) and date(#{endDt })+1
+					GROUP BY sto_seq
+				  )
+			) tmp 
+			GROUP BY tmp.lto_seq
+		) main ON tl2.lto_seq = main.lto_seq
+		WHERE td.student_seq = #{studentSeq }
+		  AND tl2.lto_status != 'WIT'
+		  AND td.del_yn = 'N'
+		  AND tl2.del_yn = 'N'
+		  AND main.lto_seq IS NOT NULL
+		ORDER BY td.domain_seq,	tl2.lto_seq 
 	</select>
+	
 	<select id="dctStoListSelect" parameterType="dctVo" resultType="dctVo">
-		SELECT td.domain_seq ,
-		       td.domain_name ,
-		       td.domain_status ,
-		       tl.lto_seq ,
-		       tl.lto_name ,
-		       tl.lto_status,
-		       ts.sto_seq ,
-		       ts.sto_name ,
-		       ts.sto_status 
-		  FROM tb_domain td
-		  LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
-		  LEFT OUTER JOIN tb_sto ts ON tl.lto_seq  = ts.lto_seq  AND ts.del_yn = 'N'
-		 WHERE td.student_seq = #{studentSeq }
-		   AND td.del_yn = 'N'
-		 ORDER BY td.domain_seq DESC, tl.lto_seq DESC, ts.sto_seq DESC
+		SELECT
+			td.domain_seq ,
+			tl.lto_seq ,
+			ts.sto_seq ,
+			ts.sto_name ,
+			CASE WHEN ts.sto_arr_dt > date(#{endDt })+1 THEN 'ING' ELSE ts.sto_status END AS sto_status
+		FROM tb_domain td
+		LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq AND tl.del_yn = 'N'
+		LEFT OUTER JOIN tb_sto ts ON tl.lto_seq = ts.lto_seq AND ts.del_yn = 'N'
+		WHERE td.student_seq = #{studentSeq }
+		  AND tl.lto_status != 'WIT'
+		  AND td.del_yn = 'N'
+		  AND tl.del_yn = 'N'
+		  AND ts.del_yn = 'N'
+		  AND ts.sto_seq  IN (
+		  	SELECT sto_seq 
+			FROM tb_point tp WHERE point_reg_dt BETWEEN date(#{startDt }) and date(#{endDt })+1
+			GROUP BY sto_seq
+		  )
+		ORDER BY domain_seq, lto_seq, sto_seq
 	</select>
+	
+	<select id="dctMainCardData" resultType="dctVo">
+	 	SELECT IFNULL((SELECT COUNT(1) FROM tb_center), 0) AS center_cnt
+			 , IFNULL((SELECT COUNT(1) FROM tb_member WHERE  member_auth_cd = 'level2'), 0) AS super_cnt
+			 , IFNULL((SELECT COUNT(1) FROM tb_member WHERE  member_auth_cd = 'level3'), 0) AS teach_cnt
+			 , IFNULL((SELECT COUNT(1) FROM tb_student), 0) AS student_cnt
+	</select>
+	
+	<select id="dctConsultingListSelect" parameterType="dctConsultingVo" resultType="dctConsultingVo">
+		SELECT
+			tc.consulting_seq,
+			tc.member_seq,
+			(SELECT member_name FROM tb_member where member_seq = tc.member_seq) as member_name,
+			tc.student_seq,
+			tc.consulting_contents,
+			tc.only_my_post_yn,
+			tc.consulting_reg_dt
+		FROM tb_consulting tc
+		WHERE student_seq = #{studentSeq}
+		<if test='onlyMyPostYn == "Y"'>
+	   		AND member_seq = #{memberSeq}
+	    </if>
+		<if test='onlyMyPostYn == "N"'>
+	   		AND (only_my_post_yn = 'N' OR member_seq = #{memberSeq})
+	    </if>
+		<if test="consultingRegDt != null and consultingRegDt !=''">
+	   		AND consulting_reg_dt = #{consultingRegDt }
+	    </if>
+	    ORDER BY tc.consulting_seq DESC
+	</select>
+	
+	<select id="dctConsultingOneSelect" parameterType="dctConsultingVo" resultType="dctConsultingVo">
+		SELECT * FROM tb_consulting 
+		WHERE consulting_seq = #{consultingSeq}
+	</select>
+	
+	<select id="dctConsultingInsert" parameterType="dctConsultingVo">
+		INSERT INTO tb_consulting 
+		( member_seq
+		, student_seq
+		, consulting_contents
+		, only_my_post_yn
+		, consulting_reg_dt
+		) 
+		VALUES
+		( #{memberSeq}
+		, #{studentSeq}
+		, #{consultingContents}
+		, #{onlyMyPostYn}
+		, date_format(current_timestamp(), '%Y%m%d') 
+		)
+	</select>
+	
+	<select id="dctConsultingUpdate" parameterType="dctConsultingVo">
+		UPDATE DBTAD.tb_consulting
+		SET consulting_contents = #{consultingContents}
+		  ,	only_my_post_yn = #{onlyMyPostYn}
+		WHERE consulting_seq = #{consultingSeq}
+	</select>
+	
+	<select id="dctConsultingDelete" parameterType="dctConsultingVo">
+		DELETE FROM tb_consulting 
+		WHERE consulting_seq = #{consultingSeq}
+	</select>
+	
+	<select id="dctConsultingDataDtlist" parameterType="dctConsultingVo" resultType="dctConsultingVo">
+		SELECT DISTINCT consulting_reg_dt 
+		FROM tb_consulting tc 
+		WHERE left(consulting_reg_dt, 6) = #{consultingRegDt }
+		AND (only_my_post_yn = 'N' OR member_seq = #{memberSeq})
+	</select>
+
+	<select id="dctVideoListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT sub.video_seq
+		     , sub.student_seq
+		     , CONCAT('#', sub.rownum, ' ', sub.video_contents) AS video_contents
+		     , sub.video_address
+		  FROM (
+				SELECT @ROWNUM := @ROWNUM + 1 AS rownum
+				     , tv.*
+				  FROM (SELECT @ROWNUM := 0 ) rn, tb_video tv
+				 WHERE tv.student_seq = #{studentSeq }
+				) sub
+		 ORDER BY sub.rownum DESC
+	</select>
+
+	<select id="dctVideoOneSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT * FROM tb_video
+		WHERE video_seq = #{videoSeq}
+	</select>
+	
+	<select id="dctVideoInsert" parameterType="dctVo">
+		INSERT INTO tb_video 
+		( student_seq
+		, video_contents
+		, video_address
+		)
+		VALUES
+		( #{studentSeq}
+		, #{videoContents}
+		, #{videoAddress}
+		)
+	</select>
+	
+	<select id="dctVideoUpdate" parameterType="dctVo">
+		UPDATE tb_video
+		SET video_contents = #{videoContents},
+			video_address = #{videoAddress}
+		WHERE video_seq = #{videoSeq}
+	</select>
+	
+	<select id="dctVideoDelete" parameterType="dctVo">
+		DELETE FROM tb_video
+		WHERE video_seq = #{videoSeq}
+	</select>
+	
 </mapper>

@@ -24,6 +24,10 @@ public class lgnVO implements Serializable {
     private String memberRegDt;    // 등록일자 
     private String approvalYn;	// 승인여부 
 	private String resultMsg;
+
+	private int authCenterSeq;
+	private int authClassSeq;
+	private int authStudentSeq;
 	
 	public int getMemberSeq() {
 		return memberSeq;
@@ -90,6 +94,24 @@ public class lgnVO implements Serializable {
 	}
 	public void setResultMsg(String resultMsg) {
 		this.resultMsg = resultMsg;
+	}
+	public int getAuthCenterSeq() {
+		return authCenterSeq;
+	}
+	public void setAuthCenterSeq(int authCenterSeq) {
+		this.authCenterSeq = authCenterSeq;
+	}
+	public int getAuthClassSeq() {
+		return authClassSeq;
+	}
+	public void setAuthClassSeq(int authClassSeq) {
+		this.authClassSeq = authClassSeq;
+	}
+	public int getAuthStudentSeq() {
+		return authStudentSeq;
+	}
+	public void setAuthStudentSeq(int authStudentSeq) {
+		this.authStudentSeq = authStudentSeq;
 	}
 	@Override
 	public String toString() {

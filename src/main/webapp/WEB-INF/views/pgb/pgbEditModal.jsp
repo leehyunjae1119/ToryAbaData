@@ -27,7 +27,7 @@
 				</div>
 				<div class="c-row bg-gray-200">
 					<label class="item-label">LTO ITEM</label>
-					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openLtoRegistModal(0);">
+					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openLtoRegistModal(0);" data-auth="level3">
 						<i class="fas fa-plus"></i>
 						<span>추가</span>
 					</button>
@@ -42,9 +42,12 @@
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
 									<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
 								</button>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);">
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);" data-auth="level3">
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 								</button>
+<!-- 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteLto();"> -->
+<!-- 									<i class="fas fa-trash-alt" style="font-size: 1.275rem;"></i> -->
+<!-- 								</button> -->
 							</div>
 <!-- 							<a href="javascript:void(0);" id="closeLtoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a> -->
 						</div>
@@ -57,13 +60,13 @@
 							<div class="">
 								<div class="btn-group btn-group-toggle btn-group-lg" data-toggle="buttons">
 									<label class="btn btn-outline-primary" name="labelLtoStatus" id="labelLtoStatus_ING">
-										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_ING" value="ING" autocomplete="off"> 진행중
+										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_ING" value="ING" autocomplete="off" data-auth="disabled"> 진행중
 									</label>
 									<label class="btn btn-outline-danger" name="labelLtoStatus" id="labelLtoStatus_STP">
-										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_STP" value="STP" autocomplete="off"> 중지
+										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_STP" value="STP" autocomplete="off" data-auth="disabled"> 중지
 									</label>
 									<label class="btn btn-outline-success" name="labelLtoStatus" id="labelLtoStatus_CMP">
-										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_CMP" value="CMP" autocomplete="off"> 완료
+										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_CMP" value="CMP" autocomplete="off" data-auth="disabled"> 완료
 									</label>
 								</div>
 							</div>
@@ -73,7 +76,7 @@
 				
 				<div class="c-row bg-gray-100">
 					<label class="item-label">STO ITEM</label>
-					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openStoRegistModal(0);">
+					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openStoRegistModal(0);" data-auth="level3">
 						<i class="fas fa-plus"></i>
 						<span>추가</span>
 					</button>
@@ -88,21 +91,21 @@
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
 									<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
 								</button>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openStoRegistModal(1);">
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openStoRegistModal(1);" data-auth="level3">
 									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 								</button>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteSto();">
+								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteSto();" data-auth="level3">
 									<i class="fas fa-trash-alt" style="font-size: 1.275rem;"></i>
 								</button>
 								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
 									<label class="btn btn-outline-primary active" name="labelStoStatus" id="labelStoStatus_ING">
-										<input type="radio" name="btnStoStatus" id="btnStoStatus_ING" value="ING" autocomplete="off" checked> 진행중
+										<input type="radio" name="btnStoStatus" id="btnStoStatus_ING" value="ING" autocomplete="off" data-auth="disabled" checked> 진행중
 									</label>
 									<label class="btn btn-outline-success" name="labelStoStatus" id="labelStoStatus_CMP">
-										<input type="radio" name="btnStoStatus" id="btnStoStatus_CMP" value="CMP" autocomplete="off"> 준거 도달
+										<input type="radio" name="btnStoStatus" id="btnStoStatus_CMP" value="CMP" autocomplete="off" data-auth="disabled"> 준거 도달
 									</label>
 									<label class="btn btn-outline-danger" name="labelStoStatus" id="labelStoStatus_STP">
-										<input type="radio" name="btnStoStatus" id="btnStoStatus_STP" value="STP" autocomplete="off"> 중지
+										<input type="radio" name="btnStoStatus" id="btnStoStatus_STP" value="STP" autocomplete="off" data-auth="disabled"> 중지
 									</label>
 								</div>
 							</div>
@@ -154,7 +157,7 @@
 							<div class="col-lg-5 p-3">
 								<div class="point-border" id="pointBorder">
 								</div>
-								<div class="btn-group point-btn-group" role="group">
+								<div class="btn-group point-btn-group" role="group" data-auth="level3">
 									<button type="button" class="btn btn-primary point-btn-group-item2" name="roundAddBtn" onclick="$.addPointRound();" style="display:none;">회차 추가</button>
 									<button type="button" class="btn btn-outline-success point-btn-group-item" name="pointAddBtn" onclick="$.insertPoint('+');"><i class="fas fa-plus"></i></button>
 									<button type="button" class="btn btn-outline-warning point-btn-group-item" name="pointAddBtn" onclick="$.insertPoint('P');"><i class="fas fa-p"></i></button>
@@ -198,12 +201,38 @@
 			</div>
 			<div class="modal-body">
 				<form id="LTOForm" name="LTOForm" onsubmit="return false;">
-					<input type="hidden" name="ltoSeq" value="0">
 					<input type="hidden" name="domainSeq" value="0">
-					<div class="form-row">
+					<input type="hidden" name="ltoSeq" value="0">
+					<input type="hidden" name="ltoName" value="">
+					<input type="hidden" name="ltoSeqList" value="">
+					<div class="form-row regist-input">
+						<div class="form-group col-md-12 mb-0">
+							<div class="c-row c-cb">
+								<label for="ltoName" class="col-form-label"><font style="vertical-align: inherit;">LTO 이름</font></label>
+								<div class="">
+									<label class="m-0 mr-1 small" style="padding-top: 1;" for="templetSelectYn">직접입력</label>
+									<input type="checkbox" id="templetSelectYn">
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<select class="custom-select" id="ltoTempletList">
+									<option value="0" selected>선택하기</option>
+								</select>
+								<input type="text" id="ltoNameText" class="form-control c-border-left-radius" style="display: none;border-radius: 0.35rem;border-top-right-radius: 0;border-bottom-right-radius: 0;" placeholder="직접 입력...">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary add-btn" data-value="N" type="button">추가</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row regist-input">
+						<div class="form-group col-md-12 mb-0" id="ltoNameGroup">
+						</div>
+					</div>
+					<div class="form-row modify-input">
 						<div class="form-group col-md-12">
-							<label for="ltoName" class="col-form-label"><font style="vertical-align: inherit;">LTO 이름</font></label>
-							<input type="text" class="form-control" name="ltoName">
+							<label for="updateLtoName" class="col-form-label"><font style="vertical-align: inherit;">LTO 이름</font></label>
+							<input type="text" class="form-control" id="updateLtoName">
 						</div>
 					</div>
 					<div class="form-row">
@@ -238,10 +267,36 @@
 				<form id="STOForm" name="STOForm" onsubmit="return false;">
 					<input type="hidden" name="stoSeq" value="0">
 					<input type="hidden" name="ltoSeq" value="0">
-					<div class="form-row">
-						<div class="form-group col-md-12 mb-0" id="stoNameList">
-							<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
-							<input type="text" class="form-control mb-3" name="stoName" placeholder="직접 입력...">
+					<input type="hidden" name="stoName" value="">
+					<input type="hidden" name="stoSeqList" value="">
+					<div class="form-row regist-input">
+						<div class="form-group col-md-12 mb-0">
+							<div class="c-row c-cb">
+								<label for="stoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
+								<div class="">
+									<label class="m-0 mr-1 small" style="padding-top: 1;" for="templetSelectYn2">직접입력</label>
+									<input type="checkbox" id="templetSelectYn2">
+								</div>
+							</div>
+							<div class="input-group mb-3">
+								<select class="custom-select" id="stoTempletList">
+									<option value="0" selected>선택하기</option>
+								</select>
+								<input type="text" id="stoNameText" class="form-control c-border-left-radius" style="display: none;border-radius: 0.35rem;border-top-right-radius: 0;border-bottom-right-radius: 0;" placeholder="직접 입력...">
+								<div class="input-group-append">
+									<button class="btn btn-outline-secondary add-btn2" data-value="N" type="button">추가</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-row regist-input">
+						<div class="form-group col-md-12 mb-0" id="stoNameGroup">
+						</div>
+					</div>
+					<div class="form-row modify-input">
+						<div class="form-group col-md-12">
+							<label for="updateStoName" class="col-form-label"><font style="vertical-align: inherit;">STO 이름</font></label>
+							<input type="text" class="form-control" id="updateStoName">
 						</div>
 					</div>
 					<div class="form-row">

@@ -1,7 +1,5 @@
 package com.tad.lgn.dao.impl;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +25,13 @@ public class lgnDaoImpl implements lgnDao {
 	public int join(lgnVO lgnVO) throws Exception {
 		
 		int res = sqlSession.insert(namespace + "join", lgnVO);
+		
+		return res;
+	}
+
+	@Override
+	public String lgnSubAuthCheck(lgnVO lgnVO) throws Exception {
+		String res = sqlSession.selectOne(namespace + "lgnSubAuthCheck", lgnVO);
 		
 		return res;
 	}

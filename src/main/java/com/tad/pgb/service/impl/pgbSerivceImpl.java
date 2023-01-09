@@ -55,7 +55,31 @@ public class pgbSerivceImpl implements pgbService {
 
 	@Override
 	public int pgbLtoInsert(pgbLtoVO pgbLtoVO) throws Exception {
-		return pgbDao.pgbLtoInsert(pgbLtoVO);
+		
+		String[] ltoNameArr = pgbLtoVO.getLtoName().split("\\|\\|");
+		ArrayList<String> ltoNamelist = new ArrayList<String>(Arrays.asList(ltoNameArr));
+		
+		String[] ltoSeqArr = pgbLtoVO.getLtoSeqList().split("\\|\\|");
+		ArrayList<String> ltoSeqlist = new ArrayList<String>(Arrays.asList(ltoSeqArr));
+		
+		int result = 0;
+		int index = 0;
+		for(String ltoSeq : ltoSeqlist) {
+			pgbLtoVO.setLtoSeq(Integer.parseInt(ltoSeq));
+			
+			if(pgbLtoVO.getLtoSeq() != 0) {
+				int rs = pgbDao.pgbLtoDelYnUpdate(pgbLtoVO);
+				result += rs;
+				
+			} else {
+				pgbLtoVO.setLtoName(ltoNamelist.get(index));
+				int rs = pgbDao.pgbLtoInsert(pgbLtoVO);
+				result += rs;
+				
+			}
+			index++;
+		}
+		return result;
 	}
 	
 	@Override
@@ -65,16 +89,7 @@ public class pgbSerivceImpl implements pgbService {
 	
 	@Override
 	public int pgbStoInsert(pgbStoVO pgbStoVO) throws Exception {
-		String[] strArr = pgbStoVO.getStoName().split("\\|\\|");
-        ArrayList<String> list = new ArrayList<String>(Arrays.asList(strArr));
-        
-        int result = 0;
-        for(String stoName : list) {
-        	pgbStoVO.setStoName(stoName);
-        	int rs = pgbDao.pgbStoInsert(pgbStoVO);
-        	result += rs;
-        }
-		return result;
+		return pgbDao.pgbStoInsert(pgbStoVO);
 	}
 	
 	@Override
@@ -167,6 +182,11 @@ public class pgbSerivceImpl implements pgbService {
 	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception {
 		return pgbDao.pgbStoTmplListSelect(pgbStoVO);
 	}
+	
+	@Override
+	public List<pgbLtoVO> pgbLtoTmplListSelect(pgbLtoVO pgbLtoVO) throws Exception {
+		return pgbDao.pgbLtoTmplListSelect(pgbLtoVO);
+	}
 
 	@Override
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception {
@@ -178,11 +198,9 @@ public class pgbSerivceImpl implements pgbService {
 		List<List<pgbChartVO>> resultList = new ArrayList<List<pgbChartVO>>();
 		List<pgbChartVO> selectList = pgbDao.pgbLtoChartDataSelect(pgbVO);
 		
-		pgbStoVO pgbStoVO = new pgbStoVO();
-		pgbStoVO.setLtoSeq(pgbVO.getLtoSeq());
-		List<pgbStoVO> stoList = pgbDao.pgbStoListSelect(pgbStoVO);
+		List<pgbVO> stoList = pgbDao.pgbChartStoListSelect(pgbVO);
 		
-		for(pgbStoVO stoVO : stoList) {
+		for(pgbVO stoVO : stoList) {
 			List<pgbChartVO> subList = new ArrayList<pgbChartVO>();
 			
 			for(pgbChartVO vo : selectList) {
@@ -199,6 +217,11 @@ public class pgbSerivceImpl implements pgbService {
 	@Override
 	public int pgbStoDelete(pgbVO pgbVO) throws Exception {
 		return pgbDao.pgbStoDelete(pgbVO);
+	}
+	
+	@Override
+	public int pgbLtoDelete(pgbVO pgbVO) throws Exception {
+		return pgbDao.pgbLtoDelete(pgbVO);
 	}
 
 }

@@ -16,6 +16,7 @@ public class pgbLtoVO extends pgbVO {
 	private String ltoArrDt;
 	private String ltoRegDt;
 	private String delYn;
+	private String ltoSeqList;
 	
 	public String getLtoName() {
 		return ltoName;
@@ -53,5 +54,12 @@ public class pgbLtoVO extends pgbVO {
 	public void setDelYn(String delYn) {
 		this.delYn = delYn;
 	}
+	public String getLtoSeqList() {
+		return ltoSeqList;
+	}
+	public void setLtoSeqList(String ltoSeqList) {
+		this.ltoSeqList = ltoSeqList;
+	}
+	
 	
 }

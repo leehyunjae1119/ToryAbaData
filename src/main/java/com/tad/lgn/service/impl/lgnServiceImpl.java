@@ -39,4 +39,9 @@ public class lgnServiceImpl implements lgnService {
 		
 		return res;
 	}
+
+	@Override
+	public String lgnSubAuthCheck(lgnVO lgnVO) throws Exception {
+		return lgnDao.lgnSubAuthCheck(lgnVO);
+	}
 }

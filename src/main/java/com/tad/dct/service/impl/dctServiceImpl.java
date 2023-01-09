@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.tad.dct.service.dctService;
 import com.tad.dct.vo.dctChartVO;
+import com.tad.dct.vo.dctConsultingVO;
 import com.tad.dct.vo.dctVO;
 import com.tad.crc.dao.crcDao;
 import com.tad.crc.vo.crcVO;
@@ -226,6 +227,66 @@ public class dctServiceImpl implements dctService {
 	@Override
 	public List<dctVO> dctDomainListSelect(dctVO dctVO) throws Exception {
 		return dctDao.dctDomainListSelect(dctVO);
+	}
+
+	@Override
+	public dctVO dctMainCardData() throws Exception {
+		return dctDao.dctMainCardData();
+	}
+
+	@Override
+	public List<dctConsultingVO> dctConsultingListSelect(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingListSelect(dctConsultingVO);
+	}
+
+	@Override
+	public dctConsultingVO dctConsultingOneSelect(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingOneSelect(dctConsultingVO);
+	}
+
+	@Override
+	public int dctConsultingInsert(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingInsert(dctConsultingVO);
+	}
+
+	@Override
+	public int dctConsultingUpdate(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingUpdate(dctConsultingVO);
+	}
+
+	@Override
+	public int dctConsultingDelete(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingDelete(dctConsultingVO);
+	}
+
+	@Override
+	public List<dctConsultingVO> dctConsultingDataDtlist(dctConsultingVO dctConsultingVO) throws Exception {
+		return dctDao.dctConsultingDataDtlist(dctConsultingVO);
+	}
+
+	@Override
+	public List<dctVO> dctVideoListSelect(dctVO dctVO) throws Exception {
+		return dctDao.dctVideoListSelect(dctVO);
+	}
+
+	@Override
+	public int dctVideoInsert(dctVO dctVO) throws Exception {
+		return dctDao.dctVideoInsert(dctVO);
+	}
+
+	@Override
+	public int dctVideoUpdate(dctVO dctVO) throws Exception {
+		return dctDao.dctVideoUpdate(dctVO);
+	}
+
+	@Override
+	public int dctVideoDelete(dctVO dctVO) throws Exception {
+		return dctDao.dctVideoDelete(dctVO);
+	}
+
+	@Override
+	public dctVO dctVideoOneSelect(dctVO dctVO) throws Exception {
+		return dctDao.dctVideoOneSelect(dctVO);
 	}
 
 }

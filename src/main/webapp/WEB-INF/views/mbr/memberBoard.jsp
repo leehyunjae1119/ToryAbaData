@@ -4,6 +4,7 @@
 <script src="../js/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
 
 <div class="container-fluid">
+	<input type="hidden" id="pageNum" value="1"/>
 
 	<h1 class="h3 mb-0 text-gray-800 mb-4">Member management</h1>
 <!-- 	<p class="mb-4">회원 가입 승인 및 계정 권한 설정</p> -->
@@ -53,6 +54,38 @@
 					<tbody id="memberTableBody">
 					</tbody>
 				</table>
+			</div>
+			<nav aria-label="Page navigation" id="mbrPaging">
+			</nav>
+		</div>
+	</div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">지점 권한 관리</h6>
+		</div>
+		<div class="card-body">
+			<div class="d-flex flex-row justify-content-start">
+				<input type="hidden" value="0" id="centerSeq">
+				<div class="col-md-6" style="border-right: 1px solid #f1f1f1;" id="centerCardBoard">
+					
+				</div>
+				<div class="col-md-6" style="border-left: 1px solid #f1f1f1;">
+					<div class="form-group mt-2 mb-0">
+						<div class="input-group mb-2">
+							<select class="custom-select" id="teachList" disabled>
+								<option value="0" selected>선택하기...</option>
+							</select>
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary add-btn" data-value="N" type="button" disabled>추가</button>
+							</div>
+						</div>
+					</div>
+					<div class="">
+						<ul class="list-group" id="authTeachList">
+						</ul>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>

@@ -174,6 +174,14 @@ public class pgbDaoImpl implements pgbDao {
 		
 		return resultList;
 	}
+	
+	@Override
+	public List<pgbLtoVO> pgbLtoTmplListSelect(pgbLtoVO pgbLtoVO) throws Exception {
+		
+		List<pgbLtoVO> resultList = sqlSession.selectList(namespace + "pgbLtoTmplListSelect", pgbLtoVO);
+		
+		return resultList;
+	}
 
 	@Override
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception {
@@ -181,6 +189,14 @@ public class pgbDaoImpl implements pgbDao {
 		int result = sqlSession.update(namespace + "pgbPointRoundUpdate", pgbStoVO);
 		result = pgbStoVO.getStoArrStdCnt();
 		return result;
+	}
+	
+	@Override
+	public List<pgbVO> pgbChartStoListSelect(pgbVO pgbVO) throws Exception {
+		
+		List<pgbVO> resultList = sqlSession.selectList(namespace + "pgbChartStoListSelect", pgbVO);
+		
+		return resultList;
 	}
 
 	@Override
@@ -194,8 +210,24 @@ public class pgbDaoImpl implements pgbDao {
 	@Override
 	public int pgbStoDelete(pgbVO pgbVO) throws Exception {
 		
-		int result = sqlSession.update(namespace + "pgbStoDelete", pgbVO);
+		int result = sqlSession.delete(namespace + "pgbStoDelete", pgbVO);
 
+		return result;
+	}
+	
+	@Override
+	public int pgbLtoDelete(pgbVO pgbVO) throws Exception {
+		
+		int result = sqlSession.delete(namespace + "pgbLtoDelete", pgbVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int pgbLtoDelYnUpdate(pgbLtoVO pgbLtoVO) throws Exception {
+		
+		int result = sqlSession.update(namespace + "pgbLtoDelYnUpdate", pgbLtoVO);
+		
 		return result;
 	}
 

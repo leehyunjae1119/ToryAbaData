@@ -1,7 +1,39 @@
 $(document).ready(function () {
 	
+	$.goConsultingBoard = function(studentSeq) {
+		var form = document.createElement("form");
+        form.setAttribute("charset", "UTF-8");
+        form.setAttribute("method", "GET");  //Post 방식
+        form.setAttribute("action", "/dct/consultingBoard"); //요청 보낼 주소
+
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "studentSeq");
+        hiddenField.setAttribute("value", studentSeq);
+        form.appendChild(hiddenField);
+        
+        document.body.appendChild(form);
+        form.submit();
+	};
+	
+	$.goVideoBoard = function(studentSeq) {
+		var form = document.createElement("form");
+        form.setAttribute("charset", "UTF-8");
+        form.setAttribute("method", "GET");  //Post 방식
+        form.setAttribute("action", "/dct/videoBoard"); //요청 보낼 주소
+
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "studentSeq");
+        hiddenField.setAttribute("value", studentSeq);
+        form.appendChild(hiddenField);
+        
+        document.body.appendChild(form);
+        form.submit();
+	};
+	
 	$.openReport = function() {
-		$("#reportModal").modal("show");
+		$("#reportDateModal").modal("show");
 	};
 	
 	$('[data-toggle="tooltip"]').tooltip();
@@ -77,7 +109,7 @@ $(document).ready(function () {
 			
 			html += '	<li class="c-li-sidebar-divider"></li>';
 			//domain
-			html += '	<li data-value="'+data[0].domainSeq+'" data-code="'+data[0].domainStatus+'" class="c-list-group-item d-flex justify-content-between align-items-center '+domainScsClass+'">';
+			html += '	<li data-value="'+data[0].domainSeq+'" data-code="'+data[0].domainStatus+'" class="c-list-group-item one-line d-flex justify-content-between align-items-center '+domainScsClass+'">';
 			html += 	data[0].domainName;
 			html += '	</li>';
 			html += '</ul>';

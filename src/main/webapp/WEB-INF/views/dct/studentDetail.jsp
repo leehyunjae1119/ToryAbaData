@@ -11,7 +11,7 @@
 	</div>
 
 	<div class="row flex-nowrap custom-card-h-280 mb-4" id="profileBody">
-		<div class="col-lg-6 c-h-100">
+		<div class="col-lg-5 c-h-100">
 			<div class="card mb-4 c-h-100">
 				<div class="card-body">
 					<div class="pb-2">
@@ -33,6 +33,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="col-lg-3 c-h-100">
 			<div class="card bg-primary c-h-100">
 				<div class="card-body custom-align-item-center-flex justify-content-center p-0">
@@ -40,32 +41,50 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3 column c-h-100">
+		
+		<div class="col-lg-2 column c-h-100">
 			<div class="pb-3">
-				<div class="card bg-success text-white c-h-58">
+				<div class="card bg-info text-white c-h-83">
+					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
+						<button type="button" class="btn btn-info c-fill-up" onclick="$.goConsultingBoard(${studentSeq });" id="">상담일지</button>
+					</div>
+				</div>
+			</div>
+			<div class="pb-3">
+				<div class="card bg-info text-white c-h-83">
+					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
+						<button type="button" class="btn btn-info c-fill-up" onclick="$.goVideoBoard(${studentSeq });" id="">아동영상</button>
+					</div>
+				</div>
+			</div>
+			<div class="pb-3">
+				<div class="card bg-dark text-white c-h-83">
+					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
+						<button type="button" class="btn btn-dark c-fill-up" onclick="$.openReport(${studentSeq });" id="">보고서</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-lg-2 c-h-100">
+			<div class="pb-3">
+				<div class="card bg-success text-white c-h-83">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
 						<button type="button" class="btn btn-success c-fill-up" onclick="$.goCompletionBoard(${studentSeq });" id="">완료목록</button>
 					</div>
 				</div>
 			</div>
 			<div class="pb-3">
-				<div class="card bg-dark text-white c-h-58">
+				<div class="card bg-dark text-white c-h-83">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
 						<button type="button" class="btn btn-dark c-fill-up" onclick="$.goRunUnitBoard(${studentSeq });" id="">런유닛 그래프</button>
 					</div>
 				</div>
 			</div>
 			<div class="pb-3">
-				<div class="card bg-dark text-white c-h-58">
+				<div class="card bg-dark text-white c-h-83">
 					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
 						<button type="button" class="btn btn-dark c-fill-up" onclick="$.goCriteriaBoard(${studentSeq });" id="">크리테리아 그래프</button>
-					</div>
-				</div>
-			</div>
-			<div class="pb-3">
-				<div class="card bg-dark text-white c-h-58">
-					<div class="card-body custom-align-item-center-flex justify-content-center p-0">
-						<button type="button" class="btn btn-dark c-fill-up" onclick="$.openReport(${studentSeq });" id="">보고서</button>
 					</div>
 				</div>
 			</div>
@@ -80,8 +99,8 @@
 				</a>
 				<div class="collapse show" id="collapseCardCurriculurm">
 					<input type="hidden" id="studentSeq" name="studentSeq" value="${studentSeq }">
-					<div class="card-body">
-						<div class="row flex-nowrap align-items-end contents-over-scroll" id="curriculumBoard">
+					<div class="card-body" style="overflow: overlay;">
+						<div class="row flex-nowrap align-items-end" id="curriculumBoard">
 							
 						</div>
 					</div>

@@ -21,6 +21,8 @@ public class ntcVO extends pagingVO implements Serializable{
 	
 	private String searchText1;
 	
+	private int noticeCnt;
+	
 	public int getRownum() {
 		return rownum;
 	}
@@ -68,6 +70,12 @@ public class ntcVO extends pagingVO implements Serializable{
 	}
 	public void setSearchText1(String searchText1) {
 		this.searchText1 = searchText1;
+	}
+	public int getNoticeCnt() {
+		return noticeCnt;
+	}
+	public void setNoticeCnt(int noticeCnt) {
+		this.noticeCnt = noticeCnt;
 	}
 	
 }

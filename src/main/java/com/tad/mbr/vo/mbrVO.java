@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import org.springframework.stereotype.Component;
 
+import com.tad.common.vo.pagingVO;
+
 @Component(value="mbrVO")
-public class mbrVO implements Serializable{
+public class mbrVO extends pagingVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private int rownum;

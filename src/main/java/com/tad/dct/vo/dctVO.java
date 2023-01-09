@@ -17,7 +17,8 @@ public class dctVO extends pagingVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int memberSeq;				// 회원번호 
-	
+	private String memberName;				// 회원이름 
+	 
 	private int centerSeq;				// 센터번호
 	private String centerName;			// 센터이름
 	
@@ -51,12 +52,27 @@ public class dctVO extends pagingVO implements Serializable {
     
     private List<dctVO> ltoList;
     private List<dctVO> stoList;
-	
+    
+    private int videoSeq;
+    private String videoContents;
+    private String videoAddress;
+    
+    private int centerCnt;
+    private int superCnt;
+    private int teachCnt;
+    private int studentCnt;
+    
 	public int getMemberSeq() {
 		return memberSeq;
 	}
 	public void setMemberSeq(int memberSeq) {
 		this.memberSeq = memberSeq;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 	public int getCenterSeq() {
 		return centerSeq;
@@ -172,11 +188,23 @@ public class dctVO extends pagingVO implements Serializable {
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
 	}
+	public int getStoSeq() {
+		return stoSeq;
+	}
+	public void setStoSeq(int stoSeq) {
+		this.stoSeq = stoSeq;
+	}
 	public String getStoName() {
 		return stoName;
 	}
 	public void setStoName(String stoName) {
 		this.stoName = stoName;
+	}
+	public String getStoStatus() {
+		return stoStatus;
+	}
+	public void setStoStatus(String stoStatus) {
+		this.stoStatus = stoStatus;
 	}
 	public String getStoArrDt() {
 		return stoArrDt;
@@ -196,18 +224,6 @@ public class dctVO extends pagingVO implements Serializable {
 	public void setEndDt(String endDt) {
 		this.endDt = endDt;
 	}
-	public int getStoSeq() {
-		return stoSeq;
-	}
-	public void setStoSeq(int stoSeq) {
-		this.stoSeq = stoSeq;
-	}
-	public String getStoStatus() {
-		return stoStatus;
-	}
-	public void setStoStatus(String stoStatus) {
-		this.stoStatus = stoStatus;
-	}
 	public List<dctVO> getLtoList() {
 		return ltoList;
 	}
@@ -220,5 +236,46 @@ public class dctVO extends pagingVO implements Serializable {
 	public void setStoList(List<dctVO> stoList) {
 		this.stoList = stoList;
 	}
-	
+	public int getVideoSeq() {
+		return videoSeq;
+	}
+	public void setVideoSeq(int videoSeq) {
+		this.videoSeq = videoSeq;
+	}
+	public String getVideoContents() {
+		return videoContents;
+	}
+	public void setVideoContents(String videoContents) {
+		this.videoContents = videoContents;
+	}
+	public String getVideoAddress() {
+		return videoAddress;
+	}
+	public void setVideoAddress(String videoAddress) {
+		this.videoAddress = videoAddress;
+	}
+	public int getCenterCnt() {
+		return centerCnt;
+	}
+	public void setCenterCnt(int centerCnt) {
+		this.centerCnt = centerCnt;
+	}
+	public int getSuperCnt() {
+		return superCnt;
+	}
+	public void setSuperCnt(int superCnt) {
+		this.superCnt = superCnt;
+	}
+	public int getTeachCnt() {
+		return teachCnt;
+	}
+	public void setTeachCnt(int teachCnt) {
+		this.teachCnt = teachCnt;
+	}
+	public int getStudentCnt() {
+		return studentCnt;
+	}
+	public void setStudentCnt(int studentCnt) {
+		this.studentCnt = studentCnt;
+	}
 }

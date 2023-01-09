@@ -5,6 +5,46 @@ function isSideBarToggle() {
 	sessionStorage.setItem("isSideBarToggle", sessionData );
 }
 
+function _checkSubAuth() {
+	
+	if(path.indexOf("/dct") < 0 ){
+		return;
+	}
+	
+	if(path.indexOf("/dct/centerBoard") == 0 ){
+		return;
+	}
+	
+	if(authCd == "master" || authCd == "level1"){
+		return;
+	}
+	
+	var params = {
+			memberSeq : authSeq,
+			authCenterSeq : authCenterSeq,
+			authClassSeq : authClassSeq,
+			authStudentSeq : authStudentSeq
+		};
+	
+	$.ajax({
+        type : "POST",
+        url : "/lgn/lgnSubAuthCheck.ajax",
+        data : params,
+        async: false,
+        success : function(res){
+        	if(res.subAuth == "N"){
+        		$("*[data-auth=master]").remove();
+        		$("*[data-auth=level1]").remove();
+        		$("*[data-auth=level2]").remove();
+        		$("*[data-auth=level3]").remove();
+        		$("*[data-auth=disabled]").prop("disabled", true);
+        	}
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+        }
+    });
+}
+
 function _checkAuth() {
 
 	if(authCd == "master"){
@@ -24,6 +64,7 @@ function _checkAuth() {
 		
 	}
 	
+	_checkSubAuth();
 }
 
 function _pagination(id, pagingObject) {
@@ -59,6 +100,13 @@ function nullCheck(str) {
 	return false;
 }
 
+function numFormat(variable) {
+	variable = Number(variable).toString();
+	if(Number(variable) < 10 && variable.length == 1)
+		variable = "0" + variable;
+	return variable;
+};
+
 $(document).ready(function () {
 	_checkAuth();
 	
@@ -88,6 +136,10 @@ $(document).ready(function () {
 	
 	$("#_ntcMenu").on("click", function() {
 		location.href = "../ntc/noticeBoard";
+	});
+	
+	$("#_testMenu").on("click", function() {
+		location.href = "../mai/test";
 	});
 	
 	//$.setComboBox(태그 아이디, 기본값(선택/선택안함), 선택적용값, 데이터 조회 URL )
@@ -128,6 +180,7 @@ $(document).ready(function () {
 	};
 	
 	$.getDateFormat = function(date, format) {
+		date = date.substring(0, format.length).replace(/-/g, "/");
 		var d = new Date(date);
 		var yyyy = d.getFullYear();
 		var mm = numFormat(d.getMonth()+1);
@@ -173,6 +226,14 @@ $(document).ready(function () {
 		return d_str;
 	};
 	
+	$.getDateFormat2 = function(str, gubun) {
+		var date = "";
+		date += str.substring(0, 4) + gubun;
+		date += str.substring(4, 6) + gubun;
+		date += str.substring(6, 8);
+		return date ;
+	};
+	
 	$.getToday = function() {
 		var date = new Date();
 	    var year = date.getFullYear();
@@ -182,14 +243,6 @@ $(document).ready(function () {
 	    return year + "-" + month + "-" + day;
 	};
 	
-	function numFormat(variable) {
-		variable = Number(variable).toString();
-		if(Number(variable) < 10 && variable.length == 1)
-			variable = "0" + variable;
-		return variable;
-	}
-	
-
 });
 
 

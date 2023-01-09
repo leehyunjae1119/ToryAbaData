@@ -341,6 +341,23 @@ public class pgbController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/pgbLtoTmplListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbLtoTmplListSelect(HttpServletRequest request, HttpServletResponse response, Model model, pgbLtoVO pgbLtoVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<pgbLtoVO> dataList = pgbService.pgbLtoTmplListSelect(pgbLtoVO);
+		
+		resultMap.put("dataList", dataList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/pgbPointRoundUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String pgbPointRoundUpdate(HttpServletRequest request, HttpServletResponse response, Model model, pgbStoVO pgbStoVO) throws Exception {
 		
@@ -384,6 +401,23 @@ public class pgbController {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		int result = pgbService.pgbStoDelete(pgbVO);
+		
+		resultMap.put("data", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/pgbLtoDelete.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbLtoDelete(HttpServletRequest request, HttpServletResponse response, Model model, pgbVO pgbVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = pgbService.pgbLtoDelete(pgbVO);
 		
 		resultMap.put("data", result);
 		

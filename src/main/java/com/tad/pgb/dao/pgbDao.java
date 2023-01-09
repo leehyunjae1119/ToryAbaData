@@ -52,9 +52,17 @@ public interface pgbDao {
 	
 	public List<pgbStoVO> pgbStoTmplListSelect(pgbStoVO pgbStoVO) throws Exception;
 	
+	public List<pgbLtoVO> pgbLtoTmplListSelect(pgbLtoVO pgbLtoVO) throws Exception;
+	
 	public int pgbPointRoundUpdate(pgbStoVO pgbStoVO) throws Exception;
+	
+	public List<pgbVO> pgbChartStoListSelect(pgbVO pgbVO) throws Exception;
 	
 	public List<pgbChartVO> pgbLtoChartDataSelect(pgbVO pgbVO) throws Exception;
 	
 	public int pgbStoDelete(pgbVO pgbVO) throws Exception;
+	
+	public int pgbLtoDelete(pgbVO pgbVO) throws Exception;
+	
+	public int pgbLtoDelYnUpdate(pgbLtoVO pgbLtoVO) throws Exception;
 }

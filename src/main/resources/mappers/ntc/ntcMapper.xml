@@ -76,6 +76,11 @@
 		DELETE FROM tb_notice 
 		WHERE notice_seq = #{noticeSeq }
 	</delete>
+	
+	<select id="ntcNoticeCntSelect" resultType="ntcVo">
+		SELECT IFNULL(COUNT(1), 0) AS notice_cnt 
+		FROM tb_notice tn 
+	</select>
 </mapper>
 		
 		

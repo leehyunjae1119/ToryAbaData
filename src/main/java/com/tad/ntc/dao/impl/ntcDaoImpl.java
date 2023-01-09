@@ -51,4 +51,10 @@ public class ntcDaoImpl implements ntcDao {
 		return result;
 	}
 	
+	@Override
+	public ntcVO ntcNoticeCntSelect() throws Exception {
+		ntcVO result = sqlSession.selectOne(namespace + "ntcNoticeCntSelect");
+		return result;
+	}
+	
 }
