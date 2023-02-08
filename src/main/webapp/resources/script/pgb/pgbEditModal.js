@@ -8,22 +8,18 @@ $(document).ready(function () {
 	});
 
 	$("#pgbEditModal").on('shown.bs.modal', function() {
-//		$(".modal-backdrop").remove();
 		$(".modal-backdrop").css("z-index", "799");
 		$("#pgbEditModal").css("z-index", "800");
-//		$("#pgbEditModal").css("padding", "0px");
 		
 		if(!isPgb){
 			alert("등록된 프로그램이 없습니다. 프로그램을 등록해주세요.");
     		$("#pgbEditModal").modal("hide");
 		}
 	});
-
-	$("#closeLtoCardBtn").on("click", function() {
-		$("#ltoCard").collapse("hide");
-	});
 	
-	$("#closeStoCardBtn").on("click", function() {
+	$("#pgbEditModal").on('hide.bs.modal', function() {
+		$("#dtoCard").collapse("hide");
+		$("#ltoCard").collapse("hide");
 		$("#stoCard").collapse("hide");
 	});
 	
@@ -199,7 +195,7 @@ $(document).ready(function () {
 		dataList.forEach(function(item, index) {
 			var btnStyle = $.getBtnStyle(item.domainStatus);
 			if(index == 0) { btnStyle += ' active'; }
-			var html = '<button type="button" name="dtoItemBtn" class="btn '+btnStyle+' item-btn" data-value="'+item.domainSeq+'">'+item.domainName+'</button>'
+			var html = '<button type="button" name="dtoItemBtn" class="btn '+btnStyle+' item-btn" data-value="'+item.domainSeq+'" data-status="'+item.domainStatus+'">'+item.domainName+'</button>'
 			$("#dtoBtnGroup").append(html);
 		});
 	};
@@ -223,10 +219,10 @@ $(document).ready(function () {
             			$.settingLtoDetail(res.dataList[0].ltoSeq);
             			$.settingSto(res.dataList[0].ltoSeq);
             		}
-            		$("#ltoCard").collapse("hide");
+            		$("#ltoCard").collapse("show");
             	} else {
             		$("#ltoBtnGroup").empty();
-                	$("#ltoCard").collapse("hide");
+                	$("#ltoCard").collapse("show");
                 	
                 	$("#stoBtnGroup").empty();
                 	$("#stoCard").collapse("hide");
@@ -371,6 +367,7 @@ $(document).ready(function () {
 			$("#templetSelectYn").prop("checked", false);
 			$("#ltoTempletList").show();
 			$("#ltoNameText").hide();
+			$("#ltoNameText").val("");
 			$(".add-btn").attr("data-value", 'N');
 			
 			$.setLtoTmplList();
@@ -473,6 +470,7 @@ $(document).ready(function () {
 			$("#templetSelectYn2").prop("checked", false);
 			$("#stoTempletList").show();
 			$("#stoNameText").hide();
+			$("#stoNameText").val("");
 			$(".add-btn2").attr("data-value", 'N');
 			
 			$.setStoTmplList();
@@ -538,7 +536,7 @@ $(document).ready(function () {
 				stoName += $(this).val();
 			});
 			
-			if(stoSeq == ""){
+			if(stoName == ""){
 				alert("STO를 추가하세요.");
 				return;
 			}
@@ -578,6 +576,32 @@ $(document).ready(function () {
         });
 	};
 	
+	$("input[name=btnDtoStatus]").on('click', function() {
+		$("input[name=btnDtoStatus]").removeAttr("checked");
+		$(this).attr("checked", true);
+		
+		var domainSeq = $('button[name=dtoItemBtn].active').attr('data-value');
+		var domainStatus = $(this).val();
+		
+		var params = {
+				domainSeq : domainSeq ,
+				domainStatus : domainStatus 
+		};
+		
+		$.ajax({
+			type : "POST",
+			url : "/pgb/pgbDtoStautsUpdate.ajax",
+			data : params,
+			success : function(res){
+            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(domainStatus));
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+				alert("서버오류. 담당자에게 연락하세요.")
+			}
+		});
+	});
+	
 	$("input[name=btnLtoStatus]").on('click', function() {
 		$("input[name=btnLtoStatus]").removeAttr("checked");
 		$(this).attr("checked", true);
@@ -585,7 +609,7 @@ $(document).ready(function () {
 		var ltoSeq = $('button[name=ltoItemBtn].active').attr('data-value');
 		var domainSeq = $('button[name=dtoItemBtn].active').attr('data-value');
 		var ltoStatus = $(this).val();
-		
+		 
 		var params = {
 				domainSeq : domainSeq ,
 				ltoSeq : ltoSeq ,
@@ -597,8 +621,8 @@ $(document).ready(function () {
             url : "/pgb/pgbLtoStautsUpdate.ajax",
             data : params,
             success : function(res){
-            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
-            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.data));
+//            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.data));
             	
             	$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
             	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(ltoStatus));
@@ -631,16 +655,16 @@ $(document).ready(function () {
             data : params,
             success : function(res){
             	
-            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
-            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
-            	
-            	$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
-            	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
-            	
-            	$("input[name=btnLtoStatus]").removeAttr("checked");
-            	$("label[name=labelLtoStatus]").removeClass("active");
-        		$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
-        		$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
+//            	$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//            	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
+//            	
+//            	$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//            	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
+//            	
+//            	$("input[name=btnLtoStatus]").removeAttr("checked");
+//            	$("label[name=labelLtoStatus]").removeClass("active");
+//        		$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
+//        		$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
             	
         		$('button[name=stoItemBtn].active').removeClass($.getBtnStyle("ALL"));
             	$('button[name=stoItemBtn].active').addClass($.getBtnStyle(stoStatus));
@@ -783,6 +807,19 @@ $(document).ready(function () {
 			}
 		});
 	};
+	
+	$.settingDtoDetails = function() {
+		var dtoSeq = $('button[name=dtoItemBtn].active').attr('data-value');
+		var dtoName = $('button[name=dtoItemBtn].active').text();
+		var dtoStatus = $('button[name=dtoItemBtn].active').attr('data-status');
+		
+		$("#labelDtoName").text(dtoName);
+		
+		$("label[name=labelDtoStatus]").removeClass("active");
+    	$("input[name=btnDtoStatus]").removeAttr("checked");
+    	$("#labelDtoStatus_"+dtoStatus).addClass("active");
+    	$("#btnDtoStatus_"+dtoStatus).attr("checked", true);
+	};
 });
 
 $(document).on("click", "button[name=dtoItemBtn]", function() {
@@ -792,10 +829,11 @@ $(document).on("click", "button[name=dtoItemBtn]", function() {
 		
 		$.settingLto($(this).attr("data-value"));
 		
-		$("#stoCard").collapse("hide");
-		
 		$("#ltoChart").collapse("hide");
+		$("#dtoCard").collapse("hide");
 	} else {
+		$("#dtoCard").collapse("toggle");
+		$.settingDtoDetails();
 	}
 });
 
@@ -805,10 +843,10 @@ $(document).on("click", "button[name=ltoItemBtn]", function() {
 		$(this).addClass("active");
 		
 		$.settingLtoDetail($(this).attr("data-value"));
-//		$("#ltoCard").collapse("show");
 		
 		$.settingSto($(this).attr("data-value"));
 		
+		$("#ltoCard").collapse("show");
 		$("#ltoChart").collapse("hide");
 	} else {
 		$("#ltoCard").collapse("toggle");

@@ -25,6 +25,33 @@
 					<div class="d-flex flex-nowrap align-items-center contents-over-scroll" id="dtoBtnGroup">
 					</div>
 				</div>
+				<div class="bg-gray-300 p-2 collapse" id="dtoCard">
+					<div class="card card-body color-black py-1">
+						<div class="c-row c-cb">
+							<div class="c-row">
+								<p class="m-0 h6 text-secondary">Details</p>
+								<div class="m-2">
+									<p class="m-0 mx-3 h5">
+										<span id="labelDtoName"></span>
+									</p>
+								</div>
+							</div>
+							<div class="">
+								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
+									<label class="btn btn-outline-primary" name="labelDtoStatus" id="labelDtoStatus_ING">
+										<input type="radio" name="btnDtoStatus" id="btnDtoStatus_ING" value="ING" autocomplete="off" data-auth="disabled"> 진행중
+									</label>
+									<label class="btn btn-outline-danger" name="labelDtoStatus" id="labelDtoStatus_STP">
+										<input type="radio" name="btnDtoStatus" id="btnDtoStatus_STP" value="STP" autocomplete="off" data-auth="disabled"> 중지
+									</label>
+									<label class="btn btn-outline-success" name="labelDtoStatus" id="labelDtoStatus_CMP">
+										<input type="radio" name="btnDtoStatus" id="btnDtoStatus_CMP" value="CMP" autocomplete="off" data-auth="disabled"> 완료
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="c-row bg-gray-200">
 					<label class="item-label">LTO ITEM</label>
 					<button type="button" class="btn btn-outline-purple btn-sm m-2" onclick="$.openLtoRegistModal(0);" data-auth="level3">
@@ -34,31 +61,28 @@
 					<div class="d-flex flex-nowrap align-items-center contents-over-scroll" id="ltoBtnGroup">
 					</div>
 				</div>
-				<div class="bg-gray-200 p-3 collapse" id="ltoCard">
-					<div class="card card-body color-black">
-						<div class="c-row c-cb">
-							<div class="d-flex align-items-center">
-								<h6 class="item-label">LTO Details</h6>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
-									<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
-								</button>
-								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);" data-auth="level3">
-									<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
-								</button>
-<!-- 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteLto();"> -->
-<!-- 									<i class="fas fa-trash-alt" style="font-size: 1.275rem;"></i> -->
-<!-- 								</button> -->
-							</div>
-<!-- 							<a href="javascript:void(0);" id="closeLtoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a> -->
-						</div>
+				<div class="bg-gray-200 p-2 collapse" id="ltoCard">
+					<div class="card card-body color-black py-1">
 						<div class="c-row c-cb">
 							<input type="hidden" id="ltoSeq" value="0"/>
-							<div class="m-3">
-								<p class="m-0 h2"><span id="labelLtoName"></span></p>
-<!-- 								<p class="m-0">LTO 내용 : <span id="labelLtoContents"></span></p> -->
+							<div class="c-row">
+								<p class="m-0 h6 text-secondary">Details</p>
+								<div class="m-2">
+									<p class="m-0 mx-3 h5">
+										<span id="labelLtoName"></span>
+									</p>
+								</div>
+								<div class="d-flex align-items-center">
+									<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.collapseLtoChart();">
+										<i class="fas fa-chart-line" style="font-size: 1.275rem;"></i>
+									</button>
+									<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);" data-auth="level3">
+										<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
+									</button>
+								</div>
 							</div>
 							<div class="">
-								<div class="btn-group btn-group-toggle btn-group-lg" data-toggle="buttons">
+								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
 									<label class="btn btn-outline-primary" name="labelLtoStatus" id="labelLtoStatus_ING">
 										<input type="radio" name="btnLtoStatus" id="btnLtoStatus_ING" value="ING" autocomplete="off" data-auth="disabled"> 진행중
 									</label>
@@ -97,6 +121,7 @@
 								<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.deleteSto();" data-auth="level3">
 									<i class="fas fa-trash-alt" style="font-size: 1.275rem;"></i>
 								</button>
+							</div>
 								<div class="btn-group btn-group-toggle btn-group-sm" data-toggle="buttons">
 									<label class="btn btn-outline-primary active" name="labelStoStatus" id="labelStoStatus_ING">
 										<input type="radio" name="btnStoStatus" id="btnStoStatus_ING" value="ING" autocomplete="off" data-auth="disabled" checked> 진행중
@@ -108,7 +133,6 @@
 										<input type="radio" name="btnStoStatus" id="btnStoStatus_STP" value="STP" autocomplete="off" data-auth="disabled"> 중지
 									</label>
 								</div>
-							</div>
 <!-- 							<a href="javascript:void(0);" id="closeStoCardBtn"><i class="fas fa-caret-up mr-2"></i>접기</a> -->
 						</div>
 						<div class="row">

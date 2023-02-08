@@ -98,17 +98,25 @@ public class pgbSerivceImpl implements pgbService {
 	}
 	
 	@Override
+	public String pgbDtoStautsUpdate(pgbDtoVO pgbDtoVO) throws Exception {
+		
+		String result = "";
+		int dtoResult = pgbDao.pgbDtoStautsUpdate(pgbDtoVO);
+		
+		return result;
+	}
+	
+	@Override
 	public String pgbLtoStautsUpdate(pgbLtoVO pgbLtoVO) throws Exception {
 		
 		String result = "";
 		int ltoResult = pgbDao.pgbLtoStautsUpdate(pgbLtoVO);
 		
-		if(ltoResult > 0) {
-			pgbVO pgbVO = new pgbVO();
-			pgbVO.setDomainSeq(pgbLtoVO.getDomainSeq());
-			result = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
-			
-		}
+//		if(ltoResult > 0) {
+//			pgbVO pgbVO = new pgbVO();
+//			pgbVO.setDomainSeq(pgbLtoVO.getDomainSeq());
+//			result = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+//		}
 		
 		return result;
 	}
@@ -119,18 +127,18 @@ public class pgbSerivceImpl implements pgbService {
 		Map<String, String> result = new HashMap<String, String>();
 		int stoResult = pgbDao.pgbStoStautsUpdate(pgbStoVO);
 		
-		if(stoResult > 0) {
-			pgbVO pgbVO = new pgbVO();
-			pgbVO.setLtoSeq(pgbStoVO.getLtoSeq());
-			pgbVO.setDomainSeq(pgbStoVO.getDomainSeq());
-			
-			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
-			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
-			
-			result.put("ltoStatus", ltoStatus);
-			result.put("dtoStatus", dtoStatus);
-			
-		}
+//		if(stoResult > 0) {
+//			pgbVO pgbVO = new pgbVO();
+//			pgbVO.setLtoSeq(pgbStoVO.getLtoSeq());
+//			pgbVO.setDomainSeq(pgbStoVO.getDomainSeq());
+//			
+//			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
+//			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+//			
+//			result.put("ltoStatus", ltoStatus);
+//			result.put("dtoStatus", dtoStatus);
+//			
+//		}
 		return result;
 	}
 
@@ -154,16 +162,16 @@ public class pgbSerivceImpl implements pgbService {
 		Map<String, String> result = new HashMap<String, String>();
 		if("STO".equals(pgbVO.getUpdateFlag())) {
 			String stoStatus = pgbDao.pgbStoStautsAutoUpdate(pgbVO);
-			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
-			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+//			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
+//			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
 			result.put("stoStatus", stoStatus);
-			result.put("ltoStatus", ltoStatus);
-			result.put("dtoStatus", dtoStatus);
+//			result.put("ltoStatus", ltoStatus);
+//			result.put("dtoStatus", dtoStatus);
 		} else if ("LTO".equals(pgbVO.getUpdateFlag())) {
 			String ltoStatus = pgbDao.pgbLtoStautsAutoUpdate(pgbVO);
-			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
+//			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
 			result.put("ltoStatus", ltoStatus);
-			result.put("dtoStatus", dtoStatus);
+//			result.put("dtoStatus", dtoStatus);
 		} else if ("DTO".equals(pgbVO.getUpdateFlag())) {
 			String dtoStatus = pgbDao.pgbDtoStautsAutoUpdate(pgbVO);
 			result.put("dtoStatus", dtoStatus);

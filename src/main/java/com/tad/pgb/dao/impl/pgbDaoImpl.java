@@ -91,6 +91,14 @@ public class pgbDaoImpl implements pgbDao {
 		
 		return result;
 	}
+	
+	@Override
+	public int pgbDtoStautsUpdate(pgbDtoVO pgbDtoVO) throws Exception {
+		
+		int result = sqlSession.update(namespace + "pgbDtoStautsUpdate", pgbDtoVO);
+		
+		return result;
+	}
 
 	@Override
 	public int pgbLtoStautsUpdate(pgbLtoVO pgbLtoVO) throws Exception {
@@ -113,7 +121,6 @@ public class pgbDaoImpl implements pgbDao {
 		String resultStr = "";
 		sqlSession.update(namespace + "pgbStoStautsAutoUpdate", pgbVO);
 		resultStr = pgbVO.getStoStatus();
-		System.out.println("pgbStoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 	
@@ -122,7 +129,6 @@ public class pgbDaoImpl implements pgbDao {
 		String resultStr = "";
 		sqlSession.update(namespace + "pgbLtoStautsAutoUpdate", pgbVO);
 		resultStr = pgbVO.getLtoStatus();
-		System.out.println("pgbLtoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 	
@@ -131,7 +137,6 @@ public class pgbDaoImpl implements pgbDao {
 		String resultStr = "";
 		sqlSession.update(namespace + "pgbDtoStautsAutoUpdate", pgbVO);
 		resultStr = pgbVO.getDomainStatus();
-		System.out.println("pgbDtoStautsAutoUpdate : " +resultStr);
 		return resultStr;
 	}
 

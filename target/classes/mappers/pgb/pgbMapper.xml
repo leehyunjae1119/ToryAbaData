@@ -68,6 +68,12 @@
 		WHERE lto_seq = #{ltoSeq }
 	</select>
 	
+	<select id="pgbDtoStautsUpdate" parameterType="pgbDtoVo">
+		UPDATE tb_domain 
+		SET domain_status = #{domainStatus }
+		WHERE domain_seq = #{domainSeq }
+	</select>
+	
 	<select id="pgbLtoStautsUpdate" parameterType="pgbLtoVo">
 		UPDATE tb_lto SET 
 			lto_status = #{ltoStatus } ,
@@ -350,6 +356,7 @@
 				DATE_FORMAT(MAX(tp.point_reg_dt), '%Y-%m-%d') AS point_dt,
 				SUM(CASE WHEN tp.point_rslt_cd='+' THEN 1 ELSE 0 END) AS rea_cnt,
 				SUM(CASE WHEN tp.point_rslt_cd='P' THEN 1 ELSE 0 END) AS urg_cnt, 
+				SUM(CASE WHEN tp.point_rslt_cd='-' THEN 1 ELSE 0 END) AS fai_cnt, 
 				ts.sto_trial_cnt,
 				tp.point_reg_mbr_seq 
 			FROM tb_point tp, tb_sto ts 
@@ -357,6 +364,8 @@
 			and ts.lto_seq = #{ltoSeq }
 			GROUP BY tp.sto_seq, tp.point_round
 			) sub
+		WHERE sub.sto_trial_cnt = (sub.rea_cnt + sub.urg_cnt + sub.fai_cnt)
+		OR sub.sto_arr_yn = 'Y'
 		ORDER BY sub.point_dt, sub.sto_seq, sub.point_round
 	</select>
 	

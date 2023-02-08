@@ -71,11 +71,9 @@ function renderCalender(thisMonth) {
         calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
     }
 
-    console.log(selectDay)
     if (selectDay == '') {
     	// 오늘 날짜 표기
     	selectDay = ''.concat(today.getFullYear(), numFormat(today.getMonth()+1), numFormat(today.getDate()));
-    	console.log("asd : " + selectDay)
     }
     
     

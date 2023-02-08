@@ -135,7 +135,7 @@
 				<script src="../js/jspdf/jspdf.min.js"></script>
 				
 				<!-- smarteditor plugin JavaScript -->
-				<script type="text/javascript" src="/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+<!-- 				<script type="text/javascript" src="/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script> -->
 	
 				
 				<sitemesh:write property="body"></sitemesh:write>

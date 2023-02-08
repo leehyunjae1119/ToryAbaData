@@ -238,6 +238,7 @@ tr.c-tr-hover:hover {
 	padding: 0.1rem 1rem;
 	margin: 0.5rem;
 	max-width: 25rem;
+	min-width: 7rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -494,4 +495,9 @@ tr.c-tr-hover:hover {
 
 .contents {
 	word-break:break-all;
+}
+
+.explanationLabel {
+	white-space: normal;
+    word-break: break-word;
 }

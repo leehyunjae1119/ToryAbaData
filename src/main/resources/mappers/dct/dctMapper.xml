@@ -191,6 +191,13 @@
 			LEFT OUTER JOIN tb_lto tl ON td.domain_seq = tl.domain_seq  
 			LEFT OUTER JOIN tb_sto ts ON tl.lto_seq = ts.lto_seq 
 			LEFT OUTER JOIN tb_point tp ON ts.sto_seq = tp.sto_seq 
+<!-- 										AND tp.point_seq IN ( -->
+<!-- 											SELECT point_seq  -->
+<!-- 											FROM tb_point ttp -->
+<!-- 											LEFT OUTER JOIN tb_sto tts ON ttp.sto_seq = tts.sto_seq -->
+<!-- 											WHERE ttp.point_round != tts.sto_arr_std_cnt -->
+<!-- 											OR (ttp.point_round = tts.sto_arr_std_cnt AND tts.sto_arr_yn = 'Y') -->
+<!-- 										) -->
 			WHERE student_seq = #{studentSeq }
 			GROUP BY date_format(tp.point_reg_dt, '%Y-%m-%d'), td.domain_seq 
 		) AS sub
@@ -482,7 +489,7 @@
 	</select>
 	
 	<select id="dctConsultingUpdate" parameterType="dctConsultingVo">
-		UPDATE DBTAD.tb_consulting
+		UPDATE tb_consulting
 		SET consulting_contents = #{consultingContents}
 		  ,	only_my_post_yn = #{onlyMyPostYn}
 		WHERE consulting_seq = #{consultingSeq}

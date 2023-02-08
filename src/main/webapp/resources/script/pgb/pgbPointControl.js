@@ -144,12 +144,12 @@ $(document).ready(function () {
             data : params,
             async : false,
             success : function(res){
-            	if(flag == "STO" || flag == "LTO" || flag == "DTO"){
+            	if(flag == "DTO"){
             		$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
                 	$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
             	}
             	
-            	if(flag == "STO" || flag == "LTO"){
+            	if(flag == "LTO"){
             		$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
                 	$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
                 	
@@ -168,6 +168,30 @@ $(document).ready(function () {
             		$("#btnStoStatus_"+res.stoStatus).attr("checked", true);
             		$("#labelStoStatus_"+res.stoStatus).addClass("active");
             	}
+//        		if(flag == "STO" || flag == "LTO" || flag == "DTO"){
+//        			$('button[name=dtoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//        			$('button[name=dtoItemBtn].active').addClass($.getBtnStyle(res.dtoStatus));
+//        		}
+//        		
+//        		if(flag == "STO" || flag == "LTO"){
+//        			$('button[name=ltoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//        			$('button[name=ltoItemBtn].active').addClass($.getBtnStyle(res.ltoStatus));
+//        			
+//        			$("input[name=btnLtoStatus]").removeAttr("checked");
+//        			$("label[name=labelLtoStatus]").removeClass("active");
+//        			$("#btnLtoStatus_"+res.ltoStatus).attr("checked", true);
+//        			$("#labelLtoStatus_"+res.ltoStatus).addClass("active");
+//        		}
+//        		
+//        		if(flag == "STO"){
+//        			$('button[name=stoItemBtn].active').removeClass($.getBtnStyle("ALL"));
+//        			$('button[name=stoItemBtn].active').addClass($.getBtnStyle(res.stoStatus));
+//        			
+//        			$("input[name=btnStoStatus]").removeAttr("checked");
+//        			$("label[name=labelStoStatus]").removeClass("active");
+//        			$("#btnStoStatus_"+res.stoStatus).attr("checked", true);
+//        			$("#labelStoStatus_"+res.stoStatus).addClass("active");
+//        		}
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")

@@ -32,6 +32,8 @@ public interface pgbDao {
 	
 	public int pgbStoUpdate(pgbStoVO pgbStoVO) throws Exception;
 	
+	public int pgbDtoStautsUpdate(pgbDtoVO pgbDtoVO) throws Exception;
+	
 	public int pgbLtoStautsUpdate(pgbLtoVO pgbLtoVO) throws Exception;
 	
 	public int pgbStoStautsUpdate(pgbStoVO pgbStoVO) throws Exception;

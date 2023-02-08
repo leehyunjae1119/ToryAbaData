@@ -192,6 +192,23 @@ public class pgbController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/pgbDtoStautsUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String pgbDtoStautsUpdate(HttpServletRequest request, HttpServletResponse response, Model model, pgbDtoVO pgbDtoVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		String result = pgbService.pgbDtoStautsUpdate(pgbDtoVO);
+		
+		resultMap.put("data", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/pgbLtoStautsUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String pgbLtoStautsUpdate(HttpServletRequest request, HttpServletResponse response, Model model, pgbLtoVO pgbLtoVO) throws Exception {
 		

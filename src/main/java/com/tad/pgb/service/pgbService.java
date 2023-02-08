@@ -30,6 +30,8 @@ public interface pgbService {
 	
 	public int pgbStoUpdate(pgbStoVO pgbStoVO) throws Exception;
 	
+	public String pgbDtoStautsUpdate(pgbDtoVO pgbDtoVO) throws Exception;
+	
 	public String pgbLtoStautsUpdate(pgbLtoVO pgbLtoVO) throws Exception;
 	
 	public Map<String, String> pgbStoStautsUpdate(pgbStoVO pgbStoVO) throws Exception;

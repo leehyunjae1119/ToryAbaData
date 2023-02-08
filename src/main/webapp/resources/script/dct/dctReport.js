@@ -7,13 +7,20 @@ $(document).ready(function () {
 	var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000); // uct 표준시 도출
 	var kstGap = 9 * 60 * 60 * 1000; // 한국 kst 기준시간 더하기
 	var today = new Date(utc + kstGap); // 한국 시간으로 date 객체 만들기(오늘)
-
+	
 	var currentYear = today.getFullYear(); 
 	var currentMonth = today.getMonth(); 
 	var currentDate = today.getDate(); 
+	
+	var oneMonthAgo = new Date(today.setMonth(today.getMonth()-1));
+	
+	var agoYear = oneMonthAgo.getFullYear(); 
+	var agoMonth = oneMonthAgo.getMonth(); 
+	var agoDate = oneMonthAgo.getDate(); 
 
-	var startDay = currentYear + '-' + currentMonth + '-' + currentDate;
-	var endDay = currentYear + '-' + (currentMonth+1) + '-' + currentDate;
+	var startDay = agoYear + '-' + numFormat(agoMonth+1) + '-' + numFormat(agoDate);
+	var endDay = currentYear + '-' + numFormat(currentMonth+1) + '-' + numFormat(currentDate);
+	
 	$("#startDt").val(startDay);
 	$("#endDt").val(endDay);
 	
@@ -61,7 +68,7 @@ $(document).ready(function () {
 		$(".reportBirth").hide();
 		$(".reportBirthLabel").show();
 	});
-	
+
 	$(".reportRegNameLabel").parent().on("click", function() {
 		$(".reportRegNameLabel").hide();
 		$(".reportRegName").show();
@@ -75,6 +82,11 @@ $(document).ready(function () {
 	});
 	
 	$("#setReportDateBtn").on('click', function() {
+		if($("#startDt").val() == '' || $("#endDt").val() == ''){
+			alert("보고서 작성 날짜를 입력하세요.");
+			return;
+		}
+		
 		$("#reportDateModal").modal("hide");
 		
 		isReport = true;
@@ -115,12 +127,12 @@ $(document).ready(function () {
 		    // 캔버스를 이미지로 변환
 		    var imgData = canvas.toDataURL('image/png');
 			     
-		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+		    var imgWidth = 210; // 이미지 가로 길이(mm) / A4 기준 210mm
 		    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
 		    var imgHeight = canvas.height * imgWidth / canvas.width;
 		    var heightLeft = imgHeight;
-		    var margin = 10; // 출력 페이지 여백설정
-		    var doc = new jsPDF('p', 'mm');
+		    var margin = 0; // 출력 페이지 여백설정
+		    var doc = new jsPDF('p', 'mm', 'a4');
 		    var position = 0;
 		       
 		    // 첫 페이지 출력
@@ -163,6 +175,24 @@ $(document).ready(function () {
             success : function(res){
             	$.setReportCurriculurm(res.dataList);
             	$.setReportDomain(res.dataList);
+            	
+        		
+        		$(".explanationLabel").parent().parent().on("click", function() {
+        			var idx = $(".explanationLabel").index($(this).find(".explanationLabel"));
+        			
+        			$(".explanationLabel:eq("+idx+")").hide();
+        			
+        			$(".explanation:eq("+idx+")").show();
+        			$(".explanation:eq("+idx+")").focus();
+        		});
+
+        		$(".explanation").on("focusout", function() {
+        			var idx = $(".explanation").index($(this));
+        			var text = $(this).val().replace(/(?:\r\n|\r|\n)/g, '<br/>').replace(/\s/g,"&nbsp;");
+        			$(".explanationLabel:eq("+idx+")").html(text);
+        			$(".explanationLabel:eq("+idx+")").show();
+        			$(this).hide();
+        		});
             },
             error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("서버오류. 담당자에게 연락하세요.")
@@ -194,7 +224,13 @@ $(document).ready(function () {
 			html+='</td>';
 			html+='</tr>';
 			html+='<tr class="tr-vertical-align">';
-			html+='<td><span>설명 : </span><textarea class="explanation custom-width-85" rows="1"></textarea></td>';
+			html+='<td>';
+			html+='<div class="d-flex">';
+			html+='<span>설명 : </span>';
+			html+='<textarea class="explanation custom-width-100" rows="1" style="display:none;"></textarea>';
+			html+='<span class="explanationLabel ml-1"></span>';
+			html+='</div>';
+			html+='</td>';
 			html+='</tr>';
 		});
 		$("#reportTableBody").append(html);
@@ -208,7 +244,12 @@ $(document).ready(function () {
 			var dtoCmp = (dtoItem.domainStatus == 'CMP') ? '<span class="badge badge-success">완료</span> ' : '';
 			html+='<tr class="tr-vertical-align">';
 			html+='<th>'+dtoCmp+dtoItem.domainName+'</th>';
-			html+='<td><textarea class="explanation custom-width-100" rows="1"></textarea></td>';
+			html+='<td>';
+			html+='<div class="d-flex">';
+			html+='<textarea class="explanation custom-width-100" rows="1" style="display:none;"></textarea>';
+			html+='<span class="explanationLabel ml-1"></span>';
+			html+='</div>';
+			html+='</td>';
 			html+='</tr>';
 		});
 		
@@ -238,6 +279,7 @@ $(document).ready(function () {
 		$(".reportRegDt").text($.getToday());
 		$(".reportRegName").val(authName);
 		$(".reportRegNameLabel").text(authName);
+
 	});
 	
 	$("#reportModal").on("hidden.bs.modal", function() {
@@ -251,4 +293,3 @@ $(document).on("keyup", "textarea.explanation", function() {
 	$(this).css("height", "auto");
 	$(this).height(this.scrollHeight);
 });
-
