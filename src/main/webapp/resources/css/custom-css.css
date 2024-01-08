@@ -458,7 +458,7 @@ tr.c-tr-hover:hover {
 .report-tr li, .report-tr div, .report-tr th {
 	text-overflow: ellipsis;
 	overflow: hidden;
-	white-space: nowrap;
+	white-space: normal;
 }
 .report-tr th {
 	text-align: center;

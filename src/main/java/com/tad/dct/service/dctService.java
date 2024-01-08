@@ -9,6 +9,8 @@ import com.tad.dct.vo.dctVO;
 public interface dctService {
 
 	public List<dctVO> dctCenterListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctVO> dctAuthCenterListSelect(dctVO dctVO) throws Exception;
 
 	public int dctCenterInsert(dctVO dctVO) throws Exception;
 	

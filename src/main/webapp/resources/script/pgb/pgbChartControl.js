@@ -56,7 +56,7 @@ function createLegendItem(dataList) {
 			if(listIdx == 0 && stoDataList.length > 1){
 				width = width - (itemWidth/2);
 			}
-			var tooltipContents = 'STO : ' + stoDataList[0].stoName + '<br>'
+			var tooltipContents = 'STO : ' + $.convertHtmlText(stoDataList[0].stoName) + '<br>'
 			                    + '준거도달 기준 : ' + stoDataList[0].stoArrStdPst +' %';
 				
 			var html = '<button '

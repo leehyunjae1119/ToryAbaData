@@ -24,6 +24,14 @@ public class dctDaoImpl implements dctDao {
 		
 		return resultList;
 	}
+	
+	@Override
+	public List<dctVO> dctAuthCenterListSelect(dctVO dctVO) throws Exception {
+		
+		List<dctVO> resultList = sqlSession.selectList(namespace + "dctAuthCenterListSelect", dctVO);
+		
+		return resultList;
+	}
 
 	@Override
 	public int dctCenterInsert(dctVO dctVO) throws Exception {

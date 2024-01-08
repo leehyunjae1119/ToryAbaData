@@ -195,7 +195,7 @@
 				</div>
 				<div class="bg-gray-100 p-3 collapse" id="ltoChart">
 					<div class="card card-body color-black">
-						<div class="c-row">
+						<div class="c-row contents-over-scroll">
 <!-- 						왼쪽 Y축 30 나머지 50 -->
 							<div class="">
 								<h3 class="item-label mb-3">LTO 그래프 - <span id="ltoChartTitle"></span></h3>

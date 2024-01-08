@@ -234,7 +234,11 @@ $(document).ready(function () {
 		if(authCd == 'level2' && !isThisCenter){
 			alert("소속된 지점의 권한만 부여가능합니다.");
 			return;
+		} else if(authCd == 'level3') {
+			alert("권한이 없습니다.");
+			return;
 		}
+		
 		
 		var memberSeq = $("#teachList").val();
 		
@@ -271,6 +275,9 @@ $(document).ready(function () {
 		
 		if(authCd == 'level2' && !isThisCenter){
 			alert("소속된 지점의 권한만 삭제가 가능합니다.");
+			return;
+		} else if(authCd == 'level3') {
+			alert("권한이 없습니다.");
 			return;
 		}
 		

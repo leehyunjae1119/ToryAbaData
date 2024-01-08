@@ -7,6 +7,12 @@
 		SELECT * 
 		  FROM tb_center
 	</select>
+
+	<select id="dctAuthCenterListSelect" parameterType="dctVo" resultType="dctVo">
+		SELECT center_seq
+		  FROM tb_subauth ts 
+		 WHERE member_seq = #{memberSeq }
+	</select>
 	
 	<select id="dctCenterInsert" parameterType="dctVo">
 		INSERT INTO tb_center(center_name)

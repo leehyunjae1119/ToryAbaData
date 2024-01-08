@@ -32,6 +32,12 @@ public class dctServiceImpl implements dctService {
 		
 		return dctDao.dctCenterListSelect(dctVO);
 	}
+	
+	@Override
+	public List<dctVO> dctAuthCenterListSelect(dctVO dctVO) throws Exception {
+		
+		return dctDao.dctAuthCenterListSelect(dctVO);
+	}
 
 	@Override
 	public int dctCenterInsert(dctVO dctVO) throws Exception {

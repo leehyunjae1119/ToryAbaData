@@ -214,7 +214,12 @@ public class dctController {
 		
 		List<dctVO> resultList = dctService.dctCenterListSelect(dctVO);
 		
+		lgnVO lgnVO = (lgnVO)sessionManager.getSession(request);
+		dctVO.setMemberSeq(lgnVO.getMemberSeq());
+		List<dctVO> authList = dctService.dctAuthCenterListSelect(dctVO);
+		
 		resultMap.put("dataList", resultList);
+		resultMap.put("authList", authList);
 		
 		json = objectMapper.writeValueAsString(resultMap);
 		

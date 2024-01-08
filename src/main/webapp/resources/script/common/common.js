@@ -243,6 +243,21 @@ $(document).ready(function () {
 	    return year + "-" + month + "-" + day;
 	};
 	
+	$.convertHtmlText = function(str) {
+		var entityMap = {
+				  '&': '&amp;',
+				  '<': '&lt;',
+				  '>': '&gt;',
+				  '"': '&quot;',
+				  "'": '&#39;',
+				  '/': '&#x2F;',
+				  '`': '&#x60;',
+				  '=': '&#x3D;'
+				};
+		return String(str).replace(/[&<>"'`=\/]/g, function (s) {
+		    return entityMap[s];
+		  });
+	}
 });
 
 

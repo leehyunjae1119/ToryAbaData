@@ -92,5 +92,5 @@
 </div>
 
 
-<script src="../script/mbr/mbrMain.js"></script>
+<script src="../script/mbr/mbrMain.js?ver=20240108"></script>
 

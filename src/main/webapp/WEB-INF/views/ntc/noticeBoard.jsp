@@ -80,6 +80,7 @@
 				<div class="m-4" style="min-height: 300px">
 					<p id="detailContents"></p>
 					<textarea class="form-control" id="inputContents" rows="20" style="display:none;" ></textarea>
+<!-- 					<input type="file" accept="image/*"> -->
 				</div>
 			</div>
 			<div class="modal-footer">

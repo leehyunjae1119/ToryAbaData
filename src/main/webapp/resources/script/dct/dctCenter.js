@@ -1,3 +1,5 @@
+var dctAuthList = new Array();
+
 $(document).ready(function () {
 	
 	$("#centerSaveBtn").on("click", function() {
@@ -29,6 +31,10 @@ $(document).ready(function () {
             type : "POST",
             url : "/dct/dctCenterListSelect.ajax",
             success : function(res){
+            	res.authList.forEach(function(item) {
+            		dctAuthList.push(item.centerSeq);
+				});
+            	
             	$("#centerBoard").empty();
             	$.makeCenterCard(res.dataList);
             	
@@ -161,21 +167,27 @@ $(document).ready(function () {
 	};
 	
 	$.enterCenter = function(centerSeq, centerName) {
-		var form = $('<form></form>');
-		form.attr("id", "centerForm");
-		form.attr("name", "centerForm");
-		form.attr("method", "GET");
-		form.attr("action", "../dct/classBoard");
-		
-		var hiddenField_1 = $('<input/>', {type: 'hidden', name: 'centerSeq', value: centerSeq});
-		form.append(hiddenField_1);
-		
-		var hiddenField_2 = $('<input/>', {type: 'hidden', name: 'centerName', value: centerName});
-		form.append(hiddenField_2);
-		
-		form.appendTo('body');
-		form.submit();
-		form.remove();
+		if(dctAuthList.indexOf(Number(centerSeq)) >= 0 || authCd !== 'level3'){
+			
+			var form = $('<form></form>');
+			form.attr("id", "centerForm");
+			form.attr("name", "centerForm");
+			form.attr("method", "GET");
+			form.attr("action", "../dct/classBoard");
+			
+			var hiddenField_1 = $('<input/>', {type: 'hidden', name: 'centerSeq', value: centerSeq});
+			form.append(hiddenField_1);
+			
+			var hiddenField_2 = $('<input/>', {type: 'hidden', name: 'centerName', value: centerName});
+			form.append(hiddenField_2);
+			
+			form.appendTo('body');
+			form.submit();
+			form.remove();
+			
+		} else {
+			alert("접근권한이 없습니다.")
+		}
 	};
 
 	//초기 동작

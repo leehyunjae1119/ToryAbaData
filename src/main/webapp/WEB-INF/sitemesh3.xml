@@ -4,7 +4,7 @@
 	<mapping path="/lgn/*" exclude="true"/>
 	<mapping path="/index.jsp" exclude="true"/>
 
-	<!-- sitemesh 적 -->
+	<!-- sitemesh 적용 -->
 	<mapping path="/*/*" decorator="/WEB-INF/views/decorator/default.jsp"/>
 	
 </sitemesh>

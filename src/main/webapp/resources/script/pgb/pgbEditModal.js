@@ -59,7 +59,7 @@ $(document).ready(function () {
 		
 		var html = '';
 		html += '<div class="input-group mb-3">                                                                                 ';
-		html += '	<input type="text" class="form-control" name="insertLtoName" value="'+ltoName+'"readonly="readonly">              ';
+		html += '	<input type="text" class="form-control" name="insertLtoName" value="'+$.convertHtmlText(ltoName)+'"readonly="readonly">              ';
 		html += '	<input type="hidden" name="insertLtoSeq" value="'+ltoSeq+'" >              			   							';
 		html += '	<div class="input-group-append remove-btn">                                                                 ';
 		html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';
@@ -105,7 +105,7 @@ $(document).ready(function () {
 		
 		var html = '';
 		html += '<div class="input-group mb-3">                                                                                 ';
-		html += '	<input type="text" class="form-control" name="insertStoName" value="'+stoName+'"readonly="readonly">              ';
+		html += '	<input type="text" class="form-control" name="insertStoName" value="'+$.convertHtmlText(stoName)+'"readonly="readonly">              ';
 		html += '	<input type="hidden" name="insertStoSeq" value="'+stoSeq+'" >              			   							';
 		html += '	<div class="input-group-append remove-btn">                                                                 ';
 		html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';

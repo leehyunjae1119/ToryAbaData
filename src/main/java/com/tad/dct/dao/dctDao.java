@@ -11,6 +11,8 @@ public interface dctDao {
 	String namespace = "com.tad.dct.dao.dctDao.";
 	
 	public List<dctVO> dctCenterListSelect(dctVO dctVO) throws Exception;
+	
+	public List<dctVO> dctAuthCenterListSelect(dctVO dctVO) throws Exception;
 
 	public int dctCenterInsert(dctVO dctVO) throws Exception;
 	
