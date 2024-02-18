@@ -52,7 +52,7 @@
 						<div class="c-row title">
 							<img class="rogo-img" alt="메인로고" src="../image/sidebar_logo.png" id="sidebarLogo" >
 							<div>
-								<p style="margin-bottom: -10px; font-size: 20px;">토리발달교실</p>
+								<p style="margin-bottom: -10px; font-size: 20px;">링크아이</p>
 								<p class="m-1">주간 보고서</p>
 							</div>
 						</div>
@@ -97,7 +97,7 @@
 						<div class="c-row title">
 							<img class="rogo-img" alt="메인로고" src="../image/sidebar_logo.png" id="sidebarLogo" >
 							<div>
-								<p style="margin-bottom: -10px; font-size: 20px;">토리발달교실</p>
+								<p style="margin-bottom: -10px; font-size: 20px;">링크아이</p>
 								<p class="m-1">분기 보고서</p>
 							</div>
 						</div>

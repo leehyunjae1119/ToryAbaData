@@ -7,7 +7,7 @@
 			<div class="sidebar-brand-icon">
 				<img class="" alt="메인로고" src="../image/sidebar_logo.png" id="sidebarLogo" style="width: 2.5rem;">
 			</div>
-			<div class="sidebar-brand-text mx-3">TORY ABA</div>
+			<div class="sidebar-brand-text mx-3">LINK - i</div>
 		</a>
 
 		<!-- Divider -->

@@ -11,7 +11,7 @@
 
 	<!-- Topbar Search -->
 	<div class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
-		<span>Tory ABA Controller</span>
+		<span>Link-i Controller</span>
 	</div>
 
 	<!-- Topbar Navbar -->
