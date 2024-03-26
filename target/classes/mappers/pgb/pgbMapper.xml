@@ -57,7 +57,8 @@
 	
 	<select id="pgbLtoDelYnUpdate" parameterType="pgbLtoVo">
 		UPDATE tb_lto SET 
-			del_yn = 'N'
+			del_yn = 'N' ,
+			lto_contents = #{ltoContents }
 		WHERE lto_seq = #{ltoSeq }
 	</select>
 	
@@ -303,7 +304,15 @@
 	</select>
 	
 	<select id="pgbLtoTmplListSelect" parameterType="pgbLtoVo" resultType="pgbLtoVo">
-		SELECT *
+		SELECT lto_seq,
+				tmpl_seq,
+				domain_seq,
+				lto_status,
+				lto_name,
+				IFNULL((SELECT lto_contents FROM tb_lto ttl WHERE ttl.lto_seq = tl.tmpl_seq), '')  AS lto_contents,
+				lto_arr_dt,
+				lto_reg_dt,
+				del_yn
 		  FROM tb_lto tl
 		 WHERE del_yn = 'Y'
 		   AND domain_seq = ( SELECT domain_seq

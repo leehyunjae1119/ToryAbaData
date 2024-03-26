@@ -68,6 +68,7 @@ $(document).ready(function () {
 	$.setLTOModalData = function(seq) {
 		if(seq == 0){
 			$("#ltoName").val("");
+			$("#ltoContents").val("");
 		} else {
 			$("#ltoSeq").val(seq);
 			var params = $("#LTOForm").serialize();
@@ -79,6 +80,7 @@ $(document).ready(function () {
 //	            async: false,
 	            success : function(res){
 	            	$("#ltoName").val(res.data.ltoName);
+	            	$("#ltoContents").val(res.data.ltoContents);
 	            },
 	            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 	                alert("서버오류. 담당자에게 연락하세요.")
@@ -97,12 +99,12 @@ $(document).ready(function () {
 	};
 	
 	$.LTOTemplateRow = function(data) {
-		
 		html = ''
 			 + '<tr class="tr-vertical-align">'
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.ltoSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
 			 + '	<td onclick="$.onclickLTOItem(this);" class="crcName">'+ data.ltoName +'</td>'
+			 + '	<td onclick="$.onclickLTOItem(this);" class="crcContents">'+ data.ltoContents +'</td>'
 //			 + '	<td onclick="" class="crcName">'+ data.ltoName +'</td>'
 			 + '	<td data-auth="level1">'
 			 + '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm mr-2" onclick="$.openLTOUpdateModal(this);">' 

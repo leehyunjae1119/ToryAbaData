@@ -95,6 +95,10 @@
 								</div>
 							</div>
 						</div>
+						<div class="c-row">
+							<div class="m-0 py-1 text-secondary one-line" id="labelLtoContents">
+							</div>
+						</div>
 					</div>
 				</div>
 				
@@ -138,7 +142,7 @@
 						<div class="row">
 							<div class="col-lg-7 p-3">
 								<div class="table-border">
-									<table class="table table-bordered m-0">
+									<table class="table table-bordered m-0 c-table-fixed">
 										<input type="hidden" id="stoSeq" value="0"/>
 										<input type="hidden" id="pointRound" value="1"/>
 										<colgroup>
@@ -229,6 +233,7 @@
 					<input type="hidden" name="ltoSeq" value="0">
 					<input type="hidden" name="ltoName" value="">
 					<input type="hidden" name="ltoSeqList" value="">
+					<input type="hidden" name="ltoContentsList" value="">
 					<div class="form-row regist-input">
 						<div class="form-group col-md-12 mb-0">
 							<div class="c-row c-cb">
@@ -376,6 +381,6 @@
 	</div>
 </div>
 
-<script src="../script/pgb/pgbEditModal.js"></script>
-<script src="../script/pgb/pgbPointControl.js"></script>
+<script src="../script/pgb/pgbEditModal.js?ver=20240327"></script>
+<script src="../script/pgb/pgbPointControl.js?ver=20240327"></script>
 <script src="../script/pgb/pgbChartControl.js"></script>

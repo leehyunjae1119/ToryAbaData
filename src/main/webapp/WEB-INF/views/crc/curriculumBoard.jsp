@@ -16,8 +16,8 @@
 </div>
 
 
-<script src="../script/crc/crcDomain.js"></script>
-<script src="../script/crc/crcLTO.js"></script>
-<script src="../script/crc/crcSTO.js"></script>
-<script src="../script/crc/crcMain.js"></script>
+<script src="../script/crc/crcDomain.js?ver=20240327"></script>
+<script src="../script/crc/crcLTO.js?ver=20240327"></script>
+<script src="../script/crc/crcSTO.js?ver=20240327"></script>
+<script src="../script/crc/crcMain.js?ver=20240327"></script>
 

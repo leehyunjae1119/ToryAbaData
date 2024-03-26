@@ -86,6 +86,9 @@
 .c-table-hover{
 	table-layout: fixed;
 }
+.c-table-fixed{
+	table-layout: fixed;
+}
 
 .tr-vertical-align td, .tr-vertical-align th {
 	vertical-align: middle;

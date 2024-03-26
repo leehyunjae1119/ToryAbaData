@@ -26,6 +26,7 @@ $(document).ready(function () {
 	$(".add-btn").on("click", function() {
 		var ltoName = "";
 		var ltoSeq = 0;
+		var ltoContents = "";
 		var hasChoose = false;
 		var dataType = $(this).attr("data-value")=='Y' ? true : false;
 		
@@ -39,6 +40,7 @@ $(document).ready(function () {
 		} else {
 			ltoSeq = $("#ltoTempletList").val();
 			ltoName = $("#ltoTempletList option:checked").text();
+			ltoContents = $("#ltoTempletList option:checked").data("value");
 			
 			if(ltoSeq == 0){
 				alert("LTO 이름을 선택 또는 입력 하세요.");
@@ -59,8 +61,9 @@ $(document).ready(function () {
 		
 		var html = '';
 		html += '<div class="input-group mb-3">                                                                                 ';
-		html += '	<input type="text" class="form-control" name="insertLtoName" value="'+$.convertHtmlText(ltoName)+'"readonly="readonly">              ';
-		html += '	<input type="hidden" name="insertLtoSeq" value="'+ltoSeq+'" >              			   							';
+		html += '	<input type="text" class="form-control" name="insertLtoName" value="'+$.convertHtmlText(ltoName)+'" readonly="readonly">              ';
+		html += '	<input type="hidden" name="insertLtoSeq" value="'+ltoSeq+'" >              			   						';
+		html += '	<input type="hidden" name="insertLtoContents" value="'+$.convertHtmlText(ltoContents)+'" >    				';
 		html += '	<div class="input-group-append remove-btn">                                                                 ';
 		html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';
 		html += '	</div>                                                                                                      ';
@@ -71,6 +74,7 @@ $(document).ready(function () {
 	
 	$(".add-btn2").on("click", function() {
 		var stoName = "";
+		var stoContents = $("input[name=stoContents]").val();
 		var stoSeq = 0;
 		var hasChoose = false;
 		var dataType = $(this).attr("data-value")=='Y' ? true : false;
@@ -85,6 +89,11 @@ $(document).ready(function () {
 		} else {
 			stoSeq = $("#stoTempletList").val();
 			stoName = $("#stoTempletList option:checked").text();
+			
+			if(stoContents != "" && $("#stoTempletList option:checked").data("value") != "") {
+				stoContents += ", ";
+			}
+			stoContents += $("#stoTempletList option:checked").data("value");
 			
 			if(stoSeq == 0){
 				alert("STO 이름을 선택 또는 입력 하세요.");
@@ -113,6 +122,8 @@ $(document).ready(function () {
 		html += '</div>                                                                                                         ';
 		
 		$("#stoNameGroup").append(html);
+		$("input[name=stoContents]").val(stoContents);
+		
 	});
 	
 	$("#templetSelectYn").on("change", function() {
@@ -222,7 +233,7 @@ $(document).ready(function () {
             		$("#ltoCard").collapse("show");
             	} else {
             		$("#ltoBtnGroup").empty();
-                	$("#ltoCard").collapse("show");
+                	$("#ltoCard").collapse("hide");
                 	
                 	$("#stoBtnGroup").empty();
                 	$("#stoCard").collapse("hide");
@@ -376,6 +387,7 @@ $(document).ready(function () {
 			$("#LTOUpdateBtn").hide();
 			$("input[name=ltoName]").val("");
 			$("input[name=ltoContents]").val("");
+			$("input[name=ltoContents]").prop("disabled", true);
 			
 			$(".modify-input").hide();
 			$(".regist-input").show();
@@ -387,6 +399,7 @@ $(document).ready(function () {
 			$("#LTOUpdateBtn").show();
 			$("#updateLtoName").val($("#labelLtoName").text());
 			$("input[name=ltoContents]").val($("#labelLtoContents").text());
+			$("input[name=ltoContents]").prop("disabled", false);
 			
 			$(".modify-input").show();
 			$(".regist-input").hide();
@@ -399,6 +412,7 @@ $(document).ready(function () {
 	$.registLto = function(flag) {
 		var ltoSeq = "";
 		var ltoName = "";
+		var ltoContents = "";
 		
 		if(flag == 0){
 			$("input[name=insertLtoSeq]").each(function(index) {
@@ -413,6 +427,12 @@ $(document).ready(function () {
 				}
 				ltoName += $(this).val();
 			});
+			$("input[name=insertLtoContents]").each(function(index) {
+				if(index != 0 ){
+					ltoContents += '||';
+				}
+				ltoContents += ' ' + $(this).val();
+			});
 			
 			if(ltoSeq == ""){
 				alert("LTO를 추가하세요.");
@@ -421,6 +441,7 @@ $(document).ready(function () {
 			
 			$("input[name=ltoName]").val(ltoName);
 			$("input[name=ltoSeqList]").val(ltoSeq);
+			$("input[name=ltoContentsList]").val(ltoContents);
 			
 		} else {
 			ltoName = $("#updateLtoName").val();
@@ -712,7 +733,7 @@ $(document).ready(function () {
 				
 				if(res.dataList.length > 0){
 					res.dataList.forEach(function(item) {
-						var opt = '<option value="'+item.stoSeq+'">'+item.stoName+'</option>';
+						var opt = '<option value="'+item.stoSeq+'" data-value="'+item.stoContents+'" >'+item.stoName+'</option>';
 						$("#stoTempletList").append(opt);
 					});
 				} else {
@@ -742,7 +763,7 @@ $(document).ready(function () {
 				
 				if(res.dataList.length > 0){
 					res.dataList.forEach(function(item) {
-						var opt = '<option value="'+item.ltoSeq+'">'+item.ltoName+'</option>';
+						var opt = '<option value="'+item.ltoSeq+'" data-value="'+item.ltoContents+'">'+item.ltoName+'</option>';
 						console.log(opt);
 						$("#ltoTempletList").append(opt);
 					});

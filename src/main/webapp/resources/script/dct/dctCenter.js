@@ -167,7 +167,7 @@ $(document).ready(function () {
 	};
 	
 	$.enterCenter = function(centerSeq, centerName) {
-		if(dctAuthList.indexOf(Number(centerSeq)) >= 0 || authCd !== 'level3'){
+		if(dctAuthList.indexOf(Number(centerSeq)) >= 0 || authCd == 'master' || authCd == 'level1' ){
 			
 			var form = $('<form></form>');
 			form.attr("id", "centerForm");

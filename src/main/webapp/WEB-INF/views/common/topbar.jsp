@@ -35,7 +35,7 @@
 					<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 					my page
 				</a>
-				<a class="dropdown-item" href="../mbr/memberBoard">
+				<a class="dropdown-item" href="../mbr/memberBoard" data-auth="level1">
 					<i class="fas fa-user-check fa-sm fa-fw mr-2 text-gray-400"></i>
 					Member Management
 				</a>

@@ -38,4 +38,4 @@
 	</div>
 </div>
 
-<script src="../script/dct/dctCenter.js?ver=20240108"></script>
+<script src="../script/dct/dctCenter.js?ver=20240327"></script>

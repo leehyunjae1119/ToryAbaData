@@ -62,12 +62,16 @@ public class pgbSerivceImpl implements pgbService {
 		String[] ltoSeqArr = pgbLtoVO.getLtoSeqList().split("\\|\\|");
 		ArrayList<String> ltoSeqlist = new ArrayList<String>(Arrays.asList(ltoSeqArr));
 		
+		String[] ltoContentsArr = pgbLtoVO.getLtoContentsList().split("\\|\\|");
+		ArrayList<String> ltoContentslist = new ArrayList<String>(Arrays.asList(ltoContentsArr));
+		
 		int result = 0;
 		int index = 0;
 		for(String ltoSeq : ltoSeqlist) {
 			pgbLtoVO.setLtoSeq(Integer.parseInt(ltoSeq));
 			
 			if(pgbLtoVO.getLtoSeq() != 0) {
+				pgbLtoVO.setLtoContents(ltoContentslist.get(index));
 				int rs = pgbDao.pgbLtoDelYnUpdate(pgbLtoVO);
 				result += rs;
 				

@@ -12,13 +12,15 @@
 							<table class="table c-table-hover">
 								<colgroup>
 									<col width="10%" />
-									<col width="75%" />
+									<col width="40%" />
+									<col width="35%" />
 									<col width="15%" data-auth="level1" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th scope="col" class="text-center">No</th>
 										<th scope="col">LTO 이름</th>
+										<th scope="col">LTO 내용</th>
 										<th scope="col" data-auth="level1">설정</th>
 									</tr>
 								</thead>
@@ -58,6 +60,12 @@
 							<div class="form-group col-md-12">
 								<label for="ltoName" class="col-form-label"><font style="vertical-align: inherit;">LTO 이름</font></label>
 								<input type="text" class="form-control" id="ltoName" name="ltoName">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-12">
+								<label for="ltoContents" class="col-form-label"><font style="vertical-align: inherit;">LTO 내용</font></label>
+								<input type="text" class="form-control" id="ltoContents" name="ltoContents">
 							</div>
 						</div>
 					</form>

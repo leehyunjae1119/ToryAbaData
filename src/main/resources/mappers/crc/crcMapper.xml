@@ -83,13 +83,14 @@
 				#{ltoDomainSeq } , 
 				'WIT' ,
 				#{ltoName } , 
-				'' 
+				#{ltoContents } 
 			)
 	</select>
 	
 	<select id="crcLTOUpdate" parameterType="crcVo">
 		UPDATE tb_lto SET 
-			lto_name = #{ltoName } 
+			lto_name = #{ltoName }, 
+			lto_contents = #{ltoContents } 
 		WHERE lto_seq = #{ltoSeq }
 	</select>
 	
