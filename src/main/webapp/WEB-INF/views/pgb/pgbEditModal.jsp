@@ -79,6 +79,10 @@
 									<button type="button" class="btn btn-outline-dark btn-sm mr-3" onclick="$.openLtoRegistModal(1);" data-auth="level3">
 										<i class="fas fa-edit" style="font-size: 1.275rem;"></i>
 									</button>
+<!-- 									<a class="btn" href="javascript:void(0);" onclick="$.toggleLtoContents();"> -->
+<!-- 										<span id="ltoContentsToggleBtnText">내용 접기</span> -->
+<!-- 										<i id="ltoContentsToggleIcon" class="fas fa-angle-up"></i> -->
+<!-- 									</a> -->
 								</div>
 							</div>
 							<div class="">
@@ -96,7 +100,7 @@
 							</div>
 						</div>
 						<div class="c-row">
-							<div class="m-0 py-1 text-secondary one-line" id="labelLtoContents">
+							<div class="m-0 py-1 text-secondary" style="word-break: break-all;" id="labelLtoContents">
 							</div>
 						</div>
 					</div>
@@ -237,7 +241,10 @@
 					<div class="form-row regist-input">
 						<div class="form-group col-md-12 mb-0">
 							<div class="c-row c-cb">
-								<label for="ltoName" class="col-form-label"><font style="vertical-align: inherit;">LTO 이름</font></label>
+								<div class="d-flex align-items-center">
+									<label for="ltoName" class="col-form-label mr-4"><font style="vertical-align: inherit;">LTO 이름</font></label>
+									<button type="button" id="ltoTempletLoadAllBtn" class="btn btn-outline-dark btn-x-sm">한번에 불러오기</button>
+								</div>
 								<div class="">
 									<label class="m-0 mr-1 small" style="padding-top: 1;" for="templetSelectYn">직접입력</label>
 									<input type="checkbox" id="templetSelectYn">
@@ -381,6 +388,6 @@
 	</div>
 </div>
 
-<script src="../script/pgb/pgbEditModal.js?ver=20240327"></script>
-<script src="../script/pgb/pgbPointControl.js?ver=20240327"></script>
+<script src="../script/pgb/pgbEditModal.js?ver=20240331"></script>
+<script src="../script/pgb/pgbPointControl.js?ver=20240331"></script>
 <script src="../script/pgb/pgbChartControl.js"></script>

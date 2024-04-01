@@ -24,6 +24,11 @@ $(document).ready(function () {
 		return false;
 	};
 	
+	$.openGroupEditModal = function() {
+		$.selectGroupList();
+		$('#groupEditModal').modal('toggle');
+	};
+	
 	$.openDomainSaveModal = function() {
 		$("#domainRegistModalLabel").text("발달영역 등록");
 		$("#domainSaveBtn").show();
@@ -98,6 +103,37 @@ $(document).ready(function () {
 		$.goLTOListSelect();
 	};
 	
+	$.makeGroupItemRow = function(dataList) {
+		var html = '';
+		var groupSeq = $("#groupSelect > option:selected").val();
+		
+		dataList.forEach(function(item) {
+			html += '<tr class="tr-vertical-align groupItemTr">                                                   ';
+			html += '	<td class="text-center"><input class="groupItemChkBox" type="checkbox" value="'+ item.domainSeq + '"';
+			
+			console.log(groupSeq)
+			if( groupSeq == 0 ) {
+				html += 'disabled';
+			} else {
+				if(item.groupSeq > 0 && groupSeq == item.groupSeq){
+					html += 'checked';
+				} else if (item.groupSeq > 0 && groupSeq != item.groupSeq) {
+					html += 'disabled';
+				} else {
+					
+				}
+			}
+			
+			html += '	></td>    ';
+			html += '	<td class="groupItem-groupName">'+ item.groupName +'</td>                                                          ';
+			html += '	<td class="">'+ item.domainName +'</td>                                                          ';
+			html += '</tr>                                                                                        ';
+		});
+		
+		$("#groupItemTableBody").empty();
+		$("#groupItemTableBody").append(html);
+	};
+	
 	$.makeDomainDataRow = function(dataList) {
 		dataList.forEach(function(item) {
 			$("#domainTableBody").append($.domainTemplateRow(item));
@@ -110,6 +146,7 @@ $(document).ready(function () {
 			 + '<tr class="tr-vertical-align">'
 			 + '	<input type="hidden" class="crcSeq" value="'+ data.domainSeq +'"/>'
 			 + '	<th scope="row" class="text-center">'+ data.rownum +'</th>'
+			 + '	<td onclick="$.onclickDomainItem(this)" class="crcGroupName">'+ data.groupName +'</td>'
 			 + '	<td onclick="$.onclickDomainItem(this)" class="crcName">'+ data.domainName +'</td>'
 			 + '	<td data-auth="level1">'
 			 + '		<input type="checkbox" class="useYnToggle" data-toggle="toggle" data-size="sm" onchange="$.useYnToggleChange(this);" '+ flag +'>'
@@ -139,6 +176,8 @@ $(document).ready(function () {
             	$("#domainTableBody").empty();
             	$.makeDomainDataRow(res.dataList);
             	$('.useYnToggle').bootstrapToggle();
+            	
+            	$.makeGroupItemRow(res.dataList);
             	
             	_checkAuth();
             },
@@ -217,4 +256,207 @@ $(document).ready(function () {
         });
 	};
 	
+	$("#groupEditTab .nav-link").on("click", function() {
+		var contentsId = $(this).data("value")
+		
+		$("#groupEditTab .nav-link").removeClass("active");
+		$(this).addClass("active");
+		
+		$(".groupContents").hide();
+		$("#"+contentsId).show();
+		$.selectGroupList();
+		
+		if(contentsId == 'groupEdit') {
+		} else {
+			
+		}
+	});
+	
+	$.selectGroupList = function() {
+		var params = {};
+		
+        $.ajax({
+            type : "POST",
+            url : "/crc/crcGroupListSelect.ajax",
+            data : params,
+            success : function(res){
+            	$("#groupTableBody").empty();
+            	$("#groupSelect").empty();
+            	
+            	var html = '';
+            	var selectOptionHtml = '';
+            	
+            	selectOptionHtml += '<option value="0"> 설정할 그룹을 선택하세요.</option>';
+            	
+            	res.dataList.forEach(function(item) {
+            		
+            		html += '<tr class="tr-vertical-align">                                                                 ';
+            		html += '	<input type="hidden" name="groupSeq" value="'+item.groupSeq+'">                             ';
+            		html += '	<td class="pt-0 pb-0">                                                       				';
+            		html += '		<div class="input-group group-name-edit-area">																';
+            		html += '			<input type="text" class="form-control c-border-left-radius" name="groupName" value="'+item.groupName+'" style="border-radius: 0.35rem 0px 0px 0.35rem;">';
+            		html += '			<div class="input-group-append">													';
+            		html += '				<button class="btn btn-outline-secondary group-update-btn" type="button">저장</button>';
+            		html += '			</div>																				';
+            		html += '		</div>																					';
+            		html += '	</td>                                                        								';
+            		html += '	<td class="text-center">'+item.domainCnt+'</td>                                             ';
+            		html += '	<td class="text-center">                                                                    ';
+            		html += '		<a href="javascript:void(0);" class="btn btn-primary btn-sm group-yn-btn" data-value="Y">ON</a>      ';
+            		html += '		<a href="javascript:void(0);" class="btn btn-light btn-sm group-yn-btn" data-value="N">OFF</a>     ';
+            		html += '	</td>                                                                                       ';
+            		html += '	<td class="text-center">                                                                    ';
+            		html += '		<a href="javascript:void(0);" class="btn btn-primary btn-circle btn-sm group-remove-btn">';
+            		html += '			<i class="fas fa-trash-alt"></i>                                                    ';
+            		html += '		</a>                                                                                    ';
+            		html += '	</td>                                                                                       ';
+            		html += '</tr>                                                                                          ';
+            		
+            		selectOptionHtml += '<option value="'+item.groupSeq+'">'+item.groupName+'</option>';
+        			
+        		});
+            	$("#groupTableBody").append(html);
+            	$("#groupSelect").append(selectOptionHtml);
+            	
+        		$.goDomainListSelect();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("서버오류. 담당자에게 연락하세요.")
+            }
+        });
+	};
+	
+	$("#addGroupBtn").on("click", function() {
+		var groupName = $("#insertGroupName").val().trim();
+		var params = {
+				groupName : groupName
+		};
+		
+		if(!groupName){
+			alert("추가 할 그룹명을 입력하세요.");
+			return;
+		}
+		
+		$.ajax({
+            type : "POST",
+            url : "/crc/crcGroupInsert.ajax",
+            data : params,
+            success : function(res){
+            	$("#insertGroupName").val("");
+            	$.selectGroupList();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("서버오류. 담당자에게 연락하세요.")
+            }
+        });
+	});
+	
+	$("#groupSelect").on("change", function() {
+		$.goDomainListSelect();
+	});
+	
 });
+
+$(document).on("click", ".group-yn-btn", function() {
+	var params = {
+			groupSeq : $(this).parent().parent().find("input[name=groupSeq]").val(),
+			domainUseYn : $(this).data("value")
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : "/crc/crcGroupUseYnUpdate.ajax",
+		data : params,
+		success : function(res){
+			$.goDomainListSelect();
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+			alert("서버오류. 담당자에게 연락하세요.")
+		}
+	});
+});
+
+$(document).on("click", ".group-remove-btn", function() {
+	
+	if(!confirm("삭제 하시겠습니까?")) return;
+	
+	var params = {
+			groupSeq : $(this).parent().parent().find("input[name=groupSeq]").val()
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : "/crc/crcGroupDelete.ajax",
+		data : params,
+		success : function(res){
+			$.selectGroupList();
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+			alert("서버오류. 담당자에게 연락하세요.")
+		}
+	});
+});
+
+$(document).on("click", ".group-update-btn", function() {
+	
+	var params = {
+			groupSeq : $(this).parent().parent().parent().parent().find("input[name=groupSeq]").val(),
+			groupName : $(this).parent().parent().find("input[name=groupName]").val()
+	};
+	
+	$.ajax({
+		type : "POST",
+		url : "/crc/crcGroupUpdate.ajax",
+		data : params,
+		success : function(res){
+			$.goDomainListSelect();
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+			alert("서버오류. 담당자에게 연락하세요.")
+		}
+	});
+});
+
+$(document).on("click", ".groupItemTr", function(e) {
+	
+	if($(this).find("input.groupItemChkBox").is(':disabled')){
+		return;
+	}
+	
+	if( !$(e.target).is('input:checkbox') ) {
+		$(this).find("input.groupItemChkBox").prop('checked', !$(this).find("input.groupItemChkBox").is(':checked'));
+	}
+	
+	var chkFlag = $(this).find("input.groupItemChkBox").is(':checked');
+	var domainSeq = $(this).find("input.groupItemChkBox").val();
+	var groupSeq = $("#groupSelect > option:selected").val();
+	var groupName = $("#groupSelect > option:selected").text();
+	
+	var params = {
+			domainSeq : domainSeq,
+			groupSeq : chkFlag ? groupSeq : 0
+	};
+	
+	if(chkFlag){
+		$(this).find("td.groupItem-groupName").text(groupName);
+	} else {
+		$(this).find("td.groupItem-groupName").text("");
+	}
+	
+	$.ajax({
+		type : "POST",
+		url : "/crc/crcGroupItemUpdate.ajax",
+		data : params,
+		success : function(res){
+			$.goDomainListSelect();
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){ // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+			alert("서버오류. 담당자에게 연락하세요.")
+		}
+	});
+});
+
+
+
+
+

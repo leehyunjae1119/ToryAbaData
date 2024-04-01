@@ -14,6 +14,11 @@ public class crcVO implements Serializable {
 	
 	private int rownum;
 	
+	private int groupSeq;
+	private String groupDvCd;	// 01 : 도메인 그룹
+	private String groupName;
+	private int domainCnt;
+	
 	private int domainSeq;
 	private int studentSeq;
 	private int memberSeq;
@@ -50,6 +55,38 @@ public class crcVO implements Serializable {
 	private String stoRegDt;
 	
 	private int newDomainSeq;
+
+	public int getGroupSeq() {
+		return groupSeq;
+	}
+
+	public void setGroupSeq(int groupSeq) {
+		this.groupSeq = groupSeq;
+	}
+
+	public String getGroupDvCd() {
+		return groupDvCd;
+	}
+
+	public void setGroupDvCd(String groupDvCd) {
+		this.groupDvCd = groupDvCd;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public int getDomainCnt() {
+		return domainCnt;
+	}
+
+	public void setDomainCnt(int domainCnt) {
+		this.domainCnt = domainCnt;
+	}
 
 	public int getRownum() {
 		return rownum;

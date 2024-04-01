@@ -54,6 +54,108 @@ public class crcController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/crcGroupListSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupListSelect(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		List<crcVO> resultList = crcService.crcGroupListSelect(crcVO);
+		
+		resultMap.put("dataList", resultList);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/crcGroupInsert.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupInsert(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = crcService.crcGroupInsert(crcVO);
+		
+		resultMap.put("result", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/crcGroupUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupUpdate(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = crcService.crcGroupUpdate(crcVO);
+		
+		resultMap.put("result", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/crcGroupItemUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupItemUpdate(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = crcService.crcGroupItemUpdate(crcVO);
+		
+		resultMap.put("result", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/crcGroupUseYnUpdate.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupUseYnUpdate(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = crcService.crcGroupUseYnUpdate(crcVO);
+		
+		resultMap.put("result", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/crcGroupDelete.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String crcGroupDelete(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
+		
+		String json = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		int result = crcService.crcGroupDelete(crcVO);
+		
+		resultMap.put("result", result);
+		
+		json = objectMapper.writeValueAsString(resultMap);
+		
+		return json;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/crcDomainOneSelect.ajax", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String crcDomainOneSelect(HttpServletRequest request, HttpServletResponse response, Model model, crcVO crcVO) throws Exception {
 		

@@ -5,7 +5,15 @@
 
 <div class="container-fluid">
 
-	<h1 class="h3 mb-0 text-gray-800">Curriculum</h1>
+	<div class="d-flex c-cb">
+		<h1 class="h3 mb-0 text-gray-800">Curriculum</h1>
+		<a href="#" class="btn btn-secondary" onclick="$.openGroupEditModal();" >
+			<span class="icon">
+				<i class="fas fa-layer-group"></i>
+				<span class="text pl-2">그룹 관리</span>
+			</span>
+		</a>
+	</div>
 
 	<jsp:include page="/WEB-INF/views/crc/domainBoard.jsp"/>
 	
@@ -16,8 +24,8 @@
 </div>
 
 
-<script src="../script/crc/crcDomain.js?ver=20240327"></script>
-<script src="../script/crc/crcLTO.js?ver=20240327"></script>
-<script src="../script/crc/crcSTO.js?ver=20240327"></script>
-<script src="../script/crc/crcMain.js?ver=20240327"></script>
+<script src="../script/crc/crcDomain.js?ver=20240331"></script>
+<script src="../script/crc/crcLTO.js?ver=20240331"></script>
+<script src="../script/crc/crcSTO.js?ver=20240331"></script>
+<script src="../script/crc/crcMain.js?ver=20240331"></script>
 

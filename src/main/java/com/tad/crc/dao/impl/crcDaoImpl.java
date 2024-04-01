@@ -141,5 +141,53 @@ public class crcDaoImpl implements crcDao {
 		return 1;
 	}
 
+	@Override
+	public List<crcVO> crcGroupListSelect(crcVO crcVO) throws Exception {
+		List<crcVO> resultList = sqlSession.selectList(namespace + "crcGroupListSelect", crcVO);
+		
+		return resultList;
+	}
+	
+	@Override
+	public int crcGroupInsert(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupInsert", crcVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int crcGroupUpdate(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupUpdate", crcVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int crcGroupItemUpdate(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupItemUpdate", crcVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int crcGroupUseYnUpdate(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupUseYnUpdate", crcVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int crcGroupDelete(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupDelete", crcVO);
+		
+		return result;
+	}
+	
+	@Override
+	public int crcGroupItemDelete(crcVO crcVO) throws Exception {
+		int result = sqlSession.insert(namespace + "crcGroupItemDelete", crcVO);
+		
+		return result;
+	}
 
 }

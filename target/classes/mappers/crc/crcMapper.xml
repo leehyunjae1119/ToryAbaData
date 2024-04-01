@@ -4,7 +4,8 @@
 <mapper namespace="com.tad.crc.dao.crcDao">
 
 	<select id="crcDomainListSelect" parameterType="crcVo" resultType="crcVo">
-		SELECT *
+		SELECT sub.*
+			 , IFNULL(tg.group_name, '') as group_name
 		  FROM (
 		  		SELECT @ROWNUM := @ROWNUM + 1 AS rownum
 					 , td.*
@@ -14,6 +15,7 @@
 				   AND domain_tp_cd = 'TMP'
 				 ORDER BY domain_seq
 		  	   ) sub
+		  LEFT OUTER JOIN tb_group tg ON sub.group_seq = tg.group_seq AND tg.group_dv_cd = '01'
 		 ORDER BY sub.rownum DESC
 	</select>
 	
@@ -197,6 +199,57 @@
 		 WHERE domain_seq = #{domainSeq }
 		   AND del_yn = 'N'
 	</insert>
+	
+	<select id="crcGroupListSelect" parameterType="crcVo" resultType="crcVo">
+		SELECT tg.group_seq
+			 , tg.group_name
+			 , COUNT(td.group_seq) AS domain_cnt
+		  FROM tb_group tg 
+		  LEFT OUTER JOIN tb_domain td ON tg.group_seq = td.group_seq
+		 WHERE tg.group_dv_cd = '01'
+		 GROUP BY tg.group_seq, tg.group_name
+		 ORDER BY tg.group_seq DESC
+	</select>
+	
+	<select id="crcGroupInsert" parameterType="crcVo">
+		INSERT INTO tb_group(group_dv_cd, group_name)
+		VALUES ('01', #{groupName })
+	</select>
+	
+	<select id="crcGroupUpdate" parameterType="crcVo">
+		UPDATE tb_group 
+		   SET group_name = #{groupName }
+		 WHERE group_seq = #{groupSeq }
+	</select>
+	
+	<select id="crcGroupItemUpdate" parameterType="crcVo">
+		UPDATE tb_domain 
+		<if test="groupSeq == 0">
+		   SET group_seq = null
+		</if>
+		<if test="groupSeq != 0">
+		   SET group_seq = #{groupSeq }
+		</if>
+		 WHERE domain_seq = #{domainSeq }
+	</select>
+	
+	<select id="crcGroupUseYnUpdate" parameterType="crcVo">
+		UPDATE tb_domain
+		   SET domain_use_yn = #{domainUseYn }
+		 WHERE group_seq = #{groupSeq }
+	</select>
+	
+	<select id="crcGroupDelete" parameterType="crcVo">		 
+		DELETE 
+		  FROM tb_group
+		 WHERE group_seq = #{groupSeq }
+	</select>
+	
+	<select id="crcGroupItemDelete" parameterType="crcVo">		 
+		UPDATE tb_domain
+		   SET group_seq = null
+		 WHERE group_seq = #{groupSeq }
+	</select>
 	
 </mapper>
 		

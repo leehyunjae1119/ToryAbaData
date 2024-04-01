@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tad.crc.dao.crcDao;
 import com.tad.crc.service.crcService;
@@ -113,5 +114,46 @@ public class crcServiceImpl implements crcService {
 	public int crcSTODelete(crcVO crcVO) throws Exception {
 		
 		return crcDao.crcSTODelete(crcVO);
+	}
+
+	@Override
+	public List<crcVO> crcGroupListSelect(crcVO crcVO) throws Exception {
+		return crcDao.crcGroupListSelect(crcVO);
+	}
+	
+	@Override
+	public int crcGroupInsert(crcVO crcVO) throws Exception {
+		
+		return crcDao.crcGroupInsert(crcVO);
+	}
+	
+	@Override
+	public int crcGroupUpdate(crcVO crcVO) throws Exception {
+		
+		return crcDao.crcGroupUpdate(crcVO);
+	}
+	
+	@Override
+	public int crcGroupItemUpdate(crcVO crcVO) throws Exception {
+		
+		return crcDao.crcGroupItemUpdate(crcVO);
+	}
+	
+	@Override
+	public int crcGroupUseYnUpdate(crcVO crcVO) throws Exception {
+		
+		return crcDao.crcGroupUseYnUpdate(crcVO);
+	}
+	
+	@Override
+	@Transactional
+	public int crcGroupDelete(crcVO crcVO) throws Exception {
+		int result1 = 0;
+		int result2 = 0;
+		
+		result1 = crcDao.crcGroupDelete(crcVO);
+		result2 = crcDao.crcGroupItemDelete(crcVO);
+		
+		return result1 + result2;
 	}
 }

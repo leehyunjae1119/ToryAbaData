@@ -1,6 +1,53 @@
 $(document).ready(function () {
 	
 	var isPgb = true;
+	var isToggleLtoContents = true;
+	
+	$("#ltoTempletLoadAllBtn").on("click", function() {
+		
+		$("#ltoTempletList option").each(function(index) {
+			var duplicationYn = false;
+			var ltoSeq = $(this).val();
+			var ltoName = $(this).text();
+			var ltoContents = $(this).data("value");
+			
+			var html = '';
+			html += '<div class="input-group mb-3">                                                                                 ';
+			html += '	<input type="text" class="form-control" name="insertLtoName" value="'+$.convertHtmlText(ltoName)+'" readonly="readonly">              ';
+			html += '	<input type="hidden" name="insertLtoSeq" value="'+ltoSeq+'" >              			   						';
+			html += '	<input type="hidden" name="insertLtoContents" value="'+$.convertHtmlText(ltoContents)+'" >    				';
+			html += '	<div class="input-group-append remove-btn">                                                                 ';
+			html += '		<button class="btn btn-outline-secondary" type="button"><i class="fas fa-times-circle"></i></button>    ';
+			html += '	</div>                                                                                                      ';
+			html += '</div>                                                                                                         ';
+			
+			$("#ltoNameGroup > .input-group").each(function(index) {
+				if($(this).children("input[name=insertLtoSeq]").val() == ltoSeq){
+					duplicationYn = true;
+				}
+			});
+			
+			if(index != 0 && duplicationYn == false){
+				$("#ltoNameGroup").append(html);
+			}
+		});
+		
+	});
+	
+	$.toggleLtoContents = function() {
+		if(!isToggleLtoContents){
+			$("#ltoContentsToggleBtnText").text("내용 접기");
+			$("#ltoContentsToggleIcon").removeClass("fa-angle-down");
+			$("#ltoContentsToggleIcon").addClass("fa-angle-up");
+			$("#labelLtoContents").slideDown();
+		} else {
+			$("#ltoContentsToggleBtnText").text("내용 펼치기");
+			$("#ltoContentsToggleIcon").removeClass("fa-angle-up");
+			$("#ltoContentsToggleIcon").addClass("fa-angle-down");
+			$("#labelLtoContents").slideUp();
+		}
+		isToggleLtoContents = !isToggleLtoContents;
+	};
 	
 	$("#pgbEditModal").on('show.bs.modal', function() {
 		$.settingDto();
@@ -70,6 +117,7 @@ $(document).ready(function () {
 		html += '</div>                                                                                                         ';
 		
 		$("#ltoNameGroup").append(html);
+		
 	});
 	
 	$(".add-btn2").on("click", function() {

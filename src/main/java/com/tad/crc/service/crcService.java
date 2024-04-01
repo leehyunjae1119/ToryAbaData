@@ -41,5 +41,16 @@ public interface crcService {
 	
 	public int crcSTODelete(crcVO crcVO) throws Exception;
 	
+	public List<crcVO> crcGroupListSelect(crcVO crcVO) throws Exception;
+	
+	public int crcGroupInsert(crcVO crcVO) throws Exception;
+	
+	public int crcGroupUpdate(crcVO crcVO) throws Exception;
+	
+	public int crcGroupItemUpdate(crcVO crcVO) throws Exception;
+	
+	public int crcGroupUseYnUpdate(crcVO crcVO) throws Exception;
+	
+	public int crcGroupDelete(crcVO crcVO) throws Exception;
 	
 }
