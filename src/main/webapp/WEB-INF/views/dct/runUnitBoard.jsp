@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
 
-	<h1 class="h3 mb-0 text-gray-800 mb-4">Rununit Graph</h1>
+	<h1 class="h3 mb-0 text-gray-800 mb-4">Learn Unit Graph</h1>
 	<p class="mb-2">${studentData.centerName } > ${studentData.className } > ${studentData.studentName } </p>
 
 	<form id="runUnitForm" name="runUnitForm" class="form-inline mr-auto w-100 navbar-search justify-content-end" onsubmit="return false;">

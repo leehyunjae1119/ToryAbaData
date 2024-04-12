@@ -94,7 +94,7 @@ var _config = {
 								};
 							});
 	                    	
-	                    	var totStr = 'Total Rununit : ' + cmpCnt + ' / ' + totCnt;
+	                    	var totStr = 'Total Learn Unit : ' + cmpCnt + ' / ' + totCnt;
 	                    	strArray.push(totStr);
 	                    	
 	                    	_dataList.forEach(function(item) {
@@ -127,7 +127,7 @@ var _config = {
 					stepSize : 10,
 					title : {
 						display: true,
-						text: 'Run unit & Forward reaction',
+						text: 'Learn unit & Forward reaction',
 						padding: 10,
 						font: {
 							size: 18,
